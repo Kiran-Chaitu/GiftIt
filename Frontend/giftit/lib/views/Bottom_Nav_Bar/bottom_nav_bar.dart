@@ -15,7 +15,7 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  final List<Widget> screens = const [
+  final List<Widget> screens =  [
     NgoScreen(),
     NgoScreen(),
     NgoScreen(),
@@ -31,12 +31,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: BlocBuilder<BottomBarCubit, int>(builder: (context, currentIndex) {
-        // return IndexedStack(
-        //   index: currentIndex,
-        //   children: screens,
-        // );
-        return Center(child: Text('Hi'));
+        return IndexedStack(
+          index: currentIndex,
+          children: screens,
+        );
+        // return Center(child: Text('Hi'));
       }),
       bottomNavigationBar: BlocBuilder<BottomBarCubit, int>(
         builder: (context, currentIndex) {
