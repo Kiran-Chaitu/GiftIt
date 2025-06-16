@@ -16,6 +16,7 @@ const userProfile = sequelize.define('userProfile', {
     },
     location: {
         type:DataTypes.STRING,
+        allowNull:false,
     },
     bio: {
         type:DataTypes.TEXT,
