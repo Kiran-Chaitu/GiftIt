@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:giftit/bloc/ngo_descri_bloc.dart/api_data_bloc.dart';
 import 'package:giftit/configs/routes/route_names.dart';
 import 'package:giftit/configs/routes/routes.dart';
 import 'package:giftit/configs/themes/app_theme.dart';
@@ -11,10 +13,15 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: AppTheme.appTheme,
-      initialRoute: RoutesNames.NgoDescrip,
-      onGenerateRoute: Routes.generateRoute,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<ApiDataBloc>(create: (_)=>ApiDataBloc()),
+      ],
+      child: MaterialApp(
+        theme: AppTheme.appTheme,
+        initialRoute: RoutesNames.ngoDescrip,
+        onGenerateRoute: Routes.generateRoute,
+      ),
     );
   }
 }

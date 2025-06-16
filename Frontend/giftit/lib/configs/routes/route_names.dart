@@ -7,5 +7,5 @@ class RoutesNames {
   static const String forgotPassword = 'forgot_password';
   static const String editProfile = 'edit_Profile';
   static const String postCreateDialog = 'post_creation_dialog_Box';  
-  static const String NgoDescrip='NGO_DESCRIPTION';
+  static const String ngoDescrip='NGO_DESCRIPTION';
 }

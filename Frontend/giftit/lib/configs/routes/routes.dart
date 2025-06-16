@@ -13,7 +13,7 @@ class Routes {
       case RoutesNames.postCreateDialog:
         return MaterialPageRoute(
             builder: (BuildContext context) => Postcreationdialog());      
-      case RoutesNames.NgoDescrip:
+      case RoutesNames.ngoDescrip:
         return MaterialPageRoute(
             builder: (BuildContext context) => NgoDescription());      
       default :
