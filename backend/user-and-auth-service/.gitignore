@@ -1,0 +1,46 @@
+# ===================================================================
+# Secrets & Sensitive Configuration - ADD THIS SECTION
+# ===================================================================
+# Ignore the properties file that contains passwords and other secrets.
+# A template file (e.g., application.properties.template) should be committed instead.
+/src/main/resources/application.properties
+/src/main/resources/application.yml
+/src/main/resources/application.yaml
+
+
+# ===================================================================
+# Original content from your file starts here
+# ===================================================================
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
