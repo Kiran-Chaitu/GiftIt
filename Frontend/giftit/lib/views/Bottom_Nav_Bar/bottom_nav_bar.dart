@@ -15,7 +15,7 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  final List<Widget> screens =  [
+  final List<Widget> screens = [
     NgoScreen(),
     NgoScreen(),
     NgoScreen(),
@@ -31,6 +31,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: Colors.transparent,
       resizeToAvoidBottomInset: false,
       body: BlocBuilder<BottomBarCubit, int>(builder: (context, currentIndex) {
         return IndexedStack(
