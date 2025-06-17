@@ -8,7 +8,9 @@ import 'package:giftit/configs/colors/app_colors.dart';
 import 'package:giftit/configs/themes/app_dimesnions.dart';
 import 'package:giftit/configs/themes/app_text_styles.dart';
 import 'package:giftit/data/API_Response/response.dart';
+import 'package:giftit/utils/extensions/general_extensions.dart';
 import 'package:giftit/utils/utils.dart';
+import 'package:giftit/views/widgets/custom_loader.dart';
 
 class NgoScreen extends StatefulWidget {
   const NgoScreen({super.key});
@@ -72,8 +74,11 @@ class _NgoScreenState extends State<NgoScreen> {
                   ),
                   BlocBuilder<NgoBloc, NgoState>(builder: (context, state) {
                     if (state.nearByNgoApiResponse.status == Status.loading) {
-                      return Center(
-                        child: CircularProgressIndicator(),
+                      return SizedBox(
+                        height: context.mediaQueryHeight * 0.55,
+                        child: Center(
+                          child: CustomLoader(),
+                        ),
                       );
                     } else if (state.nearByNgoApiResponse.status ==
                         Status.failure) {
