@@ -1,3 +1,16 @@
+# ===================================================================
+# Secrets & Sensitive Configuration - ADD THIS SECTION
+# ===================================================================
+# Ignore the properties file that contains passwords and other secrets.
+# A template file (e.g., application.properties.template) should be committed instead.
+/src/main/resources/application.properties
+/src/main/resources/application.yml
+/src/main/resources/application.yaml
+
+
+# ===================================================================
+# Original content from your file starts here
+# ===================================================================
 HELP.md
 target/
 .mvn/wrapper/maven-wrapper.jar
