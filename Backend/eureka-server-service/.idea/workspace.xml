@@ -4,14 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="61874de8-6f86-4758-9e8c-ec55fc41bd18" name="Changes" comment="" />
+    <list default="true" id="2c0f072a-a50c-4b36-9b04-d1716746dd10" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../api-gateway-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../api-gateway-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../api-gateway-service/src/main/java/com/swarup/api_gateway_service/ApiGatewayServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../api-gateway-service/src/main/java/com/swarup/api_gateway_service/ApiGatewayServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../api-gateway-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../api-gateway-service/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../profile-service/models/userProfileModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/../profile-service/models/userProfileModel.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -23,7 +29,7 @@
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
-  <component name="ProjectId" id="2y84dP5PovKDImWnB3egTYTZhMF" />
+  <component name="ProjectId" id="2yTzNFlgN5Xh5fhb9C1ts6EERwU" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -38,9 +44,9 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "Spring Boot.EurekaServerServiceApplication.executor": "Run",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Backend",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/pro$space/api-gateway-service",
+    "last_opened_file_path": "D:/GiftIt/Backend/eureka-server-service",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -74,13 +80,16 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="61874de8-6f86-4758-9e8c-ec55fc41bd18" name="Changes" comment="" />
-      <created>1749202953011</created>
+      <changelist id="2c0f072a-a50c-4b36-9b04-d1716746dd10" name="Changes" comment="" />
+      <created>1749873309210</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1749202953011</updated>
-      <workItem from="1749202954161" duration="3047000" />
-      <workItem from="1749213642744" duration="621000" />
+      <updated>1749873309210</updated>
+      <workItem from="1749873310503" duration="7585000" />
+      <workItem from="1749958904265" duration="2084000" />
+      <workItem from="1750012768481" duration="849000" />
+      <workItem from="1750042531451" duration="6660000" />
+      <workItem from="1750138016534" duration="1006000" />
     </task>
     <servers />
   </component>
