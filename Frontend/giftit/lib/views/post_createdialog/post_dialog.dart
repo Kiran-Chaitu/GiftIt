@@ -1,11 +1,5 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:giftit/configs/colors/app_colors.dart';
-import 'package:giftit/views/post_createdialog/widgets/center_glasseffect.dart';
 import 'package:giftit/views/post_createdialog/widgets/just_button.dart';
-import 'package:giftit/views/post_createdialog/widgets/glass_effect_background.dart';
 
 class Postcreationdialog extends StatelessWidget {
   const Postcreationdialog({super.key});
