@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         theme: AppTheme.appTheme,
-        initialRoute: RoutesNames.ngoDescrip,
+        initialRoute: RoutesNames.login,
         onGenerateRoute: Routes.generateRoute,
       ),
     );
