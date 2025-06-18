@@ -19,10 +19,6 @@ const registerWithEureka = () => {
                 '@class': 'com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo',
                 name: 'MyOwn',
             },
-            // leaseInfo: {
-            //     renewalIntervalInSecs: 5,       // client sends heartbeat every 5s
-            //     durationInSecs: 10,               // if no heartbeat for 10s, mark dead
-            // }
         },
         eureka: {
             host: process.env.EUREKA_HOST,
