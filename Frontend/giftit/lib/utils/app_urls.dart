@@ -3,10 +3,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class AppUrls {
   static final String ngosUrl = dotenv.env['NGOS_URL']!;
-
-
-
-
+  static final String googlePhotosUrl =
+      'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=';
 
   static String getNgosUrl(double lat, double lon, double distanceKm) {
     double latOffset = distanceKm / 111;

@@ -5,6 +5,5 @@ class RoutesNames {
   static const String changePassowrd = 'change_password';
   static const String profile = 'profile';
   static const String forgotPassword = 'forgot_password';
-  static const String editProfile = 'edit_Profile';
-  
+  static const String editProfile = 'edit_Profile'; 
 }

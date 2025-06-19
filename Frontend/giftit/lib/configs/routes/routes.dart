@@ -9,6 +9,9 @@ class Routes {
       case RoutesNames.home:
         return MaterialPageRoute(
             builder: (BuildContext context) => BottomNavBar());
+      case RoutesNames.onBoarding:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => DummyScreen());
       case RoutesNames.dummy:
         return MaterialPageRoute(
             builder: (BuildContext context) => DummyScreen());

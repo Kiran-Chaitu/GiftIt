@@ -1,11 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:giftit/data/API_Response/response.dart';
+import 'package:giftit/models/ngo_model.dart';
 
-import '../../models/ngo_model.dart';
 class NgoState extends Equatable {
   final Status locationStatus;
-  final ApiResponse<List<NGOModel>> nearByNgoApiResponse;
-  final ApiResponse<List<NGOModel>> searchNgoApiResponse;
+  final ApiResponse<List<NgoModel>> nearByNgoApiResponse;
+  final ApiResponse<List<NgoModel>> searchNgoApiResponse;
 
   const NgoState({
     this.locationStatus = Status.loading,
@@ -15,8 +15,8 @@ class NgoState extends Equatable {
 
   NgoState copyWith({
     Status? locationStatus,
-    ApiResponse<List<NGOModel>>? nearByNgoApiResponse,
-    ApiResponse<List<NGOModel>>? searchNgoApiResponse,
+    ApiResponse<List<NgoModel>>? nearByNgoApiResponse,
+    ApiResponse<List<NgoModel>>? searchNgoApiResponse,
   }) {
     return NgoState(
       locationStatus: locationStatus ?? this.locationStatus,
