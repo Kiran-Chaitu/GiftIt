@@ -44,7 +44,6 @@ dependencies:
   flutter_dotenv: ^5.2.1
   animated_bottom_navigation_bar: ^1.4.0
   http: ^1.4.0
-  location: ^8.0.0
   device_preview: ^1.2.0
   get: ^4.7.2
   connectivity_plus: ^6.1.4

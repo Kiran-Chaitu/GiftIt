@@ -1,34 +1,36 @@
 import 'package:equatable/equatable.dart';
 import 'package:giftit/data/API_Response/response.dart';
 import 'package:giftit/models/ngo_model.dart';
+import 'package:giftit/models/ngo_search_suggestions.dart';
+import 'package:giftit/utils/enums.dart';
 
 class NgoState extends Equatable {
-  final Status locationStatus;
+  final SearchStatus searchStatus;
   final ApiResponse<List<NgoModel>> nearByNgoApiResponse;
-  final ApiResponse<List<NgoModel>> searchNgoApiResponse;
+  final ApiResponse<List<NgoSearchSuggestions>> searchSuggestionsApiResponse;
 
   const NgoState({
-    this.locationStatus = Status.loading,
+    this.searchStatus = SearchStatus.initial,
     this.nearByNgoApiResponse = const ApiResponse.loading(),
-    this.searchNgoApiResponse = const ApiResponse.loading(),
+    this.searchSuggestionsApiResponse = const ApiResponse.loading(),
   });
 
   NgoState copyWith({
-    Status? locationStatus,
+    SearchStatus? searchStatus,
     ApiResponse<List<NgoModel>>? nearByNgoApiResponse,
-    ApiResponse<List<NgoModel>>? searchNgoApiResponse,
+    ApiResponse<List<NgoSearchSuggestions>>? searchSuggestionsApiResponse,
   }) {
     return NgoState(
-      locationStatus: locationStatus ?? this.locationStatus,
+      searchStatus: searchStatus ?? this.searchStatus,
       nearByNgoApiResponse: nearByNgoApiResponse ?? this.nearByNgoApiResponse,
-      searchNgoApiResponse: searchNgoApiResponse ?? this.searchNgoApiResponse,
+      searchSuggestionsApiResponse: searchSuggestionsApiResponse ?? this.searchSuggestionsApiResponse,
     );
   }
 
   @override
   List<Object?> get props => [
-        locationStatus,
+        searchStatus,
         nearByNgoApiResponse,
-        searchNgoApiResponse,
+        searchSuggestionsApiResponse,
       ];
 }
