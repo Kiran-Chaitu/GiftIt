@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:giftit/bloc/login_bloc/login_main_bloc.dart';
+import 'package:giftit/bloc/authe/login_bloc/login_main_bloc.dart';
 import 'package:giftit/configs/colors/app_colors.dart';
 
 class PasswordMailTextfield extends StatelessWidget {
-  final BuildContext context;
-  final bool isMail;
+  // final BuildContext context;  
+  final String hintText,type;
   const PasswordMailTextfield({
     super.key,
-    required this.context,
-    required this.isMail,
+    // required this.context,
+    
+    required this.type,
+    required this.hintText,
   });
 
   @override
@@ -27,11 +29,11 @@ class PasswordMailTextfield extends StatelessWidget {
           TextField(
             textAlign: TextAlign.center,
               decoration: InputDecoration(
-                hintText:(isMail==true)? "Email" : "Password",
+                hintText:hintText,
                 border: InputBorder.none
               ),
               onChanged: (val) =>
-                (isMail==true)?
+                (type=="Email")?
                   context.read<LoginBloc>().add(EmailChanged(val))
                   :
                   context.read<LoginBloc>().add(PasswordChanged(val)),                

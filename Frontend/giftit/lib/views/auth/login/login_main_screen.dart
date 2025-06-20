@@ -155,7 +155,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:giftit/configs/colors/app_colors.dart';
-import 'package:giftit/views/login/widgets/login_screen_bloc.dart';
+import 'package:giftit/views/auth/login/widgets/login_screen_bloc.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});

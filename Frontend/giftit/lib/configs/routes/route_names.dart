@@ -9,5 +9,5 @@ class RoutesNames {
   static const String postCreateDialog = 'post_creation_dialog_Box';  
   static const String ngoDescrip='NGO_DESCRIPTION';
   static const String login='login';
-
+  static const String signup='signup';
 }

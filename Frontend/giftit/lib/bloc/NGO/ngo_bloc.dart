@@ -9,6 +9,7 @@ class NgoBloc extends Bloc<NgoEvent, NgoState> {
   NgoBloc({required this.repository}) : super(NgoState()) {
     on<LoadNearbyNgos>(_onFetchNearbyNgos);
   }
+  
 
 void _onFetchNearbyNgos(LoadNearbyNgos event, Emitter<NgoState> emit) async {
     emit(state.copyWith(locationStatus: Status.loading));
@@ -19,7 +20,8 @@ void _onFetchNearbyNgos(LoadNearbyNgos event, Emitter<NgoState> emit) async {
         locationStatus: Status.success,
         nearByNgoApiResponse: ngoResponse,
       ));
-    } catch (e) {
+    } 
+    catch (e) {
       emit(state.copyWith(
         locationStatus: Status.failure,
         nearByNgoApiResponse: ApiResponse.failure(e.toString()),

@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:giftit/configs/colors/app_colors.dart';
-import 'package:giftit/configs/themes/app_text_styles.dart';
 
 class JustButton extends StatelessWidget {
   final String text;
@@ -9,7 +6,7 @@ class JustButton extends StatelessWidget {
   final bool iconNeed;
   final Icon frontIcon;
   final double height,width;
-  JustButton({
+  const JustButton({
     super.key,
     required this.text,
     required this.callBack,
@@ -21,7 +18,7 @@ class JustButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {  
-    Size siz=MediaQuery.of(context).size;
+    // Size siz=MediaQuery.of(context).size;
     return GestureDetector(
       onTap: callBack,
       child: Container(

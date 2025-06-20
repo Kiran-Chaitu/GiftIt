@@ -37,7 +37,7 @@ class DataDisplay extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 10), // Optional spacing
+                    // SizedBox(height: 10), // Optional spacing
                     Text("NGO-name", style: AppTextStyles.heading2),
                     Text("NGO-type", style: AppTextStyles.subtitle),
                   ],
