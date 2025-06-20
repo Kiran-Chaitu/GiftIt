@@ -11,6 +11,7 @@ class NgoBloc extends Bloc<NgoEvent, NgoState> {
     on<LoadNearbyNgos>(_onFetchNearbyNgos);
     on<SearchSuggestions>(_onSearchSuggestions);
   }
+  
 
 void _onFetchNearbyNgos(LoadNearbyNgos event, Emitter<NgoState> emit) async {
     emit(state.copyWith(
@@ -23,7 +24,8 @@ void _onFetchNearbyNgos(LoadNearbyNgos event, Emitter<NgoState> emit) async {
         
         nearByNgoApiResponse: ngoResponse,
       ));
-    } catch (e) {
+    } 
+    catch (e) {
       emit(state.copyWith(
         
         nearByNgoApiResponse: ApiResponse.failure(e.toString()),

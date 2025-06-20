@@ -36,4 +36,11 @@ class AppUrls {
   }
 
 
+
+  static String loginUrl(String email,String password){
+    return "afkj;asl";
+  }
+  static String signupUrl(String email,String password){
+    return "afkj;asl";
+  }
 }

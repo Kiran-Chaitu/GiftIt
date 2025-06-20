@@ -7,6 +7,7 @@ abstract class NgoEvent extends Equatable {
 
 class LoadNearbyNgos extends NgoEvent {}
 
+
 class RefreshNearbyNgos extends NgoEvent {}
 
 class SearchSuggestions extends NgoEvent {
@@ -19,3 +20,4 @@ class SearchSuggestions extends NgoEvent {
 }
 
 class SearchResults extends NgoEvent {}
+

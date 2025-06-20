@@ -45,48 +45,6 @@ userProfileRouter.post('/', getUserProfile);
 
 /**
  * @swagger
- * /create:
- *   post:
- *     summary: Create a new user profile with a profile picture
- *     tags: [Profiles]
- *     description: |
- *       Creates a new user profile. This endpoint expects a `multipart/form-data` request.
- *     requestBody:
- *       required: true
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             required: [userId, userName, userLocation, profileImage]
- *             properties:
- *               userId:
- *                 type: integer
- *               userName:
- *                 type: string
- *               userLocation:
- *                 type: string
- *               profileImage:
- *                 type: string
- *                 format: binary
- *                 description: The user's profile picture image file.
- *     responses:
- *       '201':
- *         description: Profile created successfully.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/SuccessWrapper'
- *       '400':
- *         description: Bad Request. A required field was missing.
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/ErrorWrapper'
- */
-userProfileRouter.post('/create', uploadProfilePhoto.single('profileImage'), createUserProfile);
-
-/**
- * @swagger
  * /update:
  *   put:
  *     summary: Update an existing user profile

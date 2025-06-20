@@ -1,5 +1,7 @@
+
 import 'package:geolocator/geolocator.dart';
 import 'package:giftit/data/API_Response/api_response.dart';
+import 'package:giftit/models/ngo_desc_model.dart';
 import 'package:giftit/models/ngo_model.dart';
 import 'package:giftit/data/Network/network_api_services.dart';
 import 'package:giftit/models/ngo_search_suggestions.dart';
@@ -65,5 +67,29 @@ class NGORepository {
     }
   }
 
+  Future<ApiResponse<NgoDescModel>> ngoDescFetch() async {
+    
+    try {
+      // final String url = AppUrls.getNgosUrl(lat, lon, 20);
+      final String url = "sakjle.com";//neeDto be change
 
+      final response = await _apiServices.getApi(url);
+
+      final dynamic elements = response['elements'] ?? [];
+      final NgoDescModel ngos = elements.map<NgoDescModel>((e) {
+        final ngo = NgoDescModel.fromJson(e);
+        // ngo.distance = Utils.calculateDistance(lat, lon, ngo.lat, ngo.lon);
+        
+        return ngo;
+      }).toList();
+      // if (ngos.isEmpty) {
+      if (true==true) {
+        return ApiResponse.failure("No nearby NGOs found!");
+      } else {
+        return ApiResponse.success(ngos);
+      }
+    } catch (e) {
+      return ApiResponse.failure("Failed to fetch NGOs: ${e.toString()}");
+    }
+  }
 }
