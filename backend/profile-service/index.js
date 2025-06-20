@@ -5,6 +5,7 @@ const { swaggerSpecification } = require('./config/SwaggerConfig');
 const { registerWithEureka } = require('./config/EurekaClientRegistrationConfig');
 const { databaseConnection } = require('./config/DatabaseConnectionConfig');
 const { userProfileRouter } = require('./routes/UserProfileRoutes');
+const { userCreatedConsumer } = require('./kafka/consumer/UserCreatedConsumer')
 
 const app = express();
 const PORT = process.env.PORT;
@@ -22,6 +23,7 @@ app.listen(PORT, () => {
     console.log("The server Profile-service is successfully listening to port:" + PORT);
    registerWithEureka();
    databaseConnection();
+   userCreatedConsumer();
 });
 
 

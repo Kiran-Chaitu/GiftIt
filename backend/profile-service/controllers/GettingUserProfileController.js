@@ -1,4 +1,4 @@
-const { userProfile } = require('../models/userProfileModel');
+const { userProfile } = require('../models/UserProfileModel');
 const { ApiErrorResponse } = require('../utils/ApiErrorResponse');
 
 

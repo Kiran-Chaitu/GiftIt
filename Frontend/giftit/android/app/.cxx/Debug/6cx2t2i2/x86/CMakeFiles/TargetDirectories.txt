@@ -1,0 +1,2 @@
+K:/Project Space/GiftIt/Frontend/giftit/android/app/.cxx/Debug/6cx2t2i2/x86/CMakeFiles/edit_cache.dir
+K:/Project Space/GiftIt/Frontend/giftit/android/app/.cxx/Debug/6cx2t2i2/x86/CMakeFiles/rebuild_cache.dir
