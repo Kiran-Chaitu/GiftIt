@@ -7,6 +7,7 @@ import 'package:giftit/configs/colors/app_colors.dart';
 import 'package:giftit/configs/routes/route_names.dart';
 import 'package:giftit/views/NGO/ngo_screen.dart';
 
+
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
 

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:giftit/configs/routes/route_names.dart';
+import 'package:giftit/views/auth/login/login_main_screen.dart';
+import 'package:giftit/views/auth/signup/signup_main.dart';
+import 'package:giftit/views/ngo_Description/ngo_description.dart';
+import 'package:giftit/views/post_createdialog/post_dialog.dart';
 import 'package:giftit/views/Bottom_Nav_Bar/bottom_nav_bar.dart';
 import 'package:giftit/views/widgets/dummy_screen.dart';
 
@@ -12,6 +16,18 @@ class Routes {
       case RoutesNames.dummy:
         return MaterialPageRoute(
             builder: (BuildContext context) => DummyScreen());
+      case RoutesNames.login:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => LoginScreen());
+      case RoutesNames.signup:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => SignupMainScreen());
+      case RoutesNames.ngoDescrip:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => NgoDescription());
+      case RoutesNames.postCreateDialog:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => Postcreationdialog());
       default :
         return MaterialPageRoute(builder: (_) {
           return const Scaffold(

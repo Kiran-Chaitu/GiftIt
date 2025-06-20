@@ -6,8 +6,6 @@ class AppUrls {
 
 
 
-
-
   static String getNgosUrl(double lat, double lon, double distanceKm) {
     double latOffset = distanceKm / 111;
     double lonOffset = distanceKm / (111 * cos(lat * (pi / 180)));
@@ -24,5 +22,11 @@ class AppUrls {
         'node["charity"]($south,$west,$north,$east);'
         ');'
         'out body;';
+  }
+  static String loginUrl(String email,String password){
+    return "afkj;asl";
+  }
+  static String signupUrl(String email,String password){
+    return "afkj;asl";
   }
 }
