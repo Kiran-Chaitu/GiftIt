@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
           child: GetMaterialApp(
             debugShowCheckedModeBanner: false,
             theme: AppTheme.appTheme,
-            initialRoute: RoutesNames.signup,
+            initialRoute: RoutesNames.ngoDescrip,
             onGenerateRoute: Routes.generateRoute,
           ),
         );
