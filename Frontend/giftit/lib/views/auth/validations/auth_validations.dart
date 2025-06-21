@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:giftit/bloc/authe/login_bloc/login_main_bloc.dart';
-import 'package:giftit/bloc/authe/signup/signup_main_bloc.dart';
+import 'package:giftit/bloc/auth/login_bloc/login_main_bloc.dart';
+import 'package:giftit/bloc/auth/signup/signup_main_bloc.dart';
 
 class ValidationsOfAuth{
   static bool patternMatch(String regexStr,String checkStr ){

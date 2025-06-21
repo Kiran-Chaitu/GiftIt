@@ -10,5 +10,5 @@ class RoutesNames {
   static const String ngoDescrip='NGO_DESCRIPTION';
   static const String login='login';
   static const String signup='signup';
+  static const String otp='otp';
 }
-

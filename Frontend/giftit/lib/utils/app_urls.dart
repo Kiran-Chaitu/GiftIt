@@ -1,3 +1,4 @@
+import 'package:flutter/rendering.dart';
 import 'package:giftit/utils/tokens.dart';
 
 class AppUrls {
@@ -31,6 +32,10 @@ class AppUrls {
         "&radius=30000"
         "&key=${Tokens.googleApiKey}";
   }
+  static String loginUrl(){
+    debugPrint("Login URL called");
+    return "http://10.16.59.74:8080/auth-service/api/auth/login";
+  }
 
 
   static String getNearbyNGOApiUrl({
@@ -48,11 +53,13 @@ class AppUrls {
         "&key=${Tokens.googleApiKey}";
   }
 
-  static String loginUrl(String email, String password) {
-    return "afkj;asl";
-  }
 
-  static String signupUrl(String email, String password) {
-    return "afkj;asl";
-  }
+
+  
+  static String signupUrl(){
+    return "http://10.16.59.74:8080/auth-service/api/auth/signup";
+  } 
+  static String otpUrl(){
+    return "http://10.16.59.74:8080/auth-service/api/auth/signup";
+  } 
 }

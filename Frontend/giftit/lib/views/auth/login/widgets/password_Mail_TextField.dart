@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:giftit/bloc/authe/login_bloc/login_main_bloc.dart';
+import 'package:giftit/bloc/auth/login_bloc/login_main_bloc.dart';
 import 'package:giftit/configs/colors/app_colors.dart';
 
 class PasswordMailTextfield extends StatelessWidget {
