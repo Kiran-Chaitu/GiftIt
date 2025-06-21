@@ -50,8 +50,11 @@ class UserModel {
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      token: json['token'],
-      message: json['message'],
+      // token: json['token']?.toString(), 
+      token: json.containsKey('token') && json['token'] != null
+        ? json['token'].toString()
+        : null,
+      message: json['message']?.toString(),
     );
   } 
 }

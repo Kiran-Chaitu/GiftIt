@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class AppUrls {
@@ -23,10 +24,15 @@ class AppUrls {
         ');'
         'out body;';
   }
-  static String loginUrl(String email,String password){
-    return "afkj;asl";
+  static String loginUrl(){
+    debugPrint("Login URL called");
+    return "http://10.16.59.74:8080/auth-service/api/auth/login";
+    
   }
-  static String signupUrl(String email,String password){
-    return "afkj;asl";
-  }
+  static String signupUrl(){
+    return "http://10.16.59.74:8080/auth-service/api/auth/signup";
+  } 
+  static String otpUrl(){
+    return "http://10.16.59.74:8080/auth-service/api/auth/signup";
+  } 
 }
