@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:giftit/configs/colors/app_colors.dart';
 import 'package:giftit/configs/themes/app_text_styles.dart';
-import 'package:giftit/models/ngo_model.dart';
+import 'package:giftit/models/ngo_models/ngo_model.dart';
+import 'package:giftit/views/widgets/custom_card_widget.dart';
 
 class NearbyNgosList extends StatefulWidget {
   final List<NgoModel> ngoList;
@@ -21,16 +22,7 @@ class _NearbyNgosListState extends State<NearbyNgosList> {
         itemCount: widget.ngoList.length,
         itemBuilder: (context, index) {
           final ngo = widget.ngoList[index];
-          return Card(
-            elevation: 2,
-            color: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.r),
-            ),
-            margin: EdgeInsets.symmetric(vertical: 10.h),
-            child: Padding(
-              padding: EdgeInsets.all(12.h),
-              child: Column(
+          return CustomCardWidget(child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
@@ -87,9 +79,7 @@ class _NearbyNgosListState extends State<NearbyNgosList> {
                     ),
                   )
                 ],
-              ),
-            ),
-          );
+              ));
         });
   }
 }

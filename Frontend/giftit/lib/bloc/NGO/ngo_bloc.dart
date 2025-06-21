@@ -10,6 +10,8 @@ class NgoBloc extends Bloc<NgoEvent, NgoState> {
   NgoBloc({required this.repository}) : super(NgoState()) {
     on<LoadNearbyNgos>(_onFetchNearbyNgos);
     on<SearchSuggestions>(_onSearchSuggestions);
+    on<SearchResults>(_onSearchResults);
+    on<RevertToNearbyNgos>(_onRevertToNearbyNgos);
   }
   
 
@@ -40,9 +42,8 @@ void _onFetchNearbyNgos(LoadNearbyNgos event, Emitter<NgoState> emit) async {
     ));
     try {
       final searchSuggestionsResponse = await repository
-          .fetchSearchSuggestions(event.input);
+          .fetchSearchSuggestions(event.input , state.nearByNgoApiResponse.data ?? []);
       emit(state.copyWith(
-        searchStatus: SearchStatus.success,
         searchSuggestionsApiResponse: searchSuggestionsResponse,
       ));
     } catch (e) {
@@ -53,4 +54,15 @@ void _onFetchNearbyNgos(LoadNearbyNgos event, Emitter<NgoState> emit) async {
     }
   }
 
+
+  void _onSearchResults(SearchResults event, Emitter<NgoState> emit) {
+    emit(state.copyWith(
+      searchStatus: SearchStatus.success,
+    ));
+  }
+  void _onRevertToNearbyNgos(RevertToNearbyNgos event, Emitter<NgoState> emit) {
+    emit(state.copyWith(
+      searchStatus: SearchStatus.initial,
+    ));
+  }
 }

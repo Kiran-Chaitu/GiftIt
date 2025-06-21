@@ -6,7 +6,7 @@ class NgoDescModel {
   });
 
   factory NgoDescModel.fromJson(Map<String, dynamic> json) {
-    final tags = json['tags'] ?? {};
+    // final tags = json['tags'] ?? {};
     return NgoDescModel(
       description: json['description'],
     );
