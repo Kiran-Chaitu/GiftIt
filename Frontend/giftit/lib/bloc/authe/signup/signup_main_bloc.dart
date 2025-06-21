@@ -9,7 +9,6 @@ part 'signup_status.dart';
 
 class SignupMainBloc extends Bloc<SignupEvent,SignupState>{
   SignupRepository _signupRepository=SignupRepository();
-  
   SignupMainBloc():super(const SignupState()){
     on<UsernameChanged>(_onUsernameChanged);
     on<PhoneNumberChanged>(_phoneNumberChanged);

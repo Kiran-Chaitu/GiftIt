@@ -4,3 +4,4 @@ enum SearchStatus {
   success,
   failure,
 }
+
