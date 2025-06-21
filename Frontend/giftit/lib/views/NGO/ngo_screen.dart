@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:giftit/bloc/NGO/ngo_bloc.dart';
 import 'package:giftit/bloc/NGO/ngo_event.dart';
 import 'package:giftit/bloc/NGO/ngo_state.dart';
-import 'package:giftit/configs/colors/app_colors.dart';
 import 'package:giftit/configs/themes/app_dimesnions.dart';
 import 'package:giftit/configs/themes/app_text_styles.dart';
 import 'package:giftit/data/API_Response/response.dart';
 import 'package:giftit/utils/enums.dart';
 import 'package:giftit/utils/extensions/general_extensions.dart';
 import 'package:giftit/views/NGO/widgets/nearby_ngos_list.dart';
+import 'package:giftit/views/NGO/widgets/search_bar_header_delagate.dart';
 import 'package:giftit/views/NGO/widgets/search_suggestions_list.dart';
+import 'package:giftit/views/NGO/widgets/searched_ngo.dart';
 import 'package:giftit/views/widgets/custom_error_widget.dart';
 import 'package:giftit/views/widgets/custom_loader.dart';
 
@@ -37,158 +37,164 @@ class _NgoScreenState extends State<NgoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.all(AppDimensions.screenPadding),
-            child: SafeArea(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Explore NGOs',
-                    style: AppTextStyles.heading1,
-                  ),
-                  SizedBox(
-                    height: AppDimensions.smallSpacing * 3,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                    child: Container(
-                      height: 45.h,
-                      decoration: BoxDecoration(
-                        color: AppColors.lightGreen,
-                        borderRadius:
-                            BorderRadius.circular(AppDimensions.circleRadius),
-                      ),
-                      child: TextField(
-                        style: AppTextStyles.heading3,
-                        controller: _searchController,
-                        onChanged: (value) {
-                          if (_searchController.text.length > 2) {
-                            context.read<NgoBloc>().add(SearchSuggestions(
-                                _searchController.text.trim()));
-                          }
-                        },
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'Search NGOs',
-                            prefixIcon: Icon(Icons.search)),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: AppDimensions.sectionSpacing,
-                  ),
-                  BlocBuilder<NgoBloc, NgoState>(
-                    builder: (context, state) {
-                      if (state.searchStatus == SearchStatus.initial) {
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'NGOs Nearby',
-                              style: AppTextStyles.heading2,
-                            ),
-                            BlocBuilder<NgoBloc, NgoState>(
-                                builder: (context, state) {
-                              if (state.nearByNgoApiResponse.status ==
-                                  Status.loading) {
-                                return SizedBox(
-                                  height: context.mediaQueryHeight * 0.55,
-                                  child: Center(
-                                    child: CustomLoader(),
+        child: Padding(
+          padding: EdgeInsets.all(AppDimensions.screenPadding),
+          child: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Text(
+                  'Explore NGOs',
+                  style: AppTextStyles.heading1,
+                ),
+              ),
+              SliverPersistentHeader(
+                pinned: true,
+                delegate: SearchBarHeaderDelegate(
+                  searchController: _searchController,
+                  onChanged: (value) {
+                    final ngoBloc = context.read<NgoBloc>();
+                    final ngoState = ngoBloc.state;
+                    if (_searchController.text.isNotEmpty) {
+                      ngoBloc.add(SearchSuggestions(
+                          input: _searchController.text.trim()));
+                    } else {
+                      if (ngoState.nearByNgoApiResponse.data != null) {
+                        ngoBloc.add(RevertToNearbyNgos());
+                      } else {
+                        ngoBloc.add(LoadNearbyNgos());
+                      }
+                    }
+                  },
+                  onClear: () {
+                    _searchController.clear();
+                    context.read<NgoBloc>().add(RevertToNearbyNgos());
+                    FocusScope.of(context).unfocus();
+                  },
+                ),
+              ),
+              SliverToBoxAdapter(
+                  child: SizedBox(height: AppDimensions.sectionSpacing)),
+              SliverToBoxAdapter(
+                child: BlocBuilder<NgoBloc, NgoState>(
+                  builder: (context, state) {
+                    if (state.searchStatus == SearchStatus.initial) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'NGOs Nearby',
+                            style: AppTextStyles.heading2,
+                          ),
+                          BlocBuilder<NgoBloc, NgoState>(
+                              builder: (context, state) {
+                            if (state.nearByNgoApiResponse.status ==
+                                Status.loading) {
+                              return SizedBox(
+                                height: context.mediaQueryHeight * 0.55,
+                                child: Center(
+                                  child: CustomLoader(),
+                                ),
+                              );
+                            } else if (state.nearByNgoApiResponse.status ==
+                                Status.failure) {
+                              return SizedBox(
+                                height: context.mediaQueryHeight * 0.55,
+                                child: Center(
+                                    child: CustomErrorWidget(
+                                        message:
+                                            state.nearByNgoApiResponse.message,
+                                        onRetry: () async {
+                                          context
+                                              .read<NgoBloc>()
+                                              .add(LoadNearbyNgos());
+                                        })),
+                              );
+                            } else if (state.nearByNgoApiResponse.status ==
+                                Status.success) {
+                              final ngoList = state.nearByNgoApiResponse.data;
+                              if (ngoList == null || ngoList.isEmpty) {
+                                return Center(
+                                  child: Text(
+                                    'No Nearby NGO\'s Found!',
+                                    style: AppTextStyles.bodyText,
                                   ),
                                 );
-                              } else if (state.nearByNgoApiResponse.status ==
-                                  Status.failure) {
-                                return SizedBox(
-                                  height: context.mediaQueryHeight * 0.55,
-                                  child: Center(
-                                      child: CustomErrorWidget(
-                                          message: state
-                                              .nearByNgoApiResponse.message,
-                                          onRetry: () async {
-                                            context
-                                                .read<NgoBloc>()
-                                                .add(LoadNearbyNgos());
-                                          })),
-                                );
-                              } else if (state.nearByNgoApiResponse.status ==
-                                  Status.success) {
-                                final ngoList = state.nearByNgoApiResponse.data;
-                                if (ngoList == null || ngoList.isEmpty) {
-                                  return Center(
-                                    child: Text(
-                                      'No Nearby NGO\'s Found!',
-                                      style: AppTextStyles.bodyText,
-                                    ),
-                                  );
-                                }
-                                return NearbyNgosList(ngoList: ngoList);
                               }
-                              return SizedBox.shrink();
-                            }),
-                          ],
-                        );
-                      } else if (state.searchStatus == SearchStatus.searching) {
-                        if (state.searchSuggestionsApiResponse.status ==
-                            Status.loading) {
-                          return SizedBox(
-                            height: context.mediaQueryHeight * 0.55,
-                            child: Center(
-                              child: CustomLoader(),
-                            ),
-                          );
-                        } else if (state.searchSuggestionsApiResponse.status ==
-                            Status.failure) {
-                          return SizedBox(
-                            height: context.mediaQueryHeight * 0.55,
-                            child: Center(
-                                child: CustomErrorWidget(
-                                    message: state.nearByNgoApiResponse.message,
-                                    onRetry: () async {
-                                      context
-                                          .read<NgoBloc>()
-                                          .add(LoadNearbyNgos());
-                                    })),
-                          );
-                        } else if (state.searchSuggestionsApiResponse.status ==
-                            Status.success) {
-                          final searchSuggestions =
-                              state.searchSuggestionsApiResponse.data;
-                          if (searchSuggestions == null ||
-                              searchSuggestions.isEmpty) {
-                            return Center(
-                              child: Text(
-                                'No Search Suggestions Found!',
-                                style: AppTextStyles.bodyText,
-                              ),
-                            );
-                          }
-                          return SearchSuggestionsList(
-                            controller: _searchController,
-                            suggestions: searchSuggestions,
-                            parentContext: context,
-                          );
-                        }
+                              return NearbyNgosList(ngoList: ngoList);
+                            }
+                            return SizedBox.shrink();
+                          }),
+                        ],
+                      );
+                    } else if (state.searchStatus == SearchStatus.searching) {
+                      if (state.searchSuggestionsApiResponse.status ==
+                          Status.loading) {
                         return SizedBox(
                           height: context.mediaQueryHeight * 0.55,
                           child: Center(
                             child: CustomLoader(),
                           ),
                         );
-                      }
+                      } else if (state.searchSuggestionsApiResponse.status ==
+                          Status.failure) {
+                        return SizedBox(
+                          height: context.mediaQueryHeight * 0.55,
+                          child: Center(
+                              child: CustomErrorWidget(
+                                  message: state.nearByNgoApiResponse.message,
+                                  onRetry: () async {
+                                    context.read<NgoBloc>().add(
+                                        SearchSuggestions(
+                                            input:
+                                                _searchController.text.trim()));
+                                  })),
+                        );
+                      } else if (state.searchSuggestionsApiResponse.status ==
+                          Status.success) {
+                        final searchSuggestions =
+                            state.searchSuggestionsApiResponse.data;
 
-                      return SizedBox.shrink();
-                    },
-                  ),
-                  SizedBox(
-                    height: 7.h,
-                  )
-                ],
+                        if (searchSuggestions == null ||
+                            searchSuggestions.isEmpty) {
+                          return SizedBox(
+                            height: context.mediaQueryHeight * 0.55,
+                            child: Center(
+                              child: Text(
+                                'No Search Results Found!',
+                                style: AppTextStyles.heading3,
+                              ),
+                            ),
+                          );
+                        }
+                        debugPrint(searchSuggestions.length.toString());
+                        return SearchSuggestionsList(
+                          controller: _searchController,
+                          suggestions: searchSuggestions,
+                          parentContext: context,
+                        );
+                      }
+                      return SizedBox(
+                        height: context.mediaQueryHeight * 0.55,
+                        child: Center(
+                          child: CustomLoader(),
+                        ),
+                      );
+                    } else if (state.searchStatus == SearchStatus.success) {
+                      return SizedBox(
+                          height: context.mediaQueryHeight * 0.65,
+                          width: double.infinity,
+                          child: SearchedNgo());
+                    }
+                    return SizedBox.shrink();
+                  },
+                ),
               ),
-            ),
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  height: AppDimensions.sectionSpacing,
+                ),
+              ),
+            ],
           ),
         ),
       ),

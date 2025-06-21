@@ -7,13 +7,14 @@ abstract class NgoEvent extends Equatable {
 
 class LoadNearbyNgos extends NgoEvent {}
 
+class RevertToNearbyNgos extends NgoEvent {}
 
 class RefreshNearbyNgos extends NgoEvent {}
 
 class SearchSuggestions extends NgoEvent {
   final String input;
 
-  SearchSuggestions(this.input);
+  SearchSuggestions({required this.input});
 
   @override
   List<Object?> get props => [input];
