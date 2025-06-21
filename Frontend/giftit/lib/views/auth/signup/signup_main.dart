@@ -45,7 +45,7 @@ class SignupMainScreen extends StatelessWidget {
     // );
   
     return Scaffold(
-      backgroundColor: Colors.pink,
+      backgroundColor: AppColors.primaryGreen,
       // appBar: AppBar(title: Text('Giftit')),
       body: SingleChildScrollView(
         child: Column(

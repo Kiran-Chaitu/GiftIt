@@ -36,7 +36,7 @@ class PasswordMailTextfield extends StatelessWidget {
                 (type=="Email")?
                   context.read<LoginBloc>().add(EmailChanged(val))
                   :
-                  context.read<LoginBloc>().add(PasswordChanged(val)),                
+                  context.read<LoginBloc>().add(PasswordChanged(val)),
             ),
 
           // (isMail==true)?

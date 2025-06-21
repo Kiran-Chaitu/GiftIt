@@ -1,0 +1,2 @@
+D:/collaborative projects/GiftIt/Frontend/giftit/android/app/.cxx/Debug/4i4s533h/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/collaborative projects/GiftIt/Frontend/giftit/android/app/.cxx/Debug/4i4s533h/armeabi-v7a/CMakeFiles/rebuild_cache.dir

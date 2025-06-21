@@ -33,9 +33,9 @@ class NetworkApiServices extends BaseApiServices {
               headers: {
                 'Content-Type': 'application/json; charset=UTF-8',
               },
-              // Convert the data to JSON format
+              // Convert the data to JSON format 
             body: jsonEncode(data))
-          .timeout(const Duration(seconds: 20));
+          .timeout(const Duration(seconds: 15));
       debugPrint('Response: ${response.body}');
       responseJson = returnResponse(response);
     } on SocketException {

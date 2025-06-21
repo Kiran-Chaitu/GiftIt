@@ -142,6 +142,7 @@ import 'package:giftit/bloc/auth/signup/signup_main_bloc.dart';
 import 'package:giftit/data/API_Response/status.dart';
 import 'package:giftit/views/auth/signup/widgets/textfield_signup.dart';
 import 'package:giftit/views/auth/validations/auth_validations.dart';
+import 'package:giftit/views/widgets/custom_loader.dart';
 
 class SignupScreenBloc extends StatelessWidget {
   const SignupScreenBloc({super.key});
@@ -213,7 +214,7 @@ class SignupScreenBloc extends StatelessWidget {
               // const SizedBox(height: 30),
     
               state.signupApiResponse.status == Status.loading
-                  ? const CircularProgressIndicator()
+                  ? const CustomLoader()
                   : ElevatedButton(
                       onPressed: () {
                         final currentState =

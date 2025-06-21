@@ -16,53 +16,75 @@
 
 //   @override
 //   Widget build(BuildContext context) {
-//     Size siz = MediaQuery.of(context).size;
+//     final size = MediaQuery.of(context).size;
+
 //     return Container(
-//       height: siz.height / 10,
-//       width: (siz.width / 3) * 2,
+//       height: size.height / 12,
+//       width: (size.width / 3) * 2.5,
 //       alignment: Alignment.center,
+//       margin: const EdgeInsets.symmetric(vertical: 8),
 //       decoration: BoxDecoration(
 //         color: AppColors.lightGreen,
 //         borderRadius: BorderRadius.circular(50),
 //       ),
 //       child: BlocBuilder<SignupMainBloc, SignupState>(
 //         buildWhen: (previous, current) {
-//           if (type == "Phone Number") {
-//             return previous.phoneNumber != current.phoneNumber;
-//           } else if (type == "username") {
-//             return previous.username != current.username;
-//           } else if (type == "Email") {
-//             return previous.email != current.email;
-//           } else if (type == "Password") {
-//             return previous.password != current.password;
-//           } else if (type == "city location") {
-//             return previous.cityLocation != current.cityLocation;
+//           switch (type) {
+//             case "Phone Number":
+//               return previous.phoneNumber != current.phoneNumber;
+//             case "username":
+//               return previous.username != current.username;
+//             case "Email":
+//               return previous.email != current.email;
+//             case "Password":
+//               return previous.password != current.password;
+//             case "city location":
+//               return previous.cityLocation != current.cityLocation;
+//             // case "Confirm Password":
+//             //   return previous.conformpassword != current.conformpassword;
+//             default:
+//               return false;
 //           }
-//           return false;
 //         },
 //         builder: (context, state) {
 //           return TextField(
 //             textAlign: TextAlign.center,
-//             decoration: InputDecoration(
+//             // border: InputBorder.none,
+//             obscureText: type.toLowerCase().contains("password"),
+//             decoration: InputDecoration(    
+//                border: InputBorder.none,
+//               focusedBorder: InputBorder.none,
+//               enabledBorder: InputBorder.none,
+//               disabledBorder: InputBorder.none,
+//               errorBorder: InputBorder.none,
+//               focusedErrorBorder: InputBorder.none,
+//               contentPadding: EdgeInsets.zero,
 //               hintText: hintText,
-//               border: InputBorder.none,
-//               // icon: frontIcon,
-//               prefixIcon:Padding(
-//                 padding: const EdgeInsets.only(left: 10.0, right: 0), 
+//               prefixIcon: Padding(
+//                 padding: const EdgeInsets.only(left: 10.0),
 //                 child: frontIcon,
 //               ),
 //             ),
 //             onChanged: (val) {
-//               if (type == "Phone Number") {
-//                 context.read<SignupMainBloc>().add(PhoneNumberChanged(val));
-//               } else if (type == "username") {
-//                 context.read<SignupMainBloc>().add(UsernameChanged(val));
-//               } else if (type == "Email") {
-//                 context.read<SignupMainBloc>().add(EmailChanged(val));
-//               } else if (type == "Password") {
-//                 context.read<SignupMainBloc>().add(PasswordChanged(val));
-//               } else if (type == "city location") {
-//                 context.read<SignupMainBloc>().add(CityLocationChanged(val));
+//               switch (type) {
+//                 case "Phone Number":
+//                   context.read<SignupMainBloc>().add(PhoneNumberChanged(val));
+//                   break;
+//                 case "username":
+//                   context.read<SignupMainBloc>().add(UsernameChanged(val));
+//                   break;
+//                 case "Email":
+//                   context.read<SignupMainBloc>().add(EmailChanged(val));
+//                   break;
+//                 case "Password":
+//                   context.read<SignupMainBloc>().add(PasswordChanged(val));
+//                   break;
+//                 case "city location":
+//                   context.read<SignupMainBloc>().add(CityLocationChanged(val));
+//                   break;
+//                 // case "Confirm Password":
+//                 //   context.read<SignupMainBloc>().add(ConfirmPasswordchanged(val));
+//                 //   break;
 //               }
 //             },
 //           );
@@ -71,7 +93,6 @@
 //     );
 //   }
 // }
-
 
 
 import 'package:flutter/material.dart';
@@ -105,6 +126,9 @@ class TextfieldSignup extends StatelessWidget {
       ),
       child: BlocBuilder<SignupMainBloc, SignupState>(
         buildWhen: (previous, current) {
+          if (type == "Password") {
+            return previous.password != current.password || previous.obscurePassword != current.obscurePassword;
+          }
           switch (type) {
             case "Phone Number":
               return previous.phoneNumber != current.phoneNumber;
@@ -112,12 +136,8 @@ class TextfieldSignup extends StatelessWidget {
               return previous.username != current.username;
             case "Email":
               return previous.email != current.email;
-            case "Password":
-              return previous.password != current.password;
             case "city location":
               return previous.cityLocation != current.cityLocation;
-            // case "Confirm Password":
-            //   return previous.conformpassword != current.conformpassword;
             default:
               return false;
           }
@@ -125,14 +145,31 @@ class TextfieldSignup extends StatelessWidget {
         builder: (context, state) {
           return TextField(
             textAlign: TextAlign.center,
-            obscureText: type.toLowerCase().contains("password"),
+            obscureText: type == "Password" ? state.obscurePassword : false,
             decoration: InputDecoration(
-              hintText: hintText,
               border: InputBorder.none,
+              focusedBorder: InputBorder.none,
+              enabledBorder: InputBorder.none,
+              disabledBorder: InputBorder.none,
+              errorBorder: InputBorder.none,
+              focusedErrorBorder: InputBorder.none,
+              contentPadding: EdgeInsets.zero,
+              hintText: hintText,
               prefixIcon: Padding(
                 padding: const EdgeInsets.only(left: 10.0),
                 child: frontIcon,
               ),
+              suffixIcon: type == "Password"
+                  ? IconButton(
+                      icon: Icon(
+                        state.obscurePassword ? Icons.visibility_off : Icons.visibility,
+                        color: Colors.grey[700],
+                      ),
+                      onPressed: () {
+                        context.read<SignupMainBloc>().add(PasswordVisibilityToggled());
+                      },
+                    )
+                  : null,
             ),
             onChanged: (val) {
               switch (type) {
@@ -151,9 +188,6 @@ class TextfieldSignup extends StatelessWidget {
                 case "city location":
                   context.read<SignupMainBloc>().add(CityLocationChanged(val));
                   break;
-                // case "Confirm Password":
-                //   context.read<SignupMainBloc>().add(ConfirmPasswordchanged(val));
-                //   break;
               }
             },
           );

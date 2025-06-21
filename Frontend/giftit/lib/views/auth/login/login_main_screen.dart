@@ -164,7 +164,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size siz=MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.pink,
+      backgroundColor: AppColors.primaryGreen,
       // appBar: AppBar(title: Text('Giftit')),
       body: Stack(
         children: [
