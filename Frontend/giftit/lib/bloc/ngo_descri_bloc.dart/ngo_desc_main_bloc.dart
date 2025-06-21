@@ -59,7 +59,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:giftit/data/API_Response/api_response.dart';
 import 'package:giftit/data/API_Response/status.dart';
-import 'package:giftit/models/ngo_desc_model.dart';
+import 'package:giftit/models/ngo_models/ngo_desc_model.dart';
 import 'package:giftit/repository/ngo_repository.dart';
 
 part 'ngo_des_events.dart';

@@ -6,8 +6,8 @@ class ApiResponse<T> {
   final String? message;
 
   const ApiResponse(this.status, this.data, this.message);
-  const ApiResponse.initial()
-      : status = Status.initial,
+  const ApiResponse.initial() 
+    :   status = Status.initial,
         data = null,
         message = null;
   const ApiResponse.loading()

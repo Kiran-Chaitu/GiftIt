@@ -5,17 +5,31 @@ class AppUrls {
   static final String googlePhotosUrl =
       'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=';
 
-  static String getSerachSuggestionsApiUrl({
+  static String getDirectionsPolyLineUrl({
+    required double originLatitude,
+    required double originLongitude,
+    required double destinationLatitude,
+    required double destinationLongitude,
+  }) {
+    return 'https://maps.googleapis.com/maps/api/directions/json'
+        '?origin=$originLatitude,$originLongitude'
+        '&destination=$destinationLatitude,$destinationLongitude'
+        '&mode=driving'
+        '&key=${Tokens.googleApiKey}';
+  }
+  
+
+  static String getSearchSuggestionsApiUrl({
     required double latitude,
     required double longitude,
-    required String keyword ,
-    String type = "establishment",
+    required String keyword,
   }) {
-    return "https://maps.googleapis.com/maps/api/place/textsearch/json"
-        "?query=$keyword ngo"
-        "?location=$latitude,$longitude"
-        "&type=$type"
-        "&radius=300000"
+    final encodedKeyword = Uri.encodeComponent("$keyword ngo");
+
+    return "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
+        "?keyword=$encodedKeyword"
+        "&location=$latitude,$longitude"
+        "&radius=30000"
         "&key=${Tokens.googleApiKey}";
   }
   static String loginUrl(){
@@ -23,12 +37,11 @@ class AppUrls {
     return "http://10.16.59.74:8080/auth-service/api/auth/login";
   }
 
-  
 
   static String getNearbyNGOApiUrl({
     required double latitude,
     required double longitude,
-    int radius = 30000,
+    int radius = 50000,
     String keyword = "NGO",
     String type = "point_of_interest",
   }) {

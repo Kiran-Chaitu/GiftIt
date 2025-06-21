@@ -1,10 +1,9 @@
-
+import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:giftit/data/API_Response/api_response.dart';
-import 'package:giftit/models/ngo_desc_model.dart';
-import 'package:giftit/models/ngo_model.dart';
+import 'package:giftit/models/ngo_models/ngo_desc_model.dart';
+import 'package:giftit/models/ngo_models/ngo_model.dart';
 import 'package:giftit/data/Network/network_api_services.dart';
-import 'package:giftit/models/ngo_search_suggestions.dart';
 import 'package:giftit/utils/app_urls.dart';
 import 'package:giftit/utils/services/location_service.dart';
 
@@ -17,13 +16,14 @@ class NGORepository {
     // lat = 17.3850;
     // lon = 78.4867;
     try {
-      final String url = AppUrls.getNearbyNGOApiUrl(latitude: lat, longitude: lon);
+      final String url =
+          AppUrls.getNearbyNGOApiUrl(latitude: lat, longitude: lon);
       final response = await _apiServices.getApi(url);
-
       final elements = response['results'] as List<dynamic>;
       final List<NgoModel> ngos = elements.map<NgoModel>((e) {
         final ngo = NgoModel.fromJson(e);
-        ngo.distance = (Geolocator.distanceBetween(lat, lon, ngo.lat, ngo.lng))/1000;
+        ngo.distance =
+            (Geolocator.distanceBetween(lat, lon, ngo.lat, ngo.lng)) / 1000;
         return ngo;
       }).toList();
       ngos.sort((a, b) {
@@ -39,39 +39,28 @@ class NGORepository {
     }
   }
 
-  Future<ApiResponse<List<NgoSearchSuggestions>>> fetchSearchSuggestions(String input) async {
-    final location = await LocationService.requestLocationPermission();
-    double lat = location!.latitude;
-    double lon = location.longitude;
-    // lat = 17.3850;
-    // lon = 78.4867;
+  Future<ApiResponse<List<NgoModel>>> fetchSearchSuggestions(
+      String input, List<NgoModel> ngoList) async {
     try {
-      final String url =
-          AppUrls.getSerachSuggestionsApiUrl(
-              latitude: lat, longitude: lon, keyword:input);
-      final response = await _apiServices.getApi(url);
+      final List<NgoModel> ngosSerachSuggestions = ngoList.where( (e) => e.name.toLowerCase().contains(input.toLowerCase()))
+          .toList();
 
-      final elements = response['results'] as List<dynamic>;
-      final List<NgoSearchSuggestions> ngosSerachSuggestions = elements.map<NgoSearchSuggestions>((e) {
-        final ngo = NgoSearchSuggestions.fromJson(e);
-        return ngo;
-      }).toList();
-      
       if (ngosSerachSuggestions.isEmpty) {
-        return ApiResponse.failure("No NGOs found!");
+        debugPrint("No NGOs found for the search input: $input");
+        return ApiResponse.success(ngosSerachSuggestions);
       } else {
         return ApiResponse.success(ngosSerachSuggestions);
       }
     } catch (e) {
+      debugPrint("Error fetching search suggestions: $e");
       return ApiResponse.failure("Failed to Fetch the search Results!");
     }
   }
 
   Future<ApiResponse<NgoDescModel>> ngoDescFetch() async {
-    
     try {
       // final String url = AppUrls.getNgosUrl(lat, lon, 20);
-      final String url = "sakjle.com";//neeDto be change
+      final String url = "sakjle.com"; //neeDto be change
 
       final response = await _apiServices.getApi(url);
 
@@ -79,11 +68,11 @@ class NGORepository {
       final NgoDescModel ngos = elements.map<NgoDescModel>((e) {
         final ngo = NgoDescModel.fromJson(e);
         // ngo.distance = Utils.calculateDistance(lat, lon, ngo.lat, ngo.lon);
-        
+
         return ngo;
       }).toList();
       // if (ngos.isEmpty) {
-      if (true==true) {
+      if (true == true) {
         return ApiResponse.failure("No nearby NGOs found!");
       } else {
         return ApiResponse.success(ngos);
