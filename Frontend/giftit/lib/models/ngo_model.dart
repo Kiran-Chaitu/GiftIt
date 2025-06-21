@@ -1,43 +1,41 @@
-class NGOModel {
-  final int id;
-  final double lat;
-  final double lon;
-  final String? name;
-  final String? address;
-  final String? district;
-  final String? state;
-  final String? postcode;
-  final String? socialFacilityType;
-  final String? socialFacilityFor;
-  double? distance;
+import 'package:giftit/utils/app_urls.dart';
+import 'package:giftit/utils/tokens.dart';
 
-  NGOModel({
-    required this.id,
+class NgoModel {
+  final String name;
+  final double lat;
+  final double lng;
+  final String? photoUrl;
+  final String vicinity;
+  double distance;
+
+  NgoModel({
+    required this.name,
     required this.lat,
-    required this.lon,
-    this.name,
-    this.address,
-    this.district,
-    this.state,
-    this.postcode,
-    this.socialFacilityType,
-    this.socialFacilityFor,
-    this.distance, 
+    required this.lng,
+    required this.photoUrl,
+    required this.vicinity,
+    this.distance =0
   });
 
-  factory NGOModel.fromJson(Map<String, dynamic> json) {
-    final tags = json['tags'] ?? {};
-    return NGOModel(
-      id: json['id'],
-      lat: json['lat'],
-      lon: json['lon'],
-      name: tags['name'],
-      address: tags['addr:full'],
-      district: tags['addr:district'],
-      state: tags['addr:state'],
-      postcode: tags['addr:postcode'],
-      socialFacilityType: tags['social_facility'],
-      socialFacilityFor: tags['social_facility:for'],
+  factory NgoModel.fromJson(Map<String, dynamic> json) {
+    final geometry = json['geometry'];
+    final location = geometry?['location'];
+
+    final photoList = json['photos'] as List<dynamic>?;
+    String? photoReference;
+    if (photoList != null && photoList.isNotEmpty) {
+      photoReference = photoList[0]['photo_reference'];
+    }
+
+    return NgoModel(
+      name: json['name'] ?? 'Unknown',
+      lat: location?['lat'] ?? 0.0,
+      lng: location?['lng'] ?? 0.0,
+      photoUrl: photoReference != null
+          ? '${AppUrls.googlePhotosUrl}$photoReference&key=${Tokens.googleApiKey}'
+          : null,
+      vicinity: json['vicinity'] ?? '',
     );
   }
 }

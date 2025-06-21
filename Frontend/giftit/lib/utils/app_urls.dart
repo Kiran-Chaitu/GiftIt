@@ -1,34 +1,48 @@
-import 'dart:math';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:giftit/utils/tokens.dart';
 
 class AppUrls {
-  static final String ngosUrl = dotenv.env['NGOS_URL']!;
+  static final String googlePhotosUrl =
+      'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=';
 
-
-
-  static String getNgosUrl(double lat, double lon, double distanceKm) {
-    double latOffset = distanceKm / 111;
-    double lonOffset = distanceKm / (111 * cos(lat * (pi / 180)));
-    double south = lat - latOffset;
-    double north = lat + latOffset;
-    double east = lon + lonOffset;
-    double west = lon - lonOffset;
-
-    return '$ngosUrl'
-        '('
-        'node["office"="charity"]($south,$west,$north,$east);'
-        'node["social_facility"]($south,$west,$north,$east);'
-        'node["non_profit"]($south,$west,$north,$east);'
-        'node["charity"]($south,$west,$north,$east);'
-        ');'
-        'out body;';
+  static String getSerachSuggestionsApiUrl({
+    required double latitude,
+    required double longitude,
+    required String keyword ,
+    String type = "establishment",
+  }) {
+    return "https://maps.googleapis.com/maps/api/place/textsearch/json"
+        "?query=$keyword ngo"
+        "?location=$latitude,$longitude"
+        "&type=$type"
+        "&radius=300000"
+        "&key=${Tokens.googleApiKey}";
   }
   static String loginUrl(){
     debugPrint("Login URL called");
     return "http://10.16.59.74:8080/auth-service/api/auth/login";
-    
   }
+
+  
+
+  static String getNearbyNGOApiUrl({
+    required double latitude,
+    required double longitude,
+    int radius = 30000,
+    String keyword = "NGO",
+    String type = "point_of_interest",
+  }) {
+    return "https://maps.googleapis.com/maps/api/place/nearbysearch/json"
+        "?location=$latitude,$longitude"
+        "&radius=$radius"
+        "&keyword=$keyword"
+        "&type=$type"
+        "&key=${Tokens.googleApiKey}";
+  }
+
+
+
+  
   static String signupUrl(){
     return "http://10.16.59.74:8080/auth-service/api/auth/signup";
   } 
