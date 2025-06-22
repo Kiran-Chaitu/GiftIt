@@ -13,6 +13,7 @@ class DummyScreen extends StatefulWidget {
 class _DummyScreenState extends State<DummyScreen> {
   final Completer<GoogleMapController> _controller = Completer();
   LatLng? userLatLng;
+
   bool isLoading = true;
 
   final Set<Marker> _markers = {};
