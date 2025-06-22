@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:giftit/configs/routes/route_names.dart';
+import 'package:giftit/views/Google_Maps/show_ngo_directions.dart';
 import 'package:giftit/views/auth/login/login_main_screen.dart';
 import 'package:giftit/views/auth/otp/otp_main_screen.dart';
 import 'package:giftit/views/auth/signup/signup_main.dart';
@@ -20,6 +21,9 @@ class Routes {
       case RoutesNames.dummy:
         return MaterialPageRoute(
             builder: (BuildContext context) => DummyScreen());
+      case RoutesNames.showGoogleMap:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => ShowNgoDirections());
       case RoutesNames.login:
         return MaterialPageRoute(
             builder: (BuildContext context) => LoginScreen());
@@ -30,8 +34,11 @@ class Routes {
         return MaterialPageRoute(
             builder: (BuildContext context) => OtpMainScreen(email: "kranthivarma74@gmail.com",));
       case RoutesNames.ngoDescrip:
+      final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
-            builder: (BuildContext context) => NgoDescription());
+            builder: (BuildContext context) => NgoDescription(
+                ngo: args['ngo'], 
+            ));
       case RoutesNames.postCreateDialog:
         return MaterialPageRoute(
             builder: (BuildContext context) => Postcreationdialog());

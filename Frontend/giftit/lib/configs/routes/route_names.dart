@@ -4,6 +4,7 @@ class RoutesNames {
   static const String onBoarding = 'onboarding_screen';
   static const String changePassowrd = 'change_password';
   static const String profile = 'profile';
+  static const String showGoogleMap = 'show_google_map';
   static const String forgotPassword = 'forgot_password';
   static const String editProfile = 'edit_Profile';
   static const String postCreateDialog = 'post_creation_dialog_Box';  

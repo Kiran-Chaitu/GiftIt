@@ -4,19 +4,20 @@ import '../colors/app_colors.dart';
 class AppTextStyles {
   static const TextStyle heading1 = TextStyle(
     fontSize: 28,
-    fontWeight: FontWeight.w600,
+    fontWeight: FontWeight.w700,
     fontFamily: 'Poppins',
   );
 
   static const TextStyle heading2 = TextStyle(
     fontSize: 24,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.w600,
     fontFamily: 'Poppins',
   );
 
   static const TextStyle heading3 = TextStyle(
     fontSize: 20,
     fontFamily: 'Poppins',
+    fontWeight: FontWeight.w500,
     color: Colors.black,
   );
 
