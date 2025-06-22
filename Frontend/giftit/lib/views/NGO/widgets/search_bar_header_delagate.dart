@@ -37,6 +37,7 @@ class SearchBarHeaderDelegate extends SliverPersistentHeaderDelegate {
           keyboardType: TextInputType.text,
           style: AppTextStyles.bodyText,
           decoration: InputDecoration(
+            contentPadding: EdgeInsets.symmetric(vertical: 10.h),
             border: InputBorder.none,
             hintText: 'Search NGOs',
             prefixIcon: const Icon(Icons.search),
@@ -50,10 +51,10 @@ class SearchBarHeaderDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => 70.h;
+  double get maxExtent => 65.h;
 
   @override
-  double get minExtent => 70.h;
+  double get minExtent => 55.h;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>

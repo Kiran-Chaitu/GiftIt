@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
           child: GetMaterialApp(
             debugShowCheckedModeBanner: false,
             theme: AppTheme.appTheme,
-            initialRoute: RoutesNames.otp,
+            initialRoute: RoutesNames.home,
             onGenerateRoute: Routes.generateRoute,
           ),
         );

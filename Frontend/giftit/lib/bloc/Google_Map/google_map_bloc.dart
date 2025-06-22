@@ -18,7 +18,7 @@ class GoogleMapBloc extends Bloc<GoogleMapEvent, GoogleMapState> {
     LoadSelectedNgo event,
     Emitter<GoogleMapState> emit,
   ) async {
-    emit(state.copyWith(selectedNgoApiResponse: const ApiResponse.loading()));
+    emit(state.copyWith(selectedNgoApiResponse: const ApiResponse.loading(), isLoading: true));
     try {
       final currentPosition = await repository.getCurrentLocation();
       emit(state.copyWith(
@@ -55,9 +55,14 @@ class GoogleMapBloc extends Bloc<GoogleMapEvent, GoogleMapState> {
         emit(state.copyWith(
           currentPosition: currentPosition,
           routePoints: routePoints,
+          isLoading: false,
         ));
       } else {
         debugPrint("Current position or selected NGO is null.");
+        emit(state.copyWith(
+          isLoading: false,
+          selectedNgoApiResponse: ApiResponse.failure("SomeThing went wrong! Please Reload the page."),
+        ));
       }
     } catch (e) {
       debugPrint("Exception: $e");
