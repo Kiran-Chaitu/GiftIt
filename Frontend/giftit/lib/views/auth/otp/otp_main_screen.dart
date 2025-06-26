@@ -14,7 +14,17 @@ class OtpMainScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: siz.height / 6),
+            // SizedBox(height: siz.height / 6),
+            Container(
+              height: siz.height/6,
+              child: Align(
+                alignment: Alignment.topLeft,
+                 child:Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24.0,vertical: 24.0),
+                    child: Text("GiftIt", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold,color: Colors.white)),
+                  ),
+              ),
+            ),
             Container(
               height: (siz.height / 6) * 5,
               width: siz.width,

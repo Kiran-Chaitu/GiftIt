@@ -54,7 +54,17 @@ class SignupMainScreen extends StatelessWidget {
             //   top:0,left: 0,
             //   child: SizedBox(height: siz.height/5,),
             // ),
-            SizedBox(height:siz.height/10,),
+            // SizedBox(height:siz.height/10,),
+            Container(
+              height: siz.height/5,
+              child: Align(
+                alignment: Alignment.topLeft,
+                 child:Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24.0,vertical: 24.0),
+                    child: Text("GiftIt", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold,color: Colors.white)),
+                  ),
+              ),
+            ),
             Container(
               height: (siz.height/10)*9,
               width: siz.width,
