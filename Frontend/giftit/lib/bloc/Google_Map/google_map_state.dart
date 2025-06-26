@@ -8,6 +8,7 @@ class GoogleMapState extends Equatable {
   final Position? currentPosition;
   final List<LatLng> routePoints;
   final bool isLoading;
+  final bool isRedirecting; 
 
   final ApiResponse<NgoModel> selectedNgoApiResponse;
 
@@ -15,6 +16,7 @@ class GoogleMapState extends Equatable {
     this.currentPosition,
     this.routePoints = const [],
     this.isLoading = true,
+    this.isRedirecting = false,
     this.selectedNgoApiResponse = const ApiResponse.loading(),
   });
 
@@ -22,11 +24,13 @@ class GoogleMapState extends Equatable {
     Position? currentPosition,
     ApiResponse<NgoModel>? selectedNgoApiResponse,
     List<LatLng>? routePoints,
+    bool? isRedirecting,
     bool? isLoading,
   }) {
     return GoogleMapState(
       currentPosition: currentPosition ?? this.currentPosition,
       routePoints: routePoints ?? this.routePoints,
+      isRedirecting: isRedirecting ?? this.isRedirecting,
       selectedNgoApiResponse:
           selectedNgoApiResponse ?? this.selectedNgoApiResponse,
       isLoading: isLoading ?? this.isLoading,
@@ -35,5 +39,5 @@ class GoogleMapState extends Equatable {
 
   @override
   List<Object?> get props =>
-      [currentPosition, selectedNgoApiResponse, isLoading, routePoints];
+      [currentPosition, selectedNgoApiResponse, isLoading, routePoints ,isRedirecting];
 }

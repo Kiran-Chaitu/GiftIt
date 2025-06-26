@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -14,6 +15,42 @@ class GoogleMapsRepository {
       locationSettings: const LocationSettings(accuracy: LocationAccuracy.high),
     );
   }
+
+  Future<void> openGoogleMapsWithDirections({
+  required double currentLat,
+  required double currentLng,
+  required double destLat,
+  required double destLng,
+}) async {
+  final Uri url = Uri.parse(
+    'https://www.google.com/maps/dir/?api=1'
+    '&origin=$currentLat,$currentLng'
+    '&destination=$destLat,$destLng'
+    '&travelmode=driving', // or 'walking', 'bicycling'
+  );
+
+  if (await canLaunchUrl(url)) {
+    await launchUrl(url, mode: LaunchMode.externalApplication);
+  } else {
+    throw Exception('Could not launch Google Maps directions.');
+  }
+}
+
+
+  Future<void> openGoogleMaps(
+      double latitude, double longitude) async {
+
+    final Uri googleMapsUrl = Uri.parse(
+      "https://www.google.com/maps/search/?api=1&query=$latitude,$longitude",
+    );
+
+    if (await canLaunchUrl(googleMapsUrl)) {
+      await launchUrl(googleMapsUrl, mode: LaunchMode.externalApplication);
+    } else {
+      throw Exception('Could not launch Google Maps');
+    }
+  }
+
 
   Future<List<LatLng>> getRoutePolyline(LatLng origin, LatLng dest) async {
     final url = AppUrls.getDirectionsPolyLineUrl(
