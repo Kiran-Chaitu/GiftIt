@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:giftit/data/Exceptions/app_exceptions.dart';
 import 'package:giftit/data/Network/base_api_services.dart';
@@ -15,10 +14,13 @@ class NetworkApiServices extends BaseApiServices {
       final response =
           await http.get(Uri.parse(url),
           headers: {
-        'Content-Type': 'application/json',
-      }
-          ).timeout(const Duration(seconds: 20),);
+
+            'Content-Type': 'application/json',
+            "Authorization":"Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VySWQiOjEsInN1YiI6IjEiLCJpYXQiOjE3NTA2MDc4NzIsImV4cCI6MTc1MzE5OTg3Mn0.Do846AqLgK-xYRPopS18hWFtxRCkE7eUSrHXy51RosgKicnUgcUeQEXdL9nksUimGHDVtpUyjfNHrdtCr9visA"
+          },
+          ).timeout(const Duration(seconds: 20));
       responseJson = returnResponse(response);
+      // debugPrint('Response: ${response.body}');
     } on SocketException {
       throw NoInternetException();
     } on TimeoutException {
@@ -40,6 +42,31 @@ class NetworkApiServices extends BaseApiServices {
             body: jsonEncode(data))
           .timeout(const Duration(seconds: 15));
       debugPrint('Response: ${response.body}');
+      responseJson = returnResponse(response);
+    } on SocketException {
+      throw NoInternetException();
+    } on TimeoutException {
+      throw FetchDataException('Network Request Timed Out');
+    }
+    return responseJson;
+  }
+
+
+  @override
+  Future<dynamic> putApi(String url, dynamic data) async {
+    debugPrint('Put API');
+    dynamic responseJson;
+    try {
+      final response = await http
+          .put(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(data),
+      )
+          .timeout(const Duration(seconds: 20));
+
       responseJson = returnResponse(response);
     } on SocketException {
       throw NoInternetException();
@@ -76,7 +103,9 @@ class NetworkApiServices extends BaseApiServices {
     dynamic responseJson;
     try {
       final streamedResponse =
-          await request.send().timeout(const Duration(seconds: 20));
+
+      await request.send().timeout(const Duration(seconds: 20));
+
       final response = await http.Response.fromStream(streamedResponse);
 
       debugPrint('PUT Multipart Response: ${response.body}');

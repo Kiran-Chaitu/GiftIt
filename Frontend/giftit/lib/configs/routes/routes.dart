@@ -9,6 +9,12 @@ import 'package:giftit/views/post_createdialog/post_dialog.dart';
 import 'package:giftit/views/Bottom_Nav_Bar/bottom_nav_bar.dart';
 import 'package:giftit/views/post_form/post_form.dart';
 import 'package:giftit/views/widgets/dummy_screen.dart';
+import '../../views/Profile/change_password.dart';
+import '../../views/Profile/donation_history.dart';
+import '../../views/Profile/edit_profile.dart';
+import '../../views/Profile/logout.dart';
+import '../../views/Profile/ngo_vlounteer.dart';
+
 
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -37,6 +43,25 @@ class Routes {
       case RoutesNames.signup:
         return MaterialPageRoute(
             builder: (BuildContext context) => SignupMainScreen());
+      case RoutesNames.editProfile:
+        final args = settings.arguments as Map<String, dynamic>;
+        return MaterialPageRoute(
+            builder: (BuildContext context) => EditProfilePage(
+              profileModel:  args['profileModel']
+            ));
+      case RoutesNames.donationHistory:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => DonationHistoryPage());
+      case RoutesNames.ngoVolunteer:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => NgoVlounteerPage());
+      case RoutesNames.changePassword:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => ChangePasswordPage());
+      case RoutesNames.logout:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => LogoutPage());
+
       case RoutesNames.otp:
         return MaterialPageRoute(
             builder: (BuildContext context) => OtpMainScreen(

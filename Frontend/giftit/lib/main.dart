@@ -22,6 +22,10 @@ import 'package:giftit/repository/authentication_repos/signup_repo.dart';
 import 'package:giftit/repository/google_maps_repository.dart';
 import 'package:giftit/repository/home_screen_repository.dart';
 import 'package:giftit/repository/ngo_repository.dart';
+import 'package:giftit/repository/profile_repos/profile_repository.dart';
+
+
+import 'bloc/profile/profile_bloc.dart';
 
 import 'bloc/home_screen/home_screen_bloc.dart';
 
@@ -46,6 +50,8 @@ class MyApp extends StatelessWidget {
           providers: [
             BlocProvider(create: (_) => BottomBarCubit()),
             BlocProvider(create: (_) => NgoBloc(repository: NGORepository())),
+
+            BlocProvider(create: (_)=> ProfileBloc(repository: ProfileRepository()),),
 
             BlocProvider(create: (_)=>HomeScreenBloc(homeScreenRepository: DonationRepository()))
             BlocProvider(
