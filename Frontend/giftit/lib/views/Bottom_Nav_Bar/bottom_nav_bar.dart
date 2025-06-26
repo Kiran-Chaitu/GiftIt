@@ -6,6 +6,7 @@ import 'package:giftit/bloc/bottom_bar_cubit.dart';
 import 'package:giftit/configs/colors/app_colors.dart';
 import 'package:giftit/configs/routes/route_names.dart';
 import 'package:giftit/views/NGO/ngo_screen.dart';
+import 'package:giftit/views/Profile/profile_page.dart';
 
 
 class BottomNavBar extends StatefulWidget {
@@ -20,7 +21,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     NgoScreen(),
     NgoScreen(),
     NgoScreen(),
-    NgoScreen(),
+    ProfileScreen(),
   ];
   final List<IconData> icons = const [
     Icons.home,
