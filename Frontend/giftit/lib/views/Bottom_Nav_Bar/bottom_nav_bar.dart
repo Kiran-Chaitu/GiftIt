@@ -6,6 +6,11 @@ import 'package:giftit/bloc/bottom_bar_cubit.dart';
 import 'package:giftit/configs/colors/app_colors.dart';
 import 'package:giftit/configs/routes/route_names.dart';
 import 'package:giftit/views/NGO/ngo_screen.dart';
+import 'package:giftit/views/Profile/profile_page.dart';
+import 'package:giftit/views/home_screen/home_screen.dart';
+import '../home_screen/donations_status_screens/donation_status_screen.dart';
+
+
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -15,11 +20,11 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  final List<Widget> screens =  [
+  final List<Widget> screens = [
+    HomeScreen(),
+    DonationStatusScreen(),
     NgoScreen(),
-    NgoScreen(),
-    NgoScreen(),
-    NgoScreen(),
+    ProfileScreen(),
   ];
   final List<IconData> icons = const [
     Icons.home,
@@ -31,6 +36,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: Colors.transparent,
       resizeToAvoidBottomInset: false,
       body: BlocBuilder<BottomBarCubit, int>(builder: (context, currentIndex) {
         return IndexedStack(
@@ -62,7 +68,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
         onPressed: () {
-          Navigator.pushNamed(context, RoutesNames.dummy);
+          Navigator.pushNamed(context, RoutesNames.createPost);
         },
         backgroundColor: AppColors.darkGreen,
         mini: false,
