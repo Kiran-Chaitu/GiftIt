@@ -144,7 +144,7 @@ class TextfieldSignup extends StatelessWidget {
         },
         builder: (context, state) {
           return TextField(
-            textAlign: TextAlign.center,
+            textAlign: TextAlign.left,
             obscureText: type == "Password" ? state.obscurePassword : false,
             decoration: InputDecoration(
               border: InputBorder.none,
@@ -153,10 +153,11 @@ class TextfieldSignup extends StatelessWidget {
               disabledBorder: InputBorder.none,
               errorBorder: InputBorder.none,
               focusedErrorBorder: InputBorder.none,
-              contentPadding: EdgeInsets.zero,
+              contentPadding: EdgeInsets.fromLTRB(10, 10, 0, 0),
               hintText: hintText,
               prefixIcon: Padding(
                 padding: const EdgeInsets.only(left: 10.0),
+                // margin
                 child: frontIcon,
               ),
               suffixIcon: type == "Password"

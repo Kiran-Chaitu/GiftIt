@@ -155,8 +155,8 @@ class LoginScreenWithBloc extends StatelessWidget {
               );
               Navigator.pushNamed(
                 context,
-                RoutesNames.home,
-                // arguments: state.home,
+                // RoutesNames.home,
+                RoutesNames.oldPassword,
               );
             }
           } else if (loginStatus == Status.failure) {

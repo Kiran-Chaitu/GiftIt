@@ -56,7 +56,7 @@ class SignupMainScreen extends StatelessWidget {
             // ),
             // SizedBox(height:siz.height/10,),
             Container(
-              height: siz.height/5,
+              height: siz.height/10,
               child: Align(
                 alignment: Alignment.topLeft,
                  child:Padding(

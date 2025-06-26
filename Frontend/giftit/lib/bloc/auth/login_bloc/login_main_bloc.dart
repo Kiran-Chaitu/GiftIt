@@ -187,6 +187,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       else if (response.data?.token != null) {
           //  adding the token to secure storage
           await secureStorage.write(key: 'token', value: response.data!.token!);
+          debugPrint("Token saved in secure storage Login: ${response.data!.token}");
 
         emit(state.copyWith(
           loginApiResponse: ApiResponse.success(response.data),

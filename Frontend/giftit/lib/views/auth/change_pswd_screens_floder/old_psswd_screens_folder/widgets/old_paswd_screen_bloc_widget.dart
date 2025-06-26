@@ -41,7 +41,7 @@ class OldPasswordScreenBlocWidget extends StatelessWidget {
 
         if (status == Status.failure) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(message)),
+            SnackBar(content: Text(message,style: const TextStyle(color: Colors.red),)),
           );          
         } else if (status == Status.success) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -52,6 +52,7 @@ class OldPasswordScreenBlocWidget extends StatelessWidget {
               ),
             ),
           );
+          debugPrint("Old Password Response: ${state.oldPasswordResponse.data}");
           Future.microtask(() {
             // if (!mounted) return;
             Navigator.pushNamed(

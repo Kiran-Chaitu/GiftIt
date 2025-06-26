@@ -32,10 +32,10 @@ class OldPasswordBloc extends Bloc<OldPasswordEvent, OldPasswordState> {
           'Content-Type': 'application/json',
         };
         final body={
-          'body':state.oldPassword
+          'password':state.oldPassword
         };
         final result = await resetRepository.verifyOldPswd(body , headers);
-        emit(state.copyWith(oldPasswordResponse: ApiResponse.success(result)));
+        emit(state.copyWith(oldPasswordResponse:result));
       } catch (e) {
         emit(state.copyWith(oldPasswordResponse: ApiResponse.failure(e.toString())));
         await Future.delayed(const Duration(milliseconds: 200));
@@ -43,4 +43,5 @@ class OldPasswordBloc extends Bloc<OldPasswordEvent, OldPasswordState> {
       }
     });
   }
+  
 }

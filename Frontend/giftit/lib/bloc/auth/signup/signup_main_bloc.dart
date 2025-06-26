@@ -104,6 +104,7 @@ class SignupMainBloc extends Bloc<SignupEvent, SignupState> {
         // Navigation to OTP screen should happen in the UI using BlocListener when state.signupApiResponse.data.statusCode == 403
       } else if (signupModel != null && signupModel.statusCode == 201) {
         // Signup success
+        
         emit(state.copyWith(signupApiResponse: ApiResponse.success(signupModel)));
       } else {
         emit(state.copyWith(signupApiResponse: ApiResponse.failure(signupModel?.message ?? "Signup failed")));

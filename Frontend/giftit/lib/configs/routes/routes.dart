@@ -42,7 +42,6 @@ class Routes {
         );
 
       case RoutesNames.resetpswd:
-        // final email = settings.arguments as String;
         final email =settings.arguments as String;
         return MaterialPageRoute(
             builder: (BuildContext context) => ResetPasswordMainScreen(email: email));

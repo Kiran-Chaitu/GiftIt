@@ -88,13 +88,15 @@ dynamic returnResponse(http.Response response) {
     final responseJson = jsonDecode(responseBody);
     switch (statusCode) {
       case 200:
-        return responseJson;
+        // return responseJson;
+        return response;
       case 400:
         throw BadRequestException(responseJson['message'] ?? 'Bad Request');
       case 401:
         throw UnauthorisedException(responseJson['message'] ?? 'Unauthorized');
       case 403:
-        return responseJson;
+        // return responseJson;
+        return response;
       case 500:
         throw FetchDataException(responseJson['message'] ?? 'Server Error');
       default:

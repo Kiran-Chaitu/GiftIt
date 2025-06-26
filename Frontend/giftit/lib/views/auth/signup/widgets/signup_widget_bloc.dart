@@ -70,7 +70,8 @@ class SignupScreenBloc extends StatelessWidget {
                 'type': "authVerification",
               },
             );
-          } else if (statusCode == 403) {
+          } 
+          else if (statusCode == 403) {
             Navigator.pushNamed(context, RoutesNames.login);
           } 
           // else {

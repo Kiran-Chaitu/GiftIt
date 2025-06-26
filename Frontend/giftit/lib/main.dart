@@ -61,7 +61,7 @@ void main() async {
           child: GetMaterialApp(
             debugShowCheckedModeBanner: false,
             theme: AppTheme.appTheme,
-            initialRoute: RoutesNames.oldPassword,
+            initialRoute: RoutesNames.login,
             onGenerateRoute: Routes.generateRoute,
           ),
         );
