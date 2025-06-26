@@ -7,6 +7,7 @@ import 'package:giftit/views/auth/signup/signup_main.dart';
 import 'package:giftit/views/ngo_Description/ngo_description.dart';
 import 'package:giftit/views/post_createdialog/post_dialog.dart';
 import 'package:giftit/views/Bottom_Nav_Bar/bottom_nav_bar.dart';
+import 'package:giftit/views/post_form/post_form.dart';
 import 'package:giftit/views/widgets/dummy_screen.dart';
 import '../../views/Profile/change_password.dart';
 import '../../views/Profile/donation_history.dart';
@@ -27,6 +28,12 @@ class Routes {
       case RoutesNames.dummy:
         return MaterialPageRoute(
             builder: (BuildContext context) => DummyScreen());
+      case RoutesNames.createPost:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => Postcreationdialog());
+      case RoutesNames.postForm:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => PostForm());
       case RoutesNames.showGoogleMap:
         return MaterialPageRoute(
             builder: (BuildContext context) => ShowNgoDirections());
@@ -57,17 +64,19 @@ class Routes {
 
       case RoutesNames.otp:
         return MaterialPageRoute(
-            builder: (BuildContext context) => OtpMainScreen(email: "kranthivarma74@gmail.com",));
+            builder: (BuildContext context) => OtpMainScreen(
+                  email: "kranthivarma74@gmail.com",
+                ));
       case RoutesNames.ngoDescrip:
-      final args = settings.arguments as Map<String, dynamic>;
+        final args = settings.arguments as Map<String, dynamic>;
         return MaterialPageRoute(
             builder: (BuildContext context) => NgoDescription(
-                ngo: args['ngo'],
-            ));
+                  ngo: args['ngo'],
+                ));
       case RoutesNames.postCreateDialog:
         return MaterialPageRoute(
             builder: (BuildContext context) => Postcreationdialog());
-      default :
+      default:
         return MaterialPageRoute(builder: (_) {
           return const Scaffold(
             body: Center(

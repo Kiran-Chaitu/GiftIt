@@ -2,6 +2,11 @@
   static const String home = 'home_screen';
   static const String dummy = 'dummy_screen';
   static const String onBoarding = 'onboarding_screen';
+
+  static const String changePassowrd = 'change_password';
+  static const String profile = 'profile';
+  static const String createPost = 'create_post';
+  static const String postForm = 'post_form';
   static const String showGoogleMap = 'show_google_map';
   static const String forgotPassword = 'forgot_password';
   static const String profile = 'profile';

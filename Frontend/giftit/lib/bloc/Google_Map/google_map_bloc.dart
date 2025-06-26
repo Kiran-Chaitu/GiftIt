@@ -18,19 +18,39 @@ class GoogleMapBloc extends Bloc<GoogleMapEvent, GoogleMapState> {
     LoadSelectedNgo event,
     Emitter<GoogleMapState> emit,
   ) async {
-    emit(state.copyWith(selectedNgoApiResponse: const ApiResponse.loading(), isLoading: true));
+    emit(state.copyWith(
+      isLoading: true,
+      isRedirecting: true,
+      selectedNgoApiResponse: const ApiResponse.loading(),
+    ));
+
     try {
       final currentPosition = await repository.getCurrentLocation();
+
       emit(state.copyWith(
         currentPosition: currentPosition,
         selectedNgoApiResponse: ApiResponse.success(event.selectedNgo),
       ));
+
+      // Open Google Maps with directions
+      await repository.openGoogleMapsWithDirections(
+        currentLat: currentPosition!.latitude,
+        currentLng: currentPosition.longitude,
+        destLat: event.selectedNgo.lat,
+        destLng: event.selectedNgo.lng,
+      );
+
+      // Done redirecting
+      emit(state.copyWith(isRedirecting: false, isLoading: false));
     } catch (e) {
       emit(state.copyWith(
+        isRedirecting: false,
+        isLoading: false,
         selectedNgoApiResponse: ApiResponse.failure(e.toString()),
       ));
     }
   }
+
 
   Future<void> _updateMapElements(
     UpdateMapElements event,

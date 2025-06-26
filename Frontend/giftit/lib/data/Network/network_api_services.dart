@@ -14,10 +14,10 @@ class NetworkApiServices extends BaseApiServices {
       final response =
           await http.get(Uri.parse(url),
           headers: {
+
             'Content-Type': 'application/json',
             "Authorization":"Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VySWQiOjEsInN1YiI6IjEiLCJpYXQiOjE3NTA2MDc4NzIsImV4cCI6MTc1MzE5OTg3Mn0.Do846AqLgK-xYRPopS18hWFtxRCkE7eUSrHXy51RosgKicnUgcUeQEXdL9nksUimGHDVtpUyjfNHrdtCr9visA"
           },
-
           ).timeout(const Duration(seconds: 20));
       responseJson = returnResponse(response);
       // debugPrint('Response: ${response.body}');
@@ -37,11 +37,11 @@ class NetworkApiServices extends BaseApiServices {
       final response = await http
           .post(Uri.parse(url),
               headers: {
-                'Content-Type': 'application/json; charset=UTF-8',
+                'Content-Type': 'application/json',
               },
-              // Convert the data to JSON format
             body: jsonEncode(data))
-          .timeout(const Duration(seconds: 20));
+          .timeout(const Duration(seconds: 15));
+      debugPrint('Response: ${response.body}');
       responseJson = returnResponse(response);
     } on SocketException {
       throw NoInternetException();
@@ -103,7 +103,9 @@ class NetworkApiServices extends BaseApiServices {
     dynamic responseJson;
     try {
       final streamedResponse =
+
       await request.send().timeout(const Duration(seconds: 20));
+
       final response = await http.Response.fromStream(streamedResponse);
 
       debugPrint('PUT Multipart Response: ${response.body}');
@@ -118,7 +120,6 @@ class NetworkApiServices extends BaseApiServices {
 
     return responseJson;
   }
-
 
 
   dynamic returnResponse(http.Response response) {
@@ -147,4 +148,5 @@ class NetworkApiServices extends BaseApiServices {
           'Error parsing response: $responseBody\nError: ${e.toString()}');
     }
   }
+
 }
