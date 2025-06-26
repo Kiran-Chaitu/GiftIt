@@ -39,20 +39,29 @@ class NetworkApiServices extends BaseApiServices {
   }
 
   dynamic returnResponse(http.Response response) {
-    switch (response.statusCode) {
-      case 200:
-        dynamic responseJson = jsonDecode(response.body);
-        return responseJson;
-      case 400:
-        dynamic responseJson = jsonDecode(response.body);
-        return responseJson;
-      case 401:
-        throw BadRequestException(response.body.toString());
-      case 403:
-        throw UnauthorisedException(response.body.toString());
-      default:
-        throw FetchDataException(
-            'Error Occured while Communicating with server');
+    final statusCode = response.statusCode;
+    final responseBody = response.body;
+    try {
+      final responseJson = jsonDecode(responseBody);
+      switch (statusCode) {
+        case 200:
+          return responseJson;
+        case 400:
+          throw BadRequestException(responseJson['message'] ?? 'Bad Request');
+        case 401:
+          throw UnauthorisedException(
+              responseJson['message'] ?? 'Unauthorized');
+        case 403:
+          throw UnauthorisedException(responseJson['message'] ?? 'Forbidden');
+        case 500:
+          throw FetchDataException(responseJson['message'] ?? 'Server Error');
+        default:
+          throw FetchDataException(
+              responseJson['message'] ?? 'Unexpected Error Occurred');
+      }
+    } catch (e) {
+      throw FetchDataException(
+          'Error parsing response: $responseBody\nError: ${e.toString()}');
     }
   }
 }
