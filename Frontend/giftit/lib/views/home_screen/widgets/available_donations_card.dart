@@ -11,6 +11,7 @@ class AvailableDonationCard extends StatelessWidget {
   final String name;
   final String item;
   final String address;
+  final List<Map<String, dynamic>> items;
 
   AvailableDonationCard({
     required this.id,
@@ -18,6 +19,7 @@ class AvailableDonationCard extends StatelessWidget {
     required this.name,
     required this.item,
     required this.address,
+    required this.items,
   });
   @override
   Widget build(BuildContext context) {

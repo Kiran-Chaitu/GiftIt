@@ -109,6 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     name: d.name,
                     item: d.item,
                     address: d.address,
+                    items: [],
                   ),
                 )),
               ],

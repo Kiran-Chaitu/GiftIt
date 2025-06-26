@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:giftit/configs/colors/app_colors.dart';
 
 import 'data.dart';
 
@@ -30,6 +31,7 @@ class _ActiveDonationsTabState extends State<ActiveDonationsTab> {
             onPressed: () {
               setState(() {
                 pendingDonations.add(donation);
+                activeDonations.remove(donation);
                 donations.remove(donation);
               });
               Navigator.pop(context);
@@ -46,23 +48,27 @@ class _ActiveDonationsTabState extends State<ActiveDonationsTab> {
       itemCount: donations.length,
       itemBuilder: (_, index) {
         final item = donations[index];
-        return Card(
-          child: ListTile(
-            title: Text(item['type']),
-            subtitle: Text(item['location']),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextButton(onPressed: () => _viewDetails(item), child: Text("View")),
-                TextButton(
-                  onPressed: () {
-                    setState(() {
-                      donations.removeAt(index);
-                    });
-                  },
-                  child: Text("Cancel", style: TextStyle(color: Colors.red)),
-                ),
-              ],
+        return Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Card(
+            child: ListTile(
+              tileColor: AppColors.lightGreen,
+              title: Text(item['type']),
+              subtitle: Text(item['location']),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextButton(onPressed: () => _viewDetails(item), child: Text("View",style: TextStyle(color: AppColors.primaryGreen),)),
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        donations.removeAt(index);
+                      });
+                    },
+                    child: Text("Cancel", style: TextStyle(color: Colors.red)),
+                  ),
+                ],
+              ),
             ),
           ),
         );
