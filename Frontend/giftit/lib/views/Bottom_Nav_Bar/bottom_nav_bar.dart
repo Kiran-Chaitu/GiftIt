@@ -64,7 +64,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
         onPressed: () {
-          Navigator.pushNamed(context, RoutesNames.dummy);
+          Navigator.pushNamed(context, RoutesNames.createPost);
         },
         backgroundColor: AppColors.darkGreen,
         mini: false,

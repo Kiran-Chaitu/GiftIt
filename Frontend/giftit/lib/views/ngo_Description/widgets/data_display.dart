@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:giftit/bloc/Google_Map/google_map_bloc.dart';
 import 'package:giftit/bloc/Google_Map/google_map_event.dart';
-import 'package:giftit/configs/routes/route_names.dart';
+import 'package:giftit/bloc/Google_Map/google_map_state.dart';
 import 'package:giftit/configs/themes/app_text_styles.dart';
 import 'package:giftit/models/ngo_models/ngo_model.dart';
 import 'package:giftit/views/post_createdialog/widgets/just_button.dart';
+import 'package:giftit/views/widgets/custom_loader.dart';
 
 class DataDisplay extends StatelessWidget {
   final NgoModel ngo;
@@ -57,7 +58,7 @@ class DataDisplay extends StatelessWidget {
               "Description",
               style: AppTextStyles.heading2,
             )),
-            Container(
+            SizedBox(
               height: (siz.height / 4),
               width: siz.width,
               child: SingleChildScrollView(
@@ -98,16 +99,23 @@ class DataDisplay extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  JustButton(
-                    text: "LOCATE",
-                    callBack: () {
-                      context
-                          .read<GoogleMapBloc>()
-                          .add(LoadSelectedNgo(selectedNgo: ngo));
-                      Navigator.pushNamed(context, RoutesNames.showGoogleMap);
+                  BlocBuilder<GoogleMapBloc, GoogleMapState>(
+                    builder: (context, state) {
+                      if (state.isRedirecting) {
+                        return CustomLoader();
+                      }
+                      return JustButton(
+                        text: "LOCATE",
+                        callBack: () {
+                          context
+                              .read<GoogleMapBloc>()
+                              .add(LoadSelectedNgo(selectedNgo: ngo));
+                          // Navigator.pushNamed(context, RoutesNames.showGoogleMap);
+                        },
+                        height: siz.height / 20,
+                        width: (siz.width / 3) * 2,
+                      );
                     },
-                    height: siz.height / 20,
-                    width: (siz.width / 3) * 2,
                   ),
                 ])
           ],
