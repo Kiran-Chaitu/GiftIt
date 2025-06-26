@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:giftit/configs/colors/app_colors.dart';
 import 'package:giftit/configs/routes/route_names.dart';
+import 'package:giftit/configs/themes/app_dimesnions.dart';
 import 'package:giftit/configs/themes/app_text_styles.dart';
 import 'package:giftit/models/ngo_models/ngo_model.dart';
 import 'package:giftit/views/widgets/custom_card_widget.dart';
@@ -54,6 +55,7 @@ class _NearbyNgosListState extends State<NearbyNgosList> {
                   Icon(
                     Icons.location_on,
                     color: AppColors.darkGreen,
+                    size: AppDimensions.iconMedium,
                   ),
                   SizedBox(
                     width: 5.w,
