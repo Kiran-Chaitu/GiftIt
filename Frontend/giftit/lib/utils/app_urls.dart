@@ -5,6 +5,10 @@ class AppUrls {
   static final String googlePhotosUrl =
       'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=';
 
+      static  final String getProfileUrl ='http://10.16.49.252:8080/profile-service/api/profile-details/user/';
+
+      static final String editUserDataUrl='http://10.16.49.252:8080/profile-service/api/profile-details/user/update/';
+
   static String getDirectionsPolyLineUrl({
     required double originLatitude,
     required double originLongitude,

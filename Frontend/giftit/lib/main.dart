@@ -26,6 +26,14 @@ import 'package:giftit/repository/authentication_repos/reset_pswd_repo.dart';
 import 'package:giftit/repository/authentication_repos/signup_repo.dart';
 import 'package:giftit/repository/google_maps_repository.dart';
 import 'package:giftit/repository/ngo_repository.dart';
+
+import 'package:giftit/repository/profile_repos/profile_repository.dart';
+
+
+import 'bloc/profile/profile_bloc.dart';
+
+import 'bloc/home_screen/home_screen_bloc.dart';
+
 void main() async {
   // final FlutterSecureStorage secureStorage = FlutterSecureStorage();
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,22 +54,43 @@ void main() async {
       builder: (context, child) {
         return MultiBlocProvider(
           providers: [
-            BlocProvider(create: (_)=>BottomBarCubit()),
-            BlocProvider(create: (_)=>NgoBloc(repository: NGORepository())),
-            BlocProvider(create: (_)=>LoginBloc(loginRepository: LoginRepository())),
-            BlocProvider(create: (_)=>GoogleMapBloc(repository: GoogleMapsRepository())),
-            BlocProvider(create: (_)=>LoginBloc(loginRepository: LoginRepository())),
-            BlocProvider(create: (_)=>NgoDescBloc(repository: NGORepository())),
-            BlocProvider(create: (_)=>SignupMainBloc(signupRepository:SignupRepository())),
-            BlocProvider(create: (_)=>OtpMainBloc(otpRepository: OtpRepository())),
+
             BlocProvider(create: (_)=>ResetPasswordBloc(repository: ResetPswdRepo() ),),
             BlocProvider(create: (_)=>OldPasswordBloc(resetRepository: OldPswdForgetPswdRepository())),
             BlocProvider(create: (_)=>EmailFpMainBloc(repository: EmailForgetPswdRepository())),
+
+            BlocProvider(create: (_) => BottomBarCubit()),
+            BlocProvider(create: (_) => NgoBloc(repository: NGORepository())),
+
+            BlocProvider(create: (_)=> ProfileBloc(repository: ProfileRepository()),),
+
+            BlocProvider(create: (_)=>HomeScreenBloc(homeScreenRepository: DonationRepository()))
+            BlocProvider(
+                create: (_) => LoginBloc(loginRepository: LoginRepository())),
+            BlocProvider(
+                create: (_) =>
+                    GoogleMapBloc(repository: GoogleMapsRepository())),
+            BlocProvider(
+                create: (_) => NgoDescBloc(repository: NGORepository())),
+            BlocProvider(
+                create: (_) =>
+                    SignupMainBloc(signupRepository: SignupRepository())),
+            BlocProvider(
+                create: (_) => OtpMainBloc(otpRepository: OtpRepository())),a
+            BlocProvider(
+              create: (_) => PostCreationBloc(),
+            ),
+            BlocProvider(
+              create: (_) => FoodFormBloc(),
+            )
+
           ],
           child: GetMaterialApp(
             debugShowCheckedModeBanner: false,
             theme: AppTheme.appTheme,
+
             initialRoute: RoutesNames.login,
+
             onGenerateRoute: Routes.generateRoute,
           ),
         );
@@ -69,6 +98,7 @@ void main() async {
     );
   }
 }
+
 
 
 // Future<void> main() async {
@@ -108,4 +138,4 @@ void main() async {
 //       },
 //     );
 //   }
-// }
+

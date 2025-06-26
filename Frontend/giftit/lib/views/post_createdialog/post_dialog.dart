@@ -59,13 +59,13 @@ class Postcreationdialog extends StatelessWidget {
                     JustButton(
                       text: "Donate",callBack: (){},
                       iconNeed: true,height: siz.height/10,width:(siz.width/6)*3,
-                      frontIcon: Icon(IconData(0xf689, fontFamily: 'MaterialIcons'),size: 30,color: Colors.white,),
+                    //  frontIcon: Icon(IconData(0xf689, fontFamily: 'MaterialIcons'),size: 30,color: Colors.white,),
                     ),                      
                     SizedBox(height: 10,),
                     JustButton(
                       text: "Request",callBack: (){},height: siz.height/10,width:(siz.width/6)*3,
                       iconNeed: true,
-                      frontIcon: Icon(IconData(0xe88a, fontFamily: 'MaterialIcons'), size: 30,color: Colors.white,),
+                      //frontIcon: Icon(IconData(0xe88a, fontFamily: 'MaterialIcons'), size: 30,color: Colors.white,),
                     ),                      
                   ],
                 ),
