@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:giftit/configs/routes/route_names.dart';
 import 'package:giftit/views/post_createdialog/widgets/just_button.dart';
 
 class Postcreationdialog extends StatelessWidget {
@@ -11,7 +10,7 @@ class Postcreationdialog extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [          
-          Container(
+          Container(            
             color:Colors.grey.shade400,
             height: siz.height,
             width: siz.width,
@@ -20,11 +19,11 @@ class Postcreationdialog extends StatelessWidget {
                 // height: 300,width: 300,
                 height: siz.height,
                 width: siz.width,
-                decoration: BoxDecoration(
+                decoration: BoxDecoration(                  
                   color: Colors.white.withValues(alpha: 0.1*255),
-                  // gradient:RadialGradient(
+                  // gradient:RadialGradient(                    
                   //   colors: [
-                  //     Colors.white10,
+                  //     Colors.white10,                      
                   //     Colors.white24,
                   //     Colors.white60,
                   //   ],
@@ -47,9 +46,10 @@ class Postcreationdialog extends StatelessWidget {
                 boxShadow: [
                       BoxShadow(
                         color:Color(0x80000000),
-                        blurRadius: 10,
-                        spreadRadius: 1,
-                        offset: Offset(4, 4), 
+                        // color: Colors.pink,
+                        blurRadius: 10, // Softness of the shadow
+                        spreadRadius: 1, // How much the shadow spreads
+                        offset: Offset(4, 4), // X and Y offset
                       ),
                     ]
               ),              
@@ -57,17 +57,13 @@ class Postcreationdialog extends StatelessWidget {
                   mainAxisAlignment:MainAxisAlignment.center,
                   children: [
                     JustButton(
-                      text: "Donate",callBack: (){
-                        Navigator.pushNamed(context, RoutesNames.postForm);
-                      },
+                      text: "Donate",callBack: (){},
                       iconNeed: true,height: siz.height/10,width:(siz.width/6)*3,
                       frontIcon: Icon(IconData(0xf689, fontFamily: 'MaterialIcons'),size: 30,color: Colors.white,),
                     ),                      
                     SizedBox(height: 10,),
                     JustButton(
-                      text: "Request",callBack: (){
-                        Navigator.pushNamed(context, RoutesNames.postForm);
-                      },height: siz.height/10,width:(siz.width/6)*3,
+                      text: "Request",callBack: (){},height: siz.height/10,width:(siz.width/6)*3,
                       iconNeed: true,
                       frontIcon: Icon(IconData(0xe88a, fontFamily: 'MaterialIcons'), size: 30,color: Colors.white,),
                     ),                      

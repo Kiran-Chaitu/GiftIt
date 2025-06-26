@@ -99,7 +99,6 @@ class AppUrls {
   //email,
   // message for both success and failure
   } 
-
   //forget password
   static String emailForgetPswdUrl(){
     return "http://10.16.49.252:8080/auth-service/api/auth/validate/email";
@@ -108,28 +107,4 @@ class AppUrls {
     // reponse:
     //message
   } 
-
-  static String otpUrl(){
-    return "http://10.16.59.74:8080/auth-service/api/auth/signup";
-  }
-
-
-
-
-  static String DonationsStatusUrl() {
-    return "http://10.16.59.74:8080/donation-service/api/my-donations";
-  }
-
-  static String availableDonationsUrl() {
-    return "http://10.16.59.74:8080/donation-service/api/available-donations";
-  }
-
-  static String claimDonationUrl() {
-    return "http://10.16.59.74:8080/donation-service/api/claim-donation";
-  }
-
-  static String donationCountUrl() {
-    return "http://10.16.59.74:8080/donation-service/api/claim-donation";
-  }
-
 }

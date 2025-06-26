@@ -13,11 +13,7 @@ class NetworkApiServices extends BaseApiServices {
     dynamic responseJson;
     try {
       final response =
-          await http.get(Uri.parse(url),
-          headers: {
-        'Content-Type': 'application/json',
-      }
-          ).timeout(const Duration(seconds: 20),);
+          await http.get(Uri.parse(url)).timeout(const Duration(seconds: 20));
       responseJson = returnResponse(response);
     } on SocketException {
       throw NoInternetException();
@@ -34,13 +30,11 @@ class NetworkApiServices extends BaseApiServices {
       debugPrint('Post API');
       final response = await http
           .post(Uri.parse(url),
-
               headers: header ?? {
                 'Content-Type': 'application/json; charset=UTF-8',
               },
             body: jsonEncode(data))
           .timeout(const Duration(seconds: 10));
-
       debugPrint('Response: ${response.body}');
       responseJson = returnResponse(response);
     } on SocketException {
@@ -50,53 +44,6 @@ class NetworkApiServices extends BaseApiServices {
     }
     return responseJson;
   }
-
-
-  Future<dynamic> putApiWithMultipart({
-    required String url,
-    required Map<String, String> fields,
-    required String fileFieldName,
-    required File file,
-  }) async {
-    debugPrint('PUT API with Multipart (Single File)');
-
-    var uri = Uri.parse(url);
-    var request = http.MultipartRequest('PUT', uri);
-
-    request.headers.addAll({
-      'Content-Type': 'multipart/form-data',
-    });
-
-    request.fields.addAll(fields);
-
-    request.files.add(
-      await http.MultipartFile.fromPath(
-        fileFieldName,
-        file.path,
-      ),
-    );
-
-    dynamic responseJson;
-    try {
-      final streamedResponse =
-          await request.send().timeout(const Duration(seconds: 20));
-      final response = await http.Response.fromStream(streamedResponse);
-
-      debugPrint('PUT Multipart Response: ${response.body}');
-      responseJson = returnResponse(response);
-    } on SocketException {
-      throw NoInternetException();
-    } on TimeoutException {
-      throw FetchDataException('Network Request Timed Out');
-    } catch (e) {
-      throw FetchDataException('Unexpected Error: ${e.toString()}');
-    }
-
-    return responseJson;
-  }
-
-
-
   dynamic returnResponse(http.Response response) {
     final statusCode = response.statusCode;
     final responseBody = response.body;
@@ -105,10 +52,8 @@ class NetworkApiServices extends BaseApiServices {
       switch (statusCode) {
         case 200:
           return responseJson;
-
         case 201:
           return responseJson;
-
         case 400:
           throw BadRequestException(responseJson['message'] ?? 'Bad Request');
         case 401:
@@ -127,5 +72,4 @@ class NetworkApiServices extends BaseApiServices {
           'Error parsing response: $responseBody\nError: ${e.toString()}');
     }
   }
-
 }
