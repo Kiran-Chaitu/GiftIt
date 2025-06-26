@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:equatable/equatable.dart';
 
-import '../../models/profile/profileModell.dart';
 
   abstract class ProfileEvent extends Equatable {
   const ProfileEvent();

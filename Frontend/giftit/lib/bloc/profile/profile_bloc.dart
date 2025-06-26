@@ -1,5 +1,5 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:giftit/data/API_Response/api_response.dart';
 import 'package:giftit/repository/profile_repos/profile_repository.dart';
 import 'profile_event.dart';
@@ -11,16 +11,16 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ProfileBloc({required this.repository}) : super(ProfileState()) {
     on<LoadProfileEvent>(_onLoadProfileEvent);
     on<EditProfileEvent>(_onEditProfileEvent);
-
   }
 
-  void _onLoadProfileEvent(LoadProfileEvent event,
-      Emitter<ProfileState> emit) async {
+  void _onLoadProfileEvent(
+      LoadProfileEvent event, Emitter<ProfileState> emit) async {
     emit(state.copyWith(
       profileApiResponse: const ApiResponse.loading(),
     ));
     try {
       final profileResponse = await repository.fetchProfileData();
+      debugPrint('Hitted the profile API');
       emit(state.copyWith(
         profileApiResponse: profileResponse,
       ));
@@ -31,25 +31,18 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
   }
 
-  void _onEditProfileEvent(EditProfileEvent event,
-      Emitter<ProfileState> emit) async {
+  void _onEditProfileEvent(
+      EditProfileEvent event, Emitter<ProfileState> emit) async {
     emit(state.copyWith(isSubmiting: true));
 
-    try{
-        final editProfileResponse = await repository.editProfileData(
-          event.name , event.number , event.location , event.image
-        );
-        emit(state.copyWith(isSubmiting: false));
-    }catch(e){
+    try {
+      final editProfileResponse = await repository.editProfileData(
+          event.name, event.number, event.location, event.image);
+      emit(state.copyWith(
+        isSubmiting: false,
+      ));
+    } catch (e) {
       emit(state.copyWith(isSubmiting: false));
     }
   }
 }
-
-
-
-
-
-
-
-

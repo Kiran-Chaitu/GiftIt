@@ -272,6 +272,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:giftit/configs/colors/app_colors.dart';
 import 'package:giftit/configs/themes/app_dimesnions.dart';
 import 'package:giftit/configs/themes/app_text_styles.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class EditProfilePage extends StatefulWidget {
   final ProfileModel profileModel;
@@ -292,6 +293,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   String? _activeField;
 
   Future<void> _pickImage() async {
+    await requestStoragePermission();
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       setState(() {
@@ -306,7 +308,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
     });
   }
 
+  Future<void> requestStoragePermission() async {
+    var status = await Permission.storage.status;
 
+    if (!status.isGranted) {
+      if (await Permission.storage.request().isGranted) {
+        // Permission granted
+        print("Storage permission granted");
+      } else {
+        // Permission denied
+        print("Storage permission denied");
+      }
+    } else {
+      print("Storage permission already granted");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -320,8 +336,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
             style: AppTextStyles.heading2.copyWith(color: Colors.white),
           ),
         ),
-        leading: BackButton(color: Colors.white,
-          onPressed: (){
+        leading: BackButton(
+          color: Colors.white,
+          onPressed: () {
             FocusScope.of(context).unfocus();
             Navigator.pop(context);
           },
@@ -341,8 +358,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   backgroundImage: _pickedImage != null
                       ? FileImage(_pickedImage!)
                       : const NetworkImage(
-                      'https://cdn-icons-png.flaticon.com/512/3135/3135715.png')
-                  as ImageProvider,
+                              'https://cdn-icons-png.flaticon.com/512/3135/3135715.png')
+                          as ImageProvider,
                 ),
                 Positioned(
                   right: 0,
@@ -384,20 +401,23 @@ class _EditProfilePageState extends State<EditProfilePage> {
             SizedBox(
               width: double.infinity,
               height: 50,
-              child: BlocBuilder<ProfileBloc , ProfileState>(
-                builder: (context , state){
-                  if(state.isSubmiting){
-                    return Center(child: CustomLoader(),);
+              child: BlocBuilder<ProfileBloc, ProfileState>(
+                builder: (context, state) {
+                  if (state.isSubmiting) {
+                    return Center(
+                      child: CustomLoader(),
+                    );
                   }
                   return ElevatedButton(
-                    onPressed: (){
+                    onPressed: () async {
                       final data = widget.profileModel;
-                      context.read<ProfileBloc>().add(EditProfileEvent(name: nameController.text ??data.displayName ,
-                          number: numberController.text ?? data.mobileNumber, location: locationController.text ?? data.location,
+                      context.read<ProfileBloc>().add(EditProfileEvent(
+                          name: nameController.text ?? data.displayName,
+                          number: numberController.text ?? data.mobileNumber,
+                          location: locationController.text ?? data.location,
                           image: _pickedImage!));
-                      Navigator.pop(context);
                       context.read<ProfileBloc>().add(LoadProfileEvent());
-
+                      Navigator.pop(context);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.primaryGreen,
@@ -416,7 +436,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     ),
                   );
                 },
-
               ),
             ),
           ],
@@ -462,8 +481,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               keyboardType: keyboardType,
               enabled: isActive,
               autofocus: isActive,
-              style: const TextStyle(
-                  fontSize: 18, fontWeight: FontWeight.w500),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
               decoration: const InputDecoration(
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.symmetric(horizontal: 14),
@@ -475,5 +493,3 @@ class _EditProfilePageState extends State<EditProfilePage> {
     );
   }
 }
-
-

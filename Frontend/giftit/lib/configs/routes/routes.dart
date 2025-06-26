@@ -61,7 +61,6 @@ class Routes {
       case RoutesNames.logout:
         return MaterialPageRoute(
             builder: (BuildContext context) => LogoutPage());
-
       case RoutesNames.otp:
         return MaterialPageRoute(
             builder: (BuildContext context) => OtpMainScreen(

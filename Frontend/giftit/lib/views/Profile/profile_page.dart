@@ -4,6 +4,7 @@ import 'package:giftit/bloc/profile/profile_bloc.dart';
 import 'package:giftit/bloc/profile/profile_event.dart';
 import 'package:giftit/bloc/profile/profile_state.dart';
 import 'package:giftit/configs/colors/app_colors.dart';
+import 'package:giftit/configs/routes/route_names.dart';
 import 'package:giftit/configs/themes/app_dimesnions.dart';
 import 'package:giftit/configs/themes/app_text_styles.dart';
 import 'package:giftit/data/API_Response/status.dart';
@@ -43,7 +44,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           final profileData = state.profileApiResponse.data;
           return Stack(
             children: [
-              
           Positioned(
             top:0,
             left: 0,
@@ -96,16 +96,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             children: [
                               Icon(Icons.location_on, color: Colors.black, size:AppDimensions.iconSmall),
                               Text(
-                                profileData!.location,
+                                profileData.location,
                                 style:AppTextStyles.heading3
                               ),
                             ],
                           ),
                           SizedBox(height: 30),
-                          _buildProfileOption(context, 'Edit Profile', Icons.edit,EditProfilePage(profileModel: state.profileApiResponse.data!,)),
-                          _buildProfileOption(context, 'Donation History',Icons.history, DonationHistoryPage()),
-                          _buildProfileOption(context, 'NGO Volunteer', Icons.people, NgoVlounteerPage()),
-                          _buildProfileOption(context, 'Change Password', Icons.lock, ChangePasswordPage()),
+                          _buildProfileOption(context, 'Edit Profile', Icons.edit,RoutesNames.editProfile),
+                          _buildProfileOption(context, 'Donation History',Icons.history, RoutesNames.donationHistory),
+                          _buildProfileOption(context, 'NGO Volunteer', Icons.people, RoutesNames.ngoVolunteer),
+                          _buildProfileOption(context, 'Change Password', Icons.lock, RoutesNames.changePassowrd),
                           _buildProfileOption(context, 'Log Out', Icons.logout, null),
                         ],
                       ),
@@ -139,7 +139,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _buildProfileOption(
-      BuildContext context, String title, IconData icon, Widget? targetPage) {
+      BuildContext context, String title, IconData icon,String? targetPage) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       decoration: BoxDecoration(
@@ -167,77 +167,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
         trailing:
             Icon(Icons.arrow_forward_ios, size: AppDimensions.iconMedium, color: Colors.black),
         onTap: () {
-          if (targetPage != null) {
-            Navigator.push(
+          if(targetPage != null){
+            Navigator.pushNamed(
               context,
-              MaterialPageRoute(builder: (context) => targetPage),
-            );
-          } else if (title == 'Log Out') {
-            // ScaffoldMessenger.of(context).showSnackBar(
-            //   const SnackBar(content: Text('Logging out..')),
-            // );
-            showDialog(
-              context: context,
-              builder: (BuildContext dialogContext) {
-                return Dialog(
-                  backgroundColor: Colors.transparent,
-                  child: Container(
-                    width: 250, // Smaller width
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Colors.grey.shade400, width: 0.5), // Thin border
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1), // Light shadow
-                          spreadRadius: 1,
-                          blurRadius: 6,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min, // Keeps box small
-                      children: [
-                        const Text(
-                          'Log Out',
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                        ),
-                        const SizedBox(height: 10),
-                        const Text(
-                          'Are you sure you want to log out?',
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(dialogContext).pop();
-                              },
-                              child: const Text('Cancel'),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(dialogContext).pop();
-                              },
-                              child: const Text('Log Out'),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-
-              },
-            );
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                  content: Text('Tapped on $title (No navigation defined)')),
+              targetPage,
             );
           }
         },

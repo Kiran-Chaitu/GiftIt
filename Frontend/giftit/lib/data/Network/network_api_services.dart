@@ -76,12 +76,13 @@ class NetworkApiServices extends BaseApiServices {
     return responseJson;
   }
 
-  Future<dynamic> putApiWithMultipart({
-    required String url,
-    required Map<String, String> fields,
-    required String fileFieldName,
-    required File file,
-  }) async {
+  @override
+  Future<dynamic> putApiWithMultipart(
+     String url,
+     Map<String, String> fields,
+     String fileFieldName,
+     File file,
+  ) async {
     debugPrint('PUT API with Multipart (Single File)');
 
     var uri = Uri.parse(url);

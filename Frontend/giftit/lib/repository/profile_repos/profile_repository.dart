@@ -54,12 +54,12 @@ class ProfileRepository {
       ) async {
     try {
       dynamic response = await _apiServices.putApiWithMultipart(
-        url:  AppUrls.editUserDataUrl,fields: {
+         AppUrls.editUserDataUrl, {
            'userName' :name,
          'userLocation':location,
         'userPhoneNumber':number,
       },
-        fileFieldName: 'profileImage',file: image
+        'profileImage', image
 
       );
       debugPrint("Response from edit profile API: $response");

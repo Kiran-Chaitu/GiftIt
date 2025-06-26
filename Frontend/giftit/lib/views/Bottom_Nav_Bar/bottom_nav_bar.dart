@@ -22,8 +22,8 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   final List<Widget> screens = [
     HomeScreen(),
-    DonationStatusScreen(),
     NgoScreen(),
+    DonationStatusScreen(),
     ProfileScreen(),
   ];
   final List<IconData> icons = const [

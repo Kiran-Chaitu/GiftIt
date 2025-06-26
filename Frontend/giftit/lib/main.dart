@@ -53,7 +53,7 @@ class MyApp extends StatelessWidget {
 
             BlocProvider(create: (_)=> ProfileBloc(repository: ProfileRepository()),),
 
-            BlocProvider(create: (_)=>HomeScreenBloc(homeScreenRepository: DonationRepository()))
+            BlocProvider(create: (_)=>HomeScreenBloc(homeScreenRepository: DonationRepository())),
             BlocProvider(
                 create: (_) => LoginBloc(loginRepository: LoginRepository())),
             BlocProvider(
@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
                 create: (_) =>
                     SignupMainBloc(signupRepository: SignupRepository())),
             BlocProvider(
-                create: (_) => OtpMainBloc(otpRepository: OtpRepository())),a
+                create: (_) => OtpMainBloc(otpRepository: OtpRepository())),
             BlocProvider(
               create: (_) => PostCreationBloc(),
             ),
