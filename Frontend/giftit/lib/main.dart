@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
             BlocProvider(create: (_)=>OtpMainBloc(otpRepository: OtpRepository())),
             BlocProvider(create: (_)=>ProfileBloc(repository: ProfileRepository()),),
             BlocProvider(create: (_)=> ProfileBloc(repository: ProfileRepository()),),
-            BlocProvider(create: (_)=> NgoRegistrationBloc(repository:NgoRegistrationRepository()),),
+          //  BlocProvider(create: (_)=> NgoRegistrationBloc(repository:NgoRegistrationRepository()),),
           ],
           child: GetMaterialApp(
             debugShowCheckedModeBanner: false,
