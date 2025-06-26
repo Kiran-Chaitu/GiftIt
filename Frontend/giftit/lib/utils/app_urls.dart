@@ -9,6 +9,13 @@ class AppUrls {
 
       static final String editUserDataUrl='http://10.16.49.252:8080/profile-service/api/profile-details/user/update/';
 
+      static final String addNgoRegistrationUrl='http://10.16.49.252:8080/auth-service/api/auth/ngo/add';
+
+      static final String deleteNgoRegistrationUrl='http://10.16.49.252:8080/auth-service/api/auth/ngo/delete';
+
+
+
+
   static String getDirectionsPolyLineUrl({
     required double originLatitude,
     required double originLongitude,

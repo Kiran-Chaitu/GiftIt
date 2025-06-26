@@ -1,10 +1,10 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:giftit/data/API_Response/api_response.dart';
 import 'package:giftit/data/Network/network_api_services.dart';
 import 'package:giftit/models/profile/profileModell.dart';
 import 'package:giftit/utils/app_urls.dart';
+
 
 class ProfileRepository {
   final NetworkApiServices _apiServices = NetworkApiServices();
@@ -26,26 +26,6 @@ class ProfileRepository {
     }
   }
 
-//    Future<ApiResponse<ProfileModel>> editProfileData(ProfileModel updatedProfile) async {
-//     try {
-//       final body = updatedProfile.toJson();
-//       dynamic response = await _apiServices.postApi(
-//         AppUrls.editUserDataUrl,
-//         body,
-//       );
-//       debugPrint("Response from edit profile API: $response");
-//
-//       if (response != null && response["response"] != null) {
-//         return ApiResponse.success(response);
-//       } else {
-//         throw Exception("Invalid response from server");
-//       }
-//     } catch (e) {
-//       debugPrint("Error editing profile data: $e");
-//       rethrow;
-//     }
-//   }
-// }
   Future<ApiResponse> editProfileData(
   String name ,
   String number,
