@@ -14,15 +14,20 @@ class AppTextStyles {
     fontFamily: 'Poppins',
   );
 
-  static const TextStyle bodyText = TextStyle(
+  static const TextStyle heading3 = TextStyle(
     fontSize: 20,
-    fontWeight: FontWeight.normal,
+    fontFamily: 'Poppins',
+    color: Colors.black,
+  );
+
+  static const TextStyle bodyText = TextStyle(
+    fontSize: 16,
     fontFamily: 'Poppins',
     color: Colors.black,
   );
 
   static const TextStyle subtitle = TextStyle(
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: FontWeight.w400,
     fontFamily: 'Poppins',
     color: AppColors.subtitleGray,

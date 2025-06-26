@@ -7,6 +7,7 @@ import 'package:giftit/configs/colors/app_colors.dart';
 import 'package:giftit/configs/routes/route_names.dart';
 import 'package:giftit/views/NGO/ngo_screen.dart';
 
+
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
 
@@ -15,7 +16,7 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-  final List<Widget> screens =  [
+  final List<Widget> screens = [
     NgoScreen(),
     NgoScreen(),
     NgoScreen(),
@@ -31,6 +32,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: Colors.transparent,
       resizeToAvoidBottomInset: false,
       body: BlocBuilder<BottomBarCubit, int>(builder: (context, currentIndex) {
         return IndexedStack(

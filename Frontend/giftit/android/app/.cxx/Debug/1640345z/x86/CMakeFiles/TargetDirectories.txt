@@ -1,0 +1,2 @@
+C:/Users/divak/StudioProjects/GiftIt/Frontend/giftit/android/app/.cxx/Debug/1640345z/x86/CMakeFiles/edit_cache.dir
+C:/Users/divak/StudioProjects/GiftIt/Frontend/giftit/android/app/.cxx/Debug/1640345z/x86/CMakeFiles/rebuild_cache.dir
