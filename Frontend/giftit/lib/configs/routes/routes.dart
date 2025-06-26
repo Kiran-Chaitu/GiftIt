@@ -7,6 +7,13 @@ import 'package:giftit/views/auth/signup/signup_main.dart';
 import 'package:giftit/views/ngo_Description/ngo_description.dart';
 import 'package:giftit/views/post_createdialog/post_dialog.dart';
 import 'package:giftit/views/Bottom_Nav_Bar/bottom_nav_bar.dart';
+
+import 'package:giftit/views/onboarding/screen1.dart';
+import 'package:giftit/views/widgets/dummy_screen.dart';
+import '../../views/onboarding/screen3.dart';
+
+import '../../views/onboarding/screen2.dart';
+
 import 'package:giftit/views/post_form/post_form.dart';
 import 'package:giftit/views/widgets/dummy_screen.dart';
 import '../../views/Profile/change_password.dart';
@@ -19,6 +26,14 @@ import '../../views/Profile/ngo_vlounteer.dart';
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case RoutesNames.onBoarding_screen3:
+        return MaterialPageRoute(builder: (BuildContext context) => Screen3());
+      case RoutesNames.onBoarding_screen2:
+        return MaterialPageRoute(
+          builder: (BuildContext context) => Screen2());
+      case RoutesNames.onBoarding_screen1:
+        return MaterialPageRoute(
+            builder: (BuildContext context) => Screen1());
       case RoutesNames.home:
         return MaterialPageRoute(
             builder: (BuildContext context) => BottomNavBar());

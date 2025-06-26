@@ -3,6 +3,9 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+
+  flutter_secure_storage_windows
+
   connectivity_plus
   file_selector_windows
   geolocator_windows
