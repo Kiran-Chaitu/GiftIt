@@ -52,27 +52,80 @@ class SignupMainBloc extends Bloc<SignupEvent, SignupState> {
     emit(state.copyWith(obscurePassword: !state.obscurePassword));
   }
 
+  // void _onSignupApiCalled(SignupApiCalled event, Emitter<SignupState> emit) async {
+  //   emit(state.copyWith(signupApiResponse: const ApiResponse.loading()));
+
+  //   final data = {
+  //     'userName': state.username,
+  //     'email': state.email,
+  //     'userPhoneNumber': state.phoneNumber,
+  //     'userLocation': state.cityLocation,
+  //     'password': state.password,
+  //     // 'confirmPassword': state.confirmPassword,
+  //   };
+
+  //   try {
+  //     final response = await signupRepository.singupApi(data);
+  //     // if (response.userId != null) {
+  //     if (response.statusCode == "201") {
+  //       emit(state.copyWith(signupApiResponse: ApiResponse.success(response)));
+  //     } else {
+  //       emit(state.copyWith(signupApiResponse: ApiResponse.failure(response.message ?? "Signup failed")));
+  //       await Future.delayed(const Duration(milliseconds: 200));
+  //       emit(state.copyWith(signupApiResponse: ApiResponse.initial()));
+  //       // emit(state.copyWith(signupApiResponse: const ApiResponse.failure("Signup failed")));
+  //     }
+  //   } catch (e) {
+  //       emit(state.copyWith(signupApiResponse: ApiResponse.failure("Error: ${e.toString()}")));      
+  //       await Future.delayed(const Duration(milliseconds: 200));
+  //       emit(state.copyWith(signupApiResponse: ApiResponse.initial()));
+  //   }
+  // }
   void _onSignupApiCalled(SignupApiCalled event, Emitter<SignupState> emit) async {
-    emit(state.copyWith(signupApiResponse: const ApiResponse.loading()));
+  emit(state.copyWith(signupApiResponse: const ApiResponse.loading()));
 
-    final data = {
-      'username': state.username,
-      'email': state.email,
-      'phoneNumber': state.phoneNumber,
-      'city': state.cityLocation,
-      'password': state.password,
-      // 'confirmPassword': state.confirmPassword,
-    };
+  final data = {
+    'userName': state.username,
+    'email': state.email,
+    'userPhoneNumber': state.phoneNumber,
+    'userLocation': state.cityLocation,
+    'password': state.password,
+  };
 
-    try {
-      final response = await signupRepository.singupApi(data);
-      if (response.userId != null) {
-        emit(state.copyWith(signupApiResponse: ApiResponse.success(response)));
+  try {
+    final apiResponse = await signupRepository.signupApi(data,null);
+
+    if (apiResponse.status == Status.success) {
+      final signupModel = apiResponse.data;
+
+      if (signupModel != null && signupModel.statusCode == 403) {
+        // User needs OTP verification
+        emit(state.copyWith(signupApiResponse: ApiResponse.success(signupModel)));
+        // Navigation to OTP screen should happen in the UI using BlocListener when state.signupApiResponse.data.statusCode == 403
+      } else if (signupModel != null && signupModel.statusCode == 201) {
+        // Signup success
+        emit(state.copyWith(signupApiResponse: ApiResponse.success(signupModel)));
       } else {
-        emit(state.copyWith(signupApiResponse: const ApiResponse.failure("Signup failed")));
+        emit(state.copyWith(signupApiResponse: ApiResponse.failure(signupModel?.message ?? "Signup failed")));
+        await Future.delayed(const Duration(milliseconds: 200));
+        emit(state.copyWith(signupApiResponse: const ApiResponse.initial()));
       }
-    } catch (e) {
-      emit(state.copyWith(signupApiResponse: ApiResponse.failure("Error: ${e.toString()}")));
+
+    } else {
+      emit(state.copyWith(signupApiResponse: ApiResponse.failure(apiResponse.message ?? "Signup failed")));
+      await Future.delayed(const Duration(milliseconds: 200));
+      emit(state.copyWith(signupApiResponse: const ApiResponse.initial()));
     }
+
+  } catch (e) {
+    emit(state.copyWith(signupApiResponse: ApiResponse.failure("Error: ${e.toString()}")));
+    await Future.delayed(const Duration(milliseconds: 200));
+    emit(state.copyWith(signupApiResponse: const ApiResponse.initial()));
   }
 }
+
+
+}
+
+
+

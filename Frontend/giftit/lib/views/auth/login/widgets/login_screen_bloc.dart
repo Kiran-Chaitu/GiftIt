@@ -95,6 +95,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:giftit/bloc/auth/login_bloc/login_main_bloc.dart';
+import 'package:giftit/configs/colors/app_colors.dart';
+import 'package:giftit/configs/routes/route_names.dart';
 import 'package:giftit/data/API_Response/status.dart';
 import 'package:giftit/views/auth/login/widgets/password_Mail_TextField.dart';
 import 'package:giftit/views/auth/validations/auth_validations.dart';
@@ -108,22 +110,58 @@ class LoginScreenWithBloc extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: BlocConsumer<LoginBloc, LoginState>(
+        // listener: (context, state) {
+        //   final loginStatus = state.loginApiResponse.status;
+        //   final message = state.loginApiResponse.message ?? '';
+        //   final data = state.loginApiResponse.data;
+
+        //   if (loginStatus == Status.success && data?.statusCode == 403) {
+        //     debugPrint("Redirecting to OTP");
+        //     Navigator.pushNamed(context, RoutesNames.otp, arguments: state.email);
+        //   }
+
+        //   else if (loginStatus == Status.success) {
+        //     ScaffoldMessenger.of(context).showSnackBar(
+        //       SnackBar(content: Text(message, style: const TextStyle(color: Colors.green))),
+        //     );
+        //     Future.delayed(const Duration(milliseconds: 200), () {
+        //       Navigator.pushNamed(context, RoutesNames.home);
+        //     });
+        //   } else if (loginStatus == Status.failure) {
+        //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+        //   }
+        // },
         listener: (context, state) {
           final loginStatus = state.loginApiResponse.status;
           final message = state.loginApiResponse.message ?? '';
-          
-          if (loginStatus == Status.failure) {
+          final user = state.loginApiResponse.data;
+
+          if (loginStatus == Status.success) {
+            // Navigate to OTP for either status 403 or token present
+            if (user?.statusCode == 403 ) {
+              debugPrint("Navigating to OTP: statusCode=${user?.statusCode}, token=${user?.token}");
+              Navigator.pushReplacementNamed(
+                context,
+                RoutesNames.otp,
+                arguments: {
+                  'email':state.email,
+                  'type':"authVerification"
+                }
+              );
+            } else {
+              // Optional: Show login success
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(message, style: const TextStyle(color: Colors.green))),
+              );
+              Navigator.pushNamed(
+                context,
+                RoutesNames.home,
+                // arguments: state.home,
+              );
+            }
+          } else if (loginStatus == Status.failure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(message)),
-            );
-          } else if (loginStatus == Status.success) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  message,
-                  style: const TextStyle(color: Colors.green),
-                ),
-              ),
             );
           }
         },
@@ -148,16 +186,29 @@ class LoginScreenWithBloc extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 10),
-                TextLogSignNavigator(text: "forget password", callBackFunction: () {}),
+                TextLogSignNavigator(
+                  text: "forget password", callBackFunction: () {
+                    Navigator.pushNamed(context, RoutesNames.forgetPswdEmail);
+                  }
+                ),
                 const SizedBox(height: 20),
                 TextLogSignNavigator(
                     text: "signup?",
                     frontText: "didn't have account ",
-                    callBackFunction: () {}),
+                    callBackFunction: () {
+                      Navigator.pushNamed(context, RoutesNames.signup);
+                    }),
                 const SizedBox(height: 32),
                 state.loginApiResponse.status == Status.loading
                     ? const CustomLoader()
                     : ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primaryGreen,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                        padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 16),
+                        elevation: 6,
+                        shadowColor: Colors.greenAccent,
+                      ),
                         onPressed: () {
                           final currentState = context.read<LoginBloc>().state;
                           final validationMessage = ValidationsOfAuth.loginValidation(currentState);

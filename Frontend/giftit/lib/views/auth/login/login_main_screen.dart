@@ -184,14 +184,31 @@ class LoginScreen extends StatelessWidget {
                   topRight: Radius.circular(50),
                 )
               ),
+              // child: Column(
+              //   // crossAxisAlignment: CrossAxisAlignment.start,
+              //   children: [
+              //     Text("Welcome Back",textAlign: TextAlign.left,),
+              //     SizedBox(height: 30,),
+              //     LoginScreenWithBloc(),
+              //   ],
+              // ),
               child: Column(
-                // crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Welcome Back",textAlign: TextAlign.left,),
-                  SizedBox(height: 30,),
-                  LoginScreenWithBloc(),
+                  const SizedBox(height: 40),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24.0),
+                    child: Text("Welcome Back!", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24.0),
+                    child: Text("Sign in to continue", style: TextStyle(color: Colors.grey)),
+                  ),
+                  const SizedBox(height: 30),
+                  const LoginScreenWithBloc(),
                 ],
               ),
+
             ),
           )
         ],

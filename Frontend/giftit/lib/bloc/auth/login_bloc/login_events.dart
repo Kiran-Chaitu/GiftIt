@@ -51,4 +51,6 @@ class PasswordChanged extends LoginEvent {
   List<Object> get props => [password];
 }
 
+class TogglePasswordVisibility extends LoginEvent {}
+
 class LoginApiCalled extends LoginEvent {}

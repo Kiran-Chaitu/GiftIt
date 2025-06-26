@@ -54,9 +54,9 @@ class SignupMainScreen extends StatelessWidget {
             //   top:0,left: 0,
             //   child: SizedBox(height: siz.height/5,),
             // ),
-            SizedBox(height:siz.height/6 ,),
+            SizedBox(height:siz.height/10,),
             Container(
-              height: (siz.height/6)*5,
+              height: (siz.height/10)*9,
               width: siz.width,
               decoration: BoxDecoration(
                 color: AppColors.background,
@@ -65,12 +65,32 @@ class SignupMainScreen extends StatelessWidget {
                   topRight: Radius.circular(50),
                 )
               ),
+              // child: Column(
+              //   // crossAxisAlignment: CrossAxisAlignment.start,
+              //   children: [
+              //     Text("Welcome",textAlign: TextAlign.left,),
+              //     SizedBox(height: 30,),
+              //     SignupScreenBloc(),
+              //   ],
+              // ),
               child: Column(
-                // crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Welcome",textAlign: TextAlign.left,),
-                  SizedBox(height: 30,),
-                  SignupScreenBloc(),
+                  const SizedBox(height: 20),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24.0),
+                    child: Text("Welcome Back!", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+                  ),
+                  const SizedBox(height: 5),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 24.0),
+                    child: const Text(
+                      "Signup to continue",
+                      style: TextStyle(fontSize: 14, color: Colors.grey),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  const SignupScreenBloc(),
                 ],
               ),
             )

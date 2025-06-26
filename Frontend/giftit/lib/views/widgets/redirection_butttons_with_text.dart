@@ -25,7 +25,7 @@ class RedirectionButttonsWithText extends StatelessWidget {
           height: height,
           decoration: BoxDecoration(
             color: buttonColor,
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(40),
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withValues(alpha: 0.5),

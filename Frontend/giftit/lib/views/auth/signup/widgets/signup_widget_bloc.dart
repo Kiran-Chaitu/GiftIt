@@ -1,144 +1,8 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:giftit/bloc/auth/signup/signup_main_bloc.dart';
-// import 'package:giftit/views/auth/signup/widgets/textfield_signup.dart';
-// import 'package:giftit/views/auth/validations/auth_validations.dart';
-
-// class SignupSceenBloc extends StatelessWidget {
-//   const SignupSceenBloc({super.key});  
-//   @override
-//   Widget build(BuildContext context) {
-        
-//     return 
-//     // BlocProvider(
-//     //   create: (_) => LoginBloc(),
-//       // child: 
-//       SingleChildScrollView(
-//           child: BlocConsumer<SignupMainBloc, SignupState>(
-//             listener: (context, state) {
-//               if(state.signupstatus==SignupStatus.fail) {
-//                 ScaffoldMessenger.of(context).showSnackBar(
-//                   SnackBar(content: Text(state.message)),
-//                 );
-//               } 
-//               else if(state.signupstatus==SignupStatus.success) {
-//                 ScaffoldMessenger.of(context).showSnackBar(
-//                   SnackBar(
-//                     content: Text(state.message, style: TextStyle(color: Colors.green)),
-//                   ),
-//                 );                
-//               }
-//             },
-//             builder: (context, state) {
-//               return Padding(
-//                 padding: const EdgeInsets.all(20.0),
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.center,
-//                   mainAxisAlignment: MainAxisAlignment.center,
-//                   children: [
-//                     TextfieldSignup(
-//                       type: "username",
-//                       hintText: "Full Name",
-//                       frontIcon: Icon(Icons.person),
-//                     ),
-//                     const SizedBox(height: 20),
-//                     TextfieldSignup(
-//                       type: "Phone Number",
-//                       hintText: "Phone Number",
-//                       frontIcon: Icon(Icons.phone),
-//                     ),
-//                     const SizedBox(height: 20),
-//                     TextfieldSignup(
-//                       type: "Email",
-//                       hintText: "giftit36@gmail.com",
-//                       frontIcon: Icon(Icons.email),
-//                     ),
-//                     const SizedBox(height: 20),
-//                     TextfieldSignup(
-//                       type: "city location",
-//                       hintText: "City Location",
-//                       frontIcon: Icon(Icons.location_city),
-//                     ),
-//                     const SizedBox(height: 20),
-//                     TextfieldSignup(
-//                       type: "Password",
-//                       hintText: "Password",
-//                       frontIcon: Icon(Icons.lock),
-//                     ),
-//                     const SizedBox(height: 30),
-//                     // BlocBuilder<SignupMainBloc, SignupState>(
-//                     //   buildWhen: (previous, current) => previous.username != current.username,
-//                     //   builder: (context, state) {
-//                     //     return PasswordMailTextfield(type: "username",hintText: "full name",);
-//                     //   },
-//                     // ),   
-//                     // const SizedBox(height: 20,) ,                
-//                     // BlocBuilder<SignupMainBloc, SignupState>(
-//                     //   buildWhen: (previous, current) => previous.phoneNumber != current.phoneNumber,
-//                     //   builder: (context, state) {
-//                     //     return TextfieldSignup(type: "Phone Number",hintText: "Phone NUmber",frontIcon: Icon(Icons.email),);
-//                     //   },
-//                     // ),                    
-//                     // const SizedBox(height: 20),
-//                     // BlocBuilder<SignupMainBloc, SignupState>(
-//                     //   buildWhen: (previous, current) => previous.email != current.email,
-//                     //   builder: (context, state) {
-//                     //     return PasswordMailTextfield(type: "Email",hintText: "giftit36@gmail.com",);
-//                     //   },
-//                     // ),                    
-//                     // const SizedBox(height: 20),
-//                     // BlocBuilder<SignupMainBloc, SignupState>(
-//                     //   buildWhen: (previous, current) => previous.cityLocation != current.cityLocation,
-//                     //   builder: (context, state) {
-//                     //     return PasswordMailTextfield(type: "city location",hintText: "city location",);
-//                     //   },
-//                     // ),                    
-//                     // const SizedBox(height: 20),
-//                     // BlocBuilder<SignupMainBloc, SignupState>(
-//                     //   buildWhen: (previous, current) => previous.password != current.password,
-//                     //   builder: (context, state) {
-//                     //     return PasswordMailTextfield(type: "Password",hintText: "Password",);
-//                     //   },
-//                     // ),                    
-//                     // const SizedBox(height: 20),
-                    
-//                     state.signupstatus==SignupStatus.loading
-//                         ? CircularProgressIndicator()
-//                         : ElevatedButton(
-//                             onPressed: () {
-//                               final currentState = context.read<SignupMainBloc>().state;
-//                               debugPrint("Signup Button Pressed");
-//                               // final currentState = context.watch<SignupMainBloc>().state;                                                                                          
-
-//                               String mssg=ValidationsOfAuth.signupValidation(currentState);
-//                               if(mssg.isNotEmpty){
-//                                 ScaffoldMessenger.of(context).showSnackBar(
-//                                   SnackBar(content: Text(mssg , style: TextStyle(color: Colors.red),))
-//                                 );
-//                                 return ;
-//                               }
-//                               // if(!patternMatchAndSnackBar(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])[A-Za-z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{8,}$', currentState.password, "Enter Strong Password" , context))return;
-//                               context.read<SignupMainBloc>().add(SignupApi());
-//                             },
-//                             child: Text("Signup"),
-//                           ),                          
-                      
-//                   ],
-//                 ),
-//               );
-//             },
-//           ),
-//         );
-//     // );
-//   }
-  
-// }
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:giftit/bloc/auth/signup/signup_main_bloc.dart';
+import 'package:giftit/configs/colors/app_colors.dart';
+import 'package:giftit/configs/routes/route_names.dart';
 import 'package:giftit/data/API_Response/status.dart';
 import 'package:giftit/views/auth/signup/widgets/textfield_signup.dart';
 import 'package:giftit/views/auth/validations/auth_validations.dart';
@@ -150,25 +14,74 @@ class SignupScreenBloc extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SignupMainBloc, SignupState>(
+      // listener: (context, state) {
+      //   final status = state.signupApiResponse.status;
+      //   final message = state.signupApiResponse.message ?? '';
+    
+      //   if (status == Status.failure) {
+      //     ScaffoldMessenger.of(context).showSnackBar(
+      //       SnackBar(content: Text(message)),
+      //     );
+      //   } else if (status == Status.success) {
+      //     ScaffoldMessenger.of(context).showSnackBar(
+      //       SnackBar(
+      //         content: Text(
+      //           message,
+      //           style: const TextStyle(color: Colors.green),
+      //         ),
+      //       ),
+      //     );
+      //     Future.delayed(const Duration(milliseconds: 200), () {
+      //       Navigator.pushNamed(
+      //         context, RoutesNames.otp,
+      //         // arguments:{ 'email':state.email, 'type': "authVerification" }
+              
+      //           arguments: {
+      //             'email':state.email,
+      //             'type':"authVerification"
+      //           }
+      //       );
+      //     });
+      //   }
+      // },
       listener: (context, state) {
         final status = state.signupApiResponse.status;
         final message = state.signupApiResponse.message ?? '';
-    
+        final signupData = state.signupApiResponse.data;
+        // debugPrint("listener data: $status, $message, $signupData");
         if (status == Status.failure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(message)),
           );
-        } else if (status == Status.success) {
+        } 
+        else if (status == Status.success && signupData != null) {
+          final statusCode = signupData.statusCode;
+          debugPrint("Status Code in listener: $statusCode");
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                message,
-                style: const TextStyle(color: Colors.green),
-              ),
-            ),
-          );
+              SnackBar(content: Text(message)),
+            );
+          
+          if (statusCode == 201) {
+            Navigator.pushNamed(
+              context,
+              RoutesNames.otp,
+              arguments: {
+                'email': state.email,
+                'type': "authVerification",
+              },
+            );
+          } else if (statusCode == 403) {
+            Navigator.pushNamed(context, RoutesNames.login);
+          } 
+          // else {
+          //   // Optional: show success message for other status codes
+          //   ScaffoldMessenger.of(context).showSnackBar(
+          //     SnackBar(content: Text(message)),
+          //   );
+          // }
         }
-      },
+      }
+      ,
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.all(20.0),
@@ -216,6 +129,12 @@ class SignupScreenBloc extends StatelessWidget {
               state.signupApiResponse.status == Status.loading
                   ? const CustomLoader()
                   : ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primaryGreen,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                        elevation: 6,
+                        padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 16),
+                      ),
                       onPressed: () {
                         final currentState =
                             context.read<SignupMainBloc>().state;
@@ -226,18 +145,12 @@ class SignupScreenBloc extends StatelessWidget {
                         if (validationMessage.isNotEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
-                              content: Text(
-                                validationMessage,
-                                style: const TextStyle(color: Colors.red),
-                              ),
+                              content: Text(validationMessage,style: const TextStyle(color: Colors.red),),
                             ),
                           );
                           return;
                         }
-    
-                        context
-                            .read<SignupMainBloc>()
-                            .add(SignupApiCalled());
+                        context.read<SignupMainBloc>().add(SignupApiCalled());
                       },
                       child: const Text("Signup"),
                     ),

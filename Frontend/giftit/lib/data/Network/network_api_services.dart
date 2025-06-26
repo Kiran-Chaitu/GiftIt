@@ -24,18 +24,17 @@ class NetworkApiServices extends BaseApiServices {
   }
 
   @override
-  Future<dynamic> postApi(String url, dynamic data) async {
-    debugPrint('Post API');
+  Future<dynamic> postApi(String url, dynamic data,dynamic header) async {
     dynamic responseJson;
     try {
+      debugPrint('Post API');
       final response = await http
           .post(Uri.parse(url),
-              headers: {
+              headers: header ?? {
                 'Content-Type': 'application/json; charset=UTF-8',
               },
-              // Convert the data to JSON format 
             body: jsonEncode(data))
-          .timeout(const Duration(seconds: 15));
+          .timeout(const Duration(seconds: 10));
       debugPrint('Response: ${response.body}');
       responseJson = returnResponse(response);
     } on SocketException {
@@ -45,22 +44,32 @@ class NetworkApiServices extends BaseApiServices {
     }
     return responseJson;
   }
-
   dynamic returnResponse(http.Response response) {
-    switch (response.statusCode) {
-      case 200:
-        dynamic responseJson = jsonDecode(response.body);
-        return responseJson;
-      case 400:
-        dynamic responseJson = jsonDecode(response.body);
-        return responseJson;
-      case 401:
-        throw BadRequestException(response.body.toString());
-      case 403:
-        throw UnauthorisedException(response.body.toString());
-      default:
-        throw FetchDataException(
-            'Error Occured while Communicating with server');
+    final statusCode = response.statusCode;
+    final responseBody = response.body;
+    try {
+      final responseJson = jsonDecode(responseBody);
+      switch (statusCode) {
+        case 200:
+          return responseJson;
+        case 201:
+          return responseJson;
+        case 400:
+          throw BadRequestException(responseJson['message'] ?? 'Bad Request');
+        case 401:
+          throw UnauthorisedException(
+              responseJson['message'] ?? 'Unauthorized');
+        case 403:
+          throw UnauthorisedException(responseJson['message'] ?? 'Forbidden');
+        case 500:
+          throw FetchDataException(responseJson['message'] ?? 'Server Error');
+        default:
+          throw FetchDataException(
+              responseJson['message'] ?? 'Unexpected Error Occurred');
+      }
+    } catch (e) {
+      throw FetchDataException(
+          'Error parsing response: $responseBody\nError: ${e.toString()}');
     }
   }
 }

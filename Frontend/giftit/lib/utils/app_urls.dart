@@ -32,10 +32,6 @@ class AppUrls {
         "&radius=30000"
         "&key=${Tokens.googleApiKey}";
   }
-  static String loginUrl(){
-    debugPrint("Login URL called");
-    return "http://10.16.59.74:8080/auth-service/api/auth/login";
-  }
 
 
   static String getNearbyNGOApiUrl({
@@ -55,11 +51,60 @@ class AppUrls {
 
 
 
-  
+  static String loginUrl(){
+    debugPrint("Login URL called");
+    return "http://10.16.49.252:8080/auth-service/api/auth/login";
+    //req body email and password
+
+    // return object
+    // token,status code //successs
+    // for non verified :403 and redirect to otp
+    // message for failure
+  }
+
   static String signupUrl(){
-    return "http://10.16.59.74:8080/auth-service/api/auth/signup";
+    return "http://10.16.49.252:8080/auth-service/api/auth/signup";
+    //body : username , phonenumber, email, location , password
+
+    
+    // message for both success and failure
   } 
-  static String otpUrl(){
-    return "http://10.16.59.74:8080/auth-service/api/auth/signup";
+  static String otpUrl(){//otp verification  
+     return "http://10.16.49.252:8080/auth-service/api/auth/otp/verification";
+  }
+  static String forgotOtpUrl(){ //validate otp
+     return "http://10.16.49.252:8080/auth-service/api/auth/otp/validate";
+     //email and otp
+     
+     //message for both success and failure
+  } 
+  static String resetPswdUrl(){
+    return "http://10.16.49.252:8080/auth-service/api/auth/update/password";
+    //req body : email, new password
+
+    
+    //response : email
+    //message for fail
+    
+  } 
+  //change password
+  static String oldPswdUrl(){ //validate old password
+    return "http://10.16.49.252:8080/auth-service/api/auth/validate/password";
+  //body :password
+  //headerName: Authorization:Bearer token 
+  //header: token 
+
+
+  //RETRUN:
+  //email,
+  // message for both success and failure
+  } 
+  //forget password
+  static String emailForgetPswdUrl(){
+    return "http://10.16.49.252:8080/auth-service/api/auth/validate/email";
+    // email
+    // 
+    // reponse:
+    //message
   } 
 }

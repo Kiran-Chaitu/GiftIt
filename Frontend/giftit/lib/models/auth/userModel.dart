@@ -1,60 +1,47 @@
-// class UserModel {
-//   final int id;
-//   final double lat;
-//   final double lon;
-//   final String? name;
-//   final String? address;
-//   final String? district;
-//   final String? state;
-//   final String? postcode;
-//   final String? socialFacilityType;
-//   final String? socialFacilityFor;
-//   double? distance;
+//req body email and password
 
-//   UserModel({
-//     required this.id,
-//     required this.lat,
-//     required this.lon,
-//     this.name,
-//     this.address,
-//     this.district,
-//     this.state,
-//     this.postcode,
-//     this.socialFacilityType,
-//     this.socialFacilityFor,
-//     this.distance, 
-//   });
+// return object
+// token,status code //successs
+// for non verified :403 and redirect to otp
+// message for failure
+
+
+
+// class UserModel {
+//   final String? token;
+//   final String? message;
+//   final int? statusCode;
+
+//   UserModel({this.token, this.message,this.statusCode});
 
 //   factory UserModel.fromJson(Map<String, dynamic> json) {
-//     final tags = json['tags'] ?? {};
 //     return UserModel(
-//       id: json['id'],
-//       lat: json['lat'],
-//       lon: json['lon'],
-//       name: tags['name'],
-//       address: tags['addr:full'],
-//       district: tags['addr:district'],
-//       state: tags['addr:state'],
-//       postcode: tags['addr:postcode'],
-//       socialFacilityType: tags['social_facility'],
-//       socialFacilityFor: tags['social_facility:for'],
+//       // token: json['token']?.toString(), 
+//       token: json.containsKey('token') && json['token'] != null
+//               ? json['token'].toString(): null,
+//       message: json['message']?.toString(),
+//       statusCode: json['statusCode'],
 //     );
-//   }
+//   } 
 // }
+
 
 class UserModel {
   final String? token;
   final String? message;
+  final int? statusCode; // 👈 fix: make it int
 
-  UserModel({this.token, this.message});
+  UserModel({this.token, this.message, this.statusCode});
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      // token: json['token']?.toString(), 
-      token: json.containsKey('token') && json['token'] != null
-        ? json['token'].toString()
-        : null,
+      token: json.containsKey('jwtToken') && json['jwtToken'] != null
+          ? json['jwtToken'].toString()
+          : null,
       message: json['message']?.toString(),
+      statusCode: json['statusCode'] is int
+          ? json['statusCode']
+          : int.tryParse(json['statusCode'].toString()),
     );
-  } 
+  }
 }
