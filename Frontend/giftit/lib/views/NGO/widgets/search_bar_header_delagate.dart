@@ -30,30 +30,36 @@ class SearchBarHeaderDelegate extends SliverPersistentHeaderDelegate {
           color: AppColors.lightGreen,
           borderRadius: BorderRadius.circular(AppDimensions.circleRadius),
         ),
-        child: TextField(
-          controller: searchController,
-          onChanged: onChanged,
-          textInputAction: TextInputAction.search,
-          keyboardType: TextInputType.text,
-          style: AppTextStyles.bodyText,
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: 'Search NGOs',
-            prefixIcon: const Icon(Icons.search),
-            suffixIcon: searchController.text.isNotEmpty
-                ? IconButton(icon: const Icon(Icons.clear), onPressed: onClear)
-                : null,
-          ),
-        ),
+        child: ValueListenableBuilder(
+          valueListenable: searchController,
+          builder: (context, value, child) {
+            return TextField(
+            controller: searchController,
+            onChanged: onChanged,
+            textInputAction: TextInputAction.search,
+            keyboardType: TextInputType.text,
+            style: AppTextStyles.bodyText,
+            decoration: InputDecoration(
+              contentPadding: EdgeInsets.symmetric(vertical: 10.h),
+              border: InputBorder.none,
+              hintText: 'Search NGOs',
+              prefixIcon: const Icon(Icons.search),
+              suffixIcon: searchController.text.isNotEmpty
+                  ? IconButton(icon: const Icon(Icons.clear), onPressed: onClear)
+                  : null,
+            ),
+          );
+          },
+        )
       ),
     );
   }
 
   @override
-  double get maxExtent => 70.h;
+  double get maxExtent => 65.h;
 
   @override
-  double get minExtent => 70.h;
+  double get minExtent => 55.h;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>

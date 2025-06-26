@@ -18,6 +18,7 @@ class NGORepository {
     try {
       final String url =
           AppUrls.getNearbyNGOApiUrl(latitude: lat, longitude: lon);
+          
       final response = await _apiServices.getApi(url);
       final elements = response['results'] as List<dynamic>;
       final List<NgoModel> ngos = elements.map<NgoModel>((e) {
