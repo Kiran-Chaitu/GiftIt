@@ -18,7 +18,10 @@ import 'package:giftit/repository/authentication_repos/login_repository.dart';
 import 'package:giftit/repository/authentication_repos/otp_repository.dart';
 import 'package:giftit/repository/authentication_repos/signup_repo.dart';
 import 'package:giftit/repository/google_maps_repository.dart';
+import 'package:giftit/repository/home_screen_repository.dart';
 import 'package:giftit/repository/ngo_repository.dart';
+
+import 'bloc/home_screen/home_screen_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,6 +50,7 @@ class MyApp extends StatelessWidget {
             BlocProvider(create: (_)=>NgoDescBloc(repository: NGORepository())),
             BlocProvider(create: (_)=>SignupMainBloc(signupRepository:SignupRepository())),
             BlocProvider(create: (_)=>OtpMainBloc(otpRepository: OtpRepository())),
+            BlocProvider(create: (_)=>HomeScreenBloc(homeScreenRepository: DonationRepository()))
           ],
           child: GetMaterialApp(
             debugShowCheckedModeBanner: false,
