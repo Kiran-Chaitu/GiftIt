@@ -4,6 +4,7 @@ class AvailableDonationModel {
   final String name;
   final String item;
   final String address;
+  final List<Map<String,dynamic>> items;
 
   AvailableDonationModel({
     required this.id,
@@ -11,6 +12,7 @@ class AvailableDonationModel {
     required this.name,
     required this.item,
     required this.address,
+    required this.items
   });
 
   factory AvailableDonationModel.fromJson(Map<String, dynamic> json) {
@@ -20,6 +22,7 @@ class AvailableDonationModel {
       name: json['name'] ?? '',
       item: json['item'] ?? '',
       address: json['address'] ?? '',
+      items: json['items'] ?? ''
     );
   }
 
@@ -30,6 +33,7 @@ class AvailableDonationModel {
       'name': name,
       'item': item,
       'address': address,
+      'items': items,
     };
   }
 }

@@ -21,8 +21,13 @@ class _ActiveDonationsTabState extends State<ActiveDonationsTab> {
           children: donation['items'].map<Widget>((item) {
             return ListTile(
               title: Text(item['name']),
-              subtitle: Text("Size: ${item['size']}, Pieces: ${item['pieces']}"),
+              subtitle: item.containsKey('size') && item.containsKey('pieces')
+                  ? Text("Size: ${item['size']}, Pieces: ${item['pieces']}")
+                  : item.containsKey('Qty')
+                  ? Text("Qty: ${item['Qty']}")
+                  : Text(""),
             );
+
           }).toList(),
         ),
         actions: [

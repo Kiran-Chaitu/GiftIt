@@ -7,6 +7,14 @@ final List<Map<String, dynamic>> activeDonations = [
       {'name': 'Pant', 'size': 'L', 'pieces': 1}
     ],
   },
+  {
+    'type': 'Food',
+    'location': 'Kakinada',
+    'items': [
+      {'name': 'Rice', 'Qty': '5',},
+      {'name': 'Panner Curry', 'Qty': '2',}
+    ],
+  },
   // ... more
 ];
 
