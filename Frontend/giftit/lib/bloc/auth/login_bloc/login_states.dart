@@ -34,10 +34,12 @@ class LoginState extends Equatable {
   final String email;
   final String password;
   final ApiResponse<UserModel> loginApiResponse;
+  final bool isPasswordVisible;
 
   const LoginState({
     this.email = '',
     this.password = '',
+    this.isPasswordVisible = false,
     this.loginApiResponse = const ApiResponse(Status.initial, null, null),
   });
 
@@ -45,14 +47,16 @@ class LoginState extends Equatable {
     String? email,
     String? password,
     ApiResponse<UserModel>? loginApiResponse,
+    bool? isPasswordVisible,
   }) {
     return LoginState(
       email: email ?? this.email,
       password: password ?? this.password,
       loginApiResponse: loginApiResponse ?? this.loginApiResponse,
+    isPasswordVisible: isPasswordVisible ?? this.isPasswordVisible,
     );
   }
 
   @override
-  List<Object?> get props => [email, password, loginApiResponse];
+  List<Object?> get props => [email, password, loginApiResponse,isPasswordVisible];
 }

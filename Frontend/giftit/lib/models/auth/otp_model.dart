@@ -6,6 +6,8 @@ class OtpModel {
 
   factory OtpModel.fromJson(Map<String, dynamic> json) {
     return OtpModel(
+
+      //he is sending token as a message
       token: json['token']?.toString(),
       message: json['message']?.toString(),
     );
