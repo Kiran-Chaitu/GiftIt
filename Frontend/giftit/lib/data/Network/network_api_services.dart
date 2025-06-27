@@ -11,14 +11,14 @@ class NetworkApiServices extends BaseApiServices {
   Future<dynamic> getApi(String url) async {
     dynamic responseJson;
     try {
-      final response =
-          await http.get(Uri.parse(url),
-          headers: {
-
-            'Content-Type': 'application/json',
-            "Authorization":"Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VySWQiOjEsInN1YiI6IjEiLCJpYXQiOjE3NTA2MDc4NzIsImV4cCI6MTc1MzE5OTg3Mn0.Do846AqLgK-xYRPopS18hWFtxRCkE7eUSrHXy51RosgKicnUgcUeQEXdL9nksUimGHDVtpUyjfNHrdtCr9visA"
-          },
-          ).timeout(const Duration(seconds: 20));
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+          "Authorization":
+              "Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VySWQiOjEsInN1YiI6IjEiLCJpYXQiOjE3NTA5OTk5OTUsImV4cCI6MTc1MzU5MTk5NX0.E6egC0fdXuEnnH9ubpElydJPN2aVtsYaPfgTRKty_hJ-Jogymdojx9tFquq8cnDDkIhCkdvA6E3_d3tOHQb1Kg"
+        },
+      ).timeout(const Duration(seconds: 15));
       responseJson = returnResponse(response);
       // debugPrint('Response: ${response.body}');
     } on SocketException {
@@ -38,8 +38,10 @@ class NetworkApiServices extends BaseApiServices {
           .post(Uri.parse(url),
               headers:header ?? {
                 'Content-Type': 'application/json',
+                "Authorization":
+                    "Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VySWQiOjEsInN1YiI6IjEiLCJpYXQiOjE3NTA5OTk5OTUsImV4cCI6MTc1MzU5MTk5NX0.E6egC0fdXuEnnH9ubpElydJPN2aVtsYaPfgTRKty_hJ-Jogymdojx9tFquq8cnDDkIhCkdvA6E3_d3tOHQb1Kg"
               },
-            body: jsonEncode(data))
+              body: jsonEncode(data))
           .timeout(const Duration(seconds: 15));
       debugPrint('Response: ${response.body}');
       responseJson = returnResponse(response);
@@ -51,7 +53,6 @@ class NetworkApiServices extends BaseApiServices {
     return responseJson;
   }
 
-
   @override
   Future<dynamic> putApi(String url, dynamic data) async {
     debugPrint('Put API');
@@ -59,13 +60,15 @@ class NetworkApiServices extends BaseApiServices {
     try {
       final response = await http
           .put(
-        Uri.parse(url),
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(data),
-      )
-          .timeout(const Duration(seconds: 20));
+            Uri.parse(url),
+            headers: {
+              'Content-Type': 'application/json; charset=UTF-8',
+              "Authorization":
+                  "Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VySWQiOjEsInN1YiI6IjEiLCJpYXQiOjE3NTA5OTk5OTUsImV4cCI6MTc1MzU5MTk5NX0.E6egC0fdXuEnnH9ubpElydJPN2aVtsYaPfgTRKty_hJ-Jogymdojx9tFquq8cnDDkIhCkdvA6E3_d3tOHQb1Kg"
+            },
+            body: jsonEncode(data),
+          )
+          .timeout(const Duration(seconds: 15));
 
       responseJson = returnResponse(response);
     } on SocketException {
@@ -78,10 +81,10 @@ class NetworkApiServices extends BaseApiServices {
 
   @override
   Future<dynamic> putApiWithMultipart(
-     String url,
-     Map<String, String> fields,
-     String fileFieldName,
-     File file,
+    String url,
+    Map<String, String> fields,
+    String fileFieldName,
+    File file,
   ) async {
     debugPrint('PUT API with Multipart (Single File)');
 
@@ -90,6 +93,8 @@ class NetworkApiServices extends BaseApiServices {
 
     request.headers.addAll({
       'Content-Type': 'multipart/form-data',
+      "Authorization":
+          "Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VySWQiOjEsInN1YiI6IjEiLCJpYXQiOjE3NTA5OTk5OTUsImV4cCI6MTc1MzU5MTk5NX0.E6egC0fdXuEnnH9ubpElydJPN2aVtsYaPfgTRKty_hJ-Jogymdojx9tFquq8cnDDkIhCkdvA6E3_d3tOHQb1Kg"
     });
 
     request.fields.addAll(fields);
@@ -104,8 +109,7 @@ class NetworkApiServices extends BaseApiServices {
     dynamic responseJson;
     try {
       final streamedResponse =
-
-      await request.send().timeout(const Duration(seconds: 20));
+          await request.send().timeout(const Duration(seconds: 20));
 
       final response = await http.Response.fromStream(streamedResponse);
 
@@ -121,7 +125,6 @@ class NetworkApiServices extends BaseApiServices {
 
     return responseJson;
   }
-
 
   dynamic returnResponse(http.Response response) {
     final statusCode = response.statusCode;
@@ -149,5 +152,4 @@ class NetworkApiServices extends BaseApiServices {
           'Error parsing response: $responseBody\nError: ${e.toString()}');
     }
   }
-
 }
