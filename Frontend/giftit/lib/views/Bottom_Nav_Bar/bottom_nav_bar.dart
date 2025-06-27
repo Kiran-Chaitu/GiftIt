@@ -7,6 +7,9 @@ import 'package:giftit/configs/colors/app_colors.dart';
 import 'package:giftit/configs/routes/route_names.dart';
 import 'package:giftit/views/NGO/ngo_screen.dart';
 import 'package:giftit/views/Profile/profile_page.dart';
+import 'package:giftit/views/home_screen/home_screen.dart';
+import '../home_screen/donations_status_screens/donation_status_screen.dart';
+
 
 
 class BottomNavBar extends StatefulWidget {
@@ -18,8 +21,8 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   final List<Widget> screens = [
-    NgoScreen(),
-    NgoScreen(),
+    HomeScreen(),
+    DonationStatusScreen(),
     NgoScreen(),
     ProfileScreen(),
   ];
@@ -65,7 +68,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
         onPressed: () {
-          Navigator.pushNamed(context, RoutesNames.dummy);
+          Navigator.pushNamed(context, RoutesNames.createPost);
         },
         backgroundColor: AppColors.darkGreen,
         mini: false,
