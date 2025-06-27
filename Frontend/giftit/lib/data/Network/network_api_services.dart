@@ -30,13 +30,13 @@ class NetworkApiServices extends BaseApiServices {
   }
 
   @override
-  Future<dynamic> postApi(String url, dynamic data) async {
+  Future<dynamic> postApi(String url, dynamic data,dynamic header) async {
     debugPrint('Post API');
     dynamic responseJson;
     try {
       final response = await http
           .post(Uri.parse(url),
-              headers: {
+              headers:header ?? {
                 'Content-Type': 'application/json',
               },
             body: jsonEncode(data))
