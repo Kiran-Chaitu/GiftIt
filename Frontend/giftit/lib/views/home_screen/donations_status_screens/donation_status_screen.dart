@@ -9,16 +9,18 @@ class DonationStatusScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("My Donations"),
-          backgroundColor: AppColors.lightGreen,
+          title: Text("My Donations",style: TextStyle(color: AppColors.background),),
+          backgroundColor: AppColors.primaryGreen,
           bottom: TabBar(
+            labelColor: AppColors.background,           // Selected tab text color
+            unselectedLabelColor: AppColors.lightGreen,  // Unselected tab text color
+            indicatorColor: AppColors.darkGreen,
             tabs: [
-              Tab(text: "Active"),
-              Tab(text: "Pending"),
-              Tab(text: "History"),
+              Tab(text: "Active",),
+              Tab(text: "Pending",),
             ],
           ),
         ),
@@ -26,7 +28,6 @@ class DonationStatusScreen extends StatelessWidget {
           children: [
             ActiveDonationsTab(),
             PendingDonationsTab(),
-            HistoryDonationsTab(),
           ],
         ),
       ),

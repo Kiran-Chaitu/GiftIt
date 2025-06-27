@@ -50,34 +50,26 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
       // Dummy data for now
       final donationStatus = [
         DonationStatusModel(
-          item: 'Books',
+          item: 'Food',
           imageUrl:
-          'https://cdn-icons-png.flaticon.com/512/3771/3771518.png',
+          'https://cdn-icons-png.flaticon.com/512/1046/1046754.png',
           status: 'Active',
         ),
         DonationStatusModel(
           item: 'Clothes',
           imageUrl:
-          'https://cdn-icons-png.flaticon.com/512/1853/1853743.png',
+          'https://img.icons8.com/ios11/200w/FFFFFF/clothes.png',
           status: 'Claimed',
         ),
         DonationStatusModel(
-          item: 'Food',
+          item: 'Books',
           imageUrl:
           'https://cdn-icons-png.flaticon.com/512/1046/1046754.png',
-          status: 'Cancelled',
+          status: 'cancelled',
         ),
       ];
 
       final availableDonations = [
-        AvailableDonationModel(
-          id: '1',
-          imageUrl:
-          'https://img.icons8.com/ios11/200w/FFFFFF/clothes.png',
-          name: 'Ankit Sharma',
-          item: 'Clothes',
-          address: 'Delhi, India',
-        ),
         AvailableDonationModel(
           id: '2',
           imageUrl:
@@ -85,15 +77,48 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
           name: 'Rina Patel',
           item: 'Food',
           address: 'Ahmedabad, India',
+          items: [
+            {'name': 'Shirt', 'pieces': 2},
+            {'name': 'Pant', 'pieces': 1},
+          ],
         ),
         AvailableDonationModel(
-          id: '3',
+          id: '2',
           imageUrl:
-          'https://thumbs.dreamstime.com/b/book-icon-black-background-flat-style-vector-illustration-168420237.jpg',
-          name: 'Mohit Raj',
-          item: 'Books',
-          address: 'Patna, India',
+          'https://icon-library.com/images/food-icon-white/food-icon-white-15.jpg',
+          name: 'Kishore Kumar',
+          item: 'Food',
+          address: 'Kakinada, India',
+          items: [
+            {'name': 'Shirt', 'pieces': 2},
+            {'name': 'Pant', 'pieces': 1},
+          ],
         ),
+        AvailableDonationModel(
+          id: '1',
+          imageUrl:
+          'https://img.icons8.com/ios11/200w/FFFFFF/clothes.png',
+          name: 'Ankit Sharma',
+          item: 'Clothes',
+          address: 'Delhi, India',
+          items: [
+            {'name': 'Shirt', 'pieces': 2},
+            {'name': 'Pant', 'pieces': 1},
+          ],
+        ),
+
+        // AvailableDonationModel(
+        //   id: '3',
+        //   imageUrl:
+        //   'https://thumbs.dreamstime.com/b/book-icon-black-background-flat-style-vector-illustration-168420237.jpg',
+        //   name: 'Mohit Raj',
+        //   item: 'Books',
+        //   address: 'Patna, India',
+        //   items: [
+        //     {'name': 'Shirt', 'pieces': 2},
+        //     {'name': 'Pant', 'pieces': 1},
+        //   ],
+        // ),
       ];
 
       emit(state.copyWith(

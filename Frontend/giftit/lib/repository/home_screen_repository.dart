@@ -47,6 +47,10 @@ class DonationRepository {
           name: 'Ankit Sharma',
           item: 'Clothes',
           address: 'Delhi, India',
+          items: [
+            {'name': 'Shirt', 'pieces': 2},
+            {'name': 'Pant', 'pieces': 1},
+          ],
         ),
         AvailableDonationModel(
           id: '2',
@@ -55,6 +59,10 @@ class DonationRepository {
           name: 'Rina Patel',
           item: 'Food',
           address: 'Ahmedabad, India',
+          items: [
+            {'name': 'Shirt', 'pieces': 2},
+            {'name': 'Pant', 'pieces': 1},
+          ],
         ),
         AvailableDonationModel(
           id: '3',
@@ -63,6 +71,10 @@ class DonationRepository {
           name: 'Mohit Raj',
           item: 'Books',
           address: 'Patna, India',
+          items: [
+            {'name': 'Shirt', 'pieces': 2},
+            {'name': 'Pant', 'pieces': 1},
+          ],
         ),
       ];
     }

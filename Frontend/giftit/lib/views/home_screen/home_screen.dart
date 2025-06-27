@@ -31,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Hello Vasu"),
+        // backgroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -57,26 +58,26 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 ///Section 1: Donation Count
                 DonationCountCard(numb: state.donationCount),
-                const SizedBox(height: 20),
+                // const SizedBox(height: 20),
 
                 ///Section 2: My Donations
-                const Text("My Donations", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 10),
-                SizedBox(
-                  height: 150,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: donationStatus.length,
-                    itemBuilder: (context, index) {
-                      final d = donationStatus[index];
-                      return DonationStatusCard(
-                        item: d.item,
-                        status: d.status,
-                        imageUrl: d.imageUrl,
-                      );
-                    },
-                  ),
-                ),
+                // const Text("My Donations", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                // const SizedBox(height: 10),
+                // SizedBox(
+                //   height: 150,
+                //   child: ListView.builder(
+                //     scrollDirection: Axis.horizontal,
+                //     itemCount: donationStatus.length,
+                //     itemBuilder: (context, index) {
+                //       final d = donationStatus[index];
+                //       return DonationStatusCard(
+                //         item: d.item,
+                //         status: d.status,
+                //         imageUrl: d.imageUrl,
+                //       );
+                //     },
+                //   ),
+                // ),
                 // Container(
                 // height: 200,
                 // width: 50,
@@ -109,6 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     name: d.name,
                     item: d.item,
                     address: d.address,
+                    items: d.items,
                   ),
                 )),
               ],
