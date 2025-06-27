@@ -8,10 +8,6 @@ import 'package:giftit/configs/routes/route_names.dart';
 import 'package:giftit/configs/themes/app_dimesnions.dart';
 import 'package:giftit/configs/themes/app_text_styles.dart';
 import 'package:giftit/data/API_Response/status.dart';
-import 'package:giftit/views/Profile/donation_history.dart';
-import 'package:giftit/views/Profile/edit_profile.dart';
-import 'package:giftit/views/Profile/change_password.dart';
-import 'package:giftit/views/Profile/ngo_vlounteer.dart';
 import 'package:giftit/views/widgets/custom_error_widget.dart';
 import 'package:giftit/views/widgets/custom_loader.dart';
 
