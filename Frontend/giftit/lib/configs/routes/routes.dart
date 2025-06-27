@@ -45,6 +45,7 @@ class Routes {
             builder: (BuildContext context) => SignupMainScreen());
       case RoutesNames.editProfile:
         final args = settings.arguments as Map<String, dynamic>;
+        
         return MaterialPageRoute(
             builder: (BuildContext context) => EditProfilePage(
               profileModel:  args['profileModel']

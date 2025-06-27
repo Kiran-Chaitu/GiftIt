@@ -8,6 +8,8 @@ import 'package:giftit/bloc/post_creation/post_creation_state.dart';
 import 'package:giftit/configs/colors/app_colors.dart';
 import 'package:giftit/configs/themes/app_dimesnions.dart';
 import 'package:giftit/configs/themes/app_text_styles.dart';
+import 'package:giftit/data/API_Response/status.dart';
+import 'package:giftit/views/widgets/custom_loader.dart';
 
 import 'widgets/widgets.dart';
 
@@ -117,7 +119,33 @@ class _PostFormState extends State<PostForm> {
                     return const UtilsForm();
                   }
                   return SizedBox.shrink();
-                })
+                }),
+                SizedBox(height: AppDimensions.sectionSpacing),
+                BlocBuilder<PostCreationBloc, PostCreationState>(
+                  builder: (context, state) {
+                    if (state.status == Status.loading) {
+                      return const CustomLoader();
+                    }
+                    return ElevatedButton(
+                      onPressed: () {
+                        
+                        // context
+                        //     .read<PostCreationBloc>()
+                        //     .add(SubmitPostForm());
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: AppColors.primaryGreen,
+                        foregroundColor: Colors.white,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 30.w, vertical: 12.h),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                      ),
+                      child: Text('Submit', style: AppTextStyles.heading3),
+                    );
+                  },
+                ),
               ],
             ),
           ),
