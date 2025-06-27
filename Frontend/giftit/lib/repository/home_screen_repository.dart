@@ -91,6 +91,6 @@ class DonationRepository {
 
   Future<void> claimDonation(String donationId) async {
     final body = {'donationId': donationId};
-    await _apiServices.postApi(AppUrls.claimDonationUrl(), body);
+    await _apiServices.postApi(AppUrls.claimDonationUrl(), body,null);
   }
 }
