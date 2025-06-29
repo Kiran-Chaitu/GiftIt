@@ -46,18 +46,19 @@ class ResetPasswordScreenBloc extends StatelessWidget {
 
         if (status == Status.failure) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
-        } else if (status == Status.success) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(message, style: const TextStyle(color: Colors.green)),
-          ));
-          Future.microtask(() {
+        } 
+        else if (status == Status.success) {
+          // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          //   content: Text(message, style: const TextStyle(color: Colors.green)),
+          // ));
+          // Future.microtask(() {
             // if (!mounted) return;
             Navigator.pushNamed(
               context,
-              RoutesNames.login, // Use your actual named route
+              RoutesNames.login,
               // arguments: token,
             );
-          });
+          // });
         }
       },
       builder: (context, state) {

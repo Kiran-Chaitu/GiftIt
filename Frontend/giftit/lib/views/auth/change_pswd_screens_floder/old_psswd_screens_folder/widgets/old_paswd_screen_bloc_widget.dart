@@ -43,24 +43,25 @@ class OldPasswordScreenBlocWidget extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(message,style: const TextStyle(color: Colors.red),)),
           );          
-        } else if (status == Status.success) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                message,
-                style: const TextStyle(color: Colors.green),
-              ),
-            ),
-          );
-          debugPrint("Old Password Response: ${state.oldPasswordResponse.data}");
-          Future.microtask(() {
-            // if (!mounted) return;
-            Navigator.pushNamed(
-              context,
-              RoutesNames.resetpswd, // Use your actual named route
-              arguments: state.oldPasswordResponse.data?.email,
-            );
-          });
+        } 
+        else if (status == Status.success) {
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //   SnackBar(
+            //     content: Text(
+            //       message,
+            //       style: const TextStyle(color: Colors.green),
+            //     ),
+            //   ),
+            // );
+            debugPrint("Old Password Response: ${state.oldPasswordResponse.data}");
+            Future.microtask(() {
+              // if (!mounted) return;
+              Navigator.pushNamed(
+                context,
+                RoutesNames.resetpswd, // Use your actual named route
+                arguments: state.oldPasswordResponse.data?.email,
+              );
+            });
         }
       },
       builder: (context, state) {
@@ -98,7 +99,7 @@ class OldPasswordScreenBlocWidget extends StatelessWidget {
                   : RedirectionButttonsWithText(
                       text: "Verify",
                       width: (size.width / 3) * 2,
-                      height: size.height / 10,
+                      height: size.height / 15,
                       onTap: () => _onSubmit(context),
                       buttonColor: AppColors.primaryGreen,
                     ),

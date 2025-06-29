@@ -149,14 +149,13 @@ class LoginScreenWithBloc extends StatelessWidget {
                 }
               );
             } else {
-              // Optional: Show login success
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(message, style: const TextStyle(color: Colors.green))),
-              );
+              // ScaffoldMessenger.of(context).showSnackBar(
+              //   SnackBar(content: Text(message, style: const TextStyle(color: Colors.green))),
+              // );
               Navigator.pushNamed(
                 context,
-                // RoutesNames.home,
-                RoutesNames.oldPassword,
+                RoutesNames.home,
+                // RoutesNames.oldPassword,
               );
             }
           } else if (loginStatus == Status.failure) {

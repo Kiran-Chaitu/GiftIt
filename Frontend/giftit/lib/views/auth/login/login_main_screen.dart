@@ -163,67 +163,69 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size siz=MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: AppColors.primaryGreen,
-      // appBar: AppBar(title: Text('Giftit')),
-      body: Stack(
-        children: [
-          Positioned(
-            top:0,left: 0,
-            // child: SizedBox(height: siz.height/5,),
-            child: Container(
-              height: siz.height/5,
-              child: Align(
-                alignment: Alignment.topLeft,
-                 child:Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 24.0,vertical: 24.0),
-                    child: Text("GiftIt", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold,color: Colors.white)),
-                  ),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: AppColors.primaryGreen,
+        // appBar: AppBar(title: Text('Giftit')),
+        body: Stack(
+          children: [
+            Positioned(
+              top:0,left: 0,
+              // child: SizedBox(height: siz.height/5,),
+              child: Container(
+                height: siz.height/5,
+                child: Align(
+                  alignment: Alignment.topLeft,
+                   child:Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 24.0,vertical: 24.0),
+                      child: Text("GiftIt", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold,color: Colors.white)),
+                    ),
+                ),
               ),
             ),
-          ),
-          Positioned(
-            top:siz.height/6 ,
-            child: Container(
-              height: (siz.height/6)*5,
-              width: siz.width,
-              decoration: BoxDecoration(
-                color: AppColors.background,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(50),
-                  topRight: Radius.circular(50),
-                )
-              ),
-              // child: Column(
-              //   // crossAxisAlignment: CrossAxisAlignment.start,
-              //   children: [
-              //     Text("Welcome Back",textAlign: TextAlign.left,),
-              //     SizedBox(height: 30,),
-              //     LoginScreenWithBloc(),
-              //   ],
-              // ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 40),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 24.0),
-                    child: Text("Welcome Back!", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 24.0),
-                    child: Text("Sign in to continue", style: TextStyle(color: Colors.grey)),
-                  ),
-                  const SizedBox(height: 30),
-                  const LoginScreenWithBloc(),
-                ],
-              ),
-
-            ),
-          )
-        ],
-      ),
+            Positioned(
+              top:siz.height/6 ,
+              child: Container(
+                height: (siz.height/6)*5,
+                width: siz.width,
+                decoration: BoxDecoration(
+                  color: AppColors.background,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(50),
+                    topRight: Radius.circular(50),
+                  )
+                ),
+                // child: Column(
+                //   // crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     Text("Welcome Back",textAlign: TextAlign.left,),
+                //     SizedBox(height: 30,),
+                //     LoginScreenWithBloc(),
+                //   ],
+                // ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 40),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 24.0),
+                      child: Text("Welcome Back!", style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 24.0),
+                      child: Text("Sign in to continue", style: TextStyle(color: Colors.grey)),
+                    ),
+                    const SizedBox(height: 30),
+                    const LoginScreenWithBloc(),
+                  ],
+                ),
       
+              ),
+            )
+          ],
+        ),
+        
+      ),
     );
   }
 }

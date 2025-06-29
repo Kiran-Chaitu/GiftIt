@@ -3,10 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:giftit/bloc/Google_Map/google_map_bloc.dart';
 import 'package:giftit/bloc/Google_Map/google_map_event.dart';
 import 'package:giftit/bloc/Google_Map/google_map_state.dart';
+import 'package:giftit/configs/colors/app_colors.dart';
 import 'package:giftit/configs/themes/app_text_styles.dart';
 import 'package:giftit/models/ngo_models/ngo_model.dart';
-import 'package:giftit/views/post_createdialog/widgets/just_button.dart';
 import 'package:giftit/views/widgets/custom_loader.dart';
+import 'package:giftit/views/widgets/redirection_butttons_with_text.dart';
 
 class DataDisplay extends StatelessWidget {
   final NgoModel ngo;
@@ -32,15 +33,16 @@ class DataDisplay extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    height: siz.height / 4,
-                    width: siz.height / 4,
+                    height: siz.height / 5,
+                    width: siz.height / 5,
                     decoration: BoxDecoration(
-                      color: Colors.pink,
+                      // color: Colors.pink,
                       shape: BoxShape.circle,
                       image: DecorationImage(
                         image: NetworkImage(
                             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhuZMsc_-2l-WqV3xpCTHqi76yBY3qmK4FAQ&s"),
-                        fit: BoxFit.contain,
+                            // "https://png.pngtree.com/png-vector/20220417/ourmid/pngtree-women-nature-logo-png-image_4546651.png"),
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
@@ -89,12 +91,19 @@ class DataDisplay extends StatelessWidget {
                 children: [
                   Align(
                     alignment: Alignment.center,
-                    child: JustButton(
-                      text: "DONATE",
-                      callBack: () {},
-                      height: siz.height / 10,
-                      width: (siz.width / 3) * 2,
-                    ),
+                    // child: JustButton(
+                    //   text: "DONATE",
+                    //   callBack: () {},
+                    //   height: siz.height / 10,
+                    //   width: (siz.width / 3) * 2,
+                    // ),
+                    child: RedirectionButttonsWithText(
+                        height: siz.height/15,
+                        width:  (siz.width/3)*2,
+                         onTap: () {},
+                        text:"DONATE",
+                        buttonColor: AppColors.primaryGreen,
+                      ),
                   ),
                   SizedBox(
                     height: 10,
@@ -104,16 +113,28 @@ class DataDisplay extends StatelessWidget {
                       if (state.isRedirecting) {
                         return CustomLoader();
                       }
-                      return JustButton(
-                        text: "LOCATE",
-                        callBack: () {
+                      // return JustButton(
+                      //   text: "LOCATE",
+                      //   callBack: () {
+                      //     context
+                      //         .read<GoogleMapBloc>()
+                      //         .add(LoadSelectedNgo(selectedNgo: ngo));
+                      //     // Navigator.pushNamed(context, RoutesNames.showGoogleMap);
+                      //   },
+                      //   height: siz.height / 20,
+                      //   width: (siz.width / 3) * 2,
+                      // );
+                      return RedirectionButttonsWithText(
+                        height: siz.height/15,
+                        width:  (siz.width/3)*2,
+                         onTap: () {
                           context
                               .read<GoogleMapBloc>()
                               .add(LoadSelectedNgo(selectedNgo: ngo));
                           // Navigator.pushNamed(context, RoutesNames.showGoogleMap);
                         },
-                        height: siz.height / 20,
-                        width: (siz.width / 3) * 2,
+                        text:"Locate",
+                        buttonColor: AppColors.primaryGreen,
                       );
                     },
                   ),

@@ -36,6 +36,8 @@ class OldPasswordBloc extends Bloc<OldPasswordEvent, OldPasswordState> {
         };
         final result = await resetRepository.verifyOldPswd(body , headers);
         emit(state.copyWith(oldPasswordResponse:result));
+        await Future.delayed(const Duration(milliseconds: 200));
+        emit(state.copyWith(oldPasswordResponse: const ApiResponse.initial()));
       } catch (e) {
         emit(state.copyWith(oldPasswordResponse: ApiResponse.failure(e.toString())));
         await Future.delayed(const Duration(milliseconds: 200));

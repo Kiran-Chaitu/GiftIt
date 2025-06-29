@@ -82,47 +82,47 @@ class SignupMainBloc extends Bloc<SignupEvent, SignupState> {
   //   }
   // }
   void _onSignupApiCalled(SignupApiCalled event, Emitter<SignupState> emit) async {
-  emit(state.copyWith(signupApiResponse: const ApiResponse.loading()));
+    emit(state.copyWith(signupApiResponse: const ApiResponse.loading()));
 
-  final data = {
-    'userName': state.username,
-    'email': state.email,
-    'userPhoneNumber': state.phoneNumber,
-    'userLocation': state.cityLocation,
-    'password': state.password,
-  };
+    final data = {
+      'userName': state.username,
+      'email': state.email,
+      'userPhoneNumber': state.phoneNumber,
+      'userLocation': state.cityLocation,
+      'password': state.password,
+    };
 
-  try {
-    final apiResponse = await signupRepository.signupApi(data,null);
+    try {
+      final apiResponse = await signupRepository.signupApi(data,null);
 
-    if (apiResponse.status == Status.success) {
-      final signupModel = apiResponse.data;
+      if (apiResponse.status == Status.success) {
+        final signupModel = apiResponse.data;
 
-      if (signupModel != null && signupModel.statusCode == 403) {
-        // User needs OTP verification
-        emit(state.copyWith(signupApiResponse: ApiResponse.success(signupModel)));
-        // Navigation to OTP screen should happen in the UI using BlocListener when state.signupApiResponse.data.statusCode == 403
-      } else if (signupModel != null && signupModel.statusCode == 201) {
-        // Signup success
-        
-        emit(state.copyWith(signupApiResponse: ApiResponse.success(signupModel)));
+        if (signupModel != null && signupModel.statusCode == 403) {
+          // User needs OTP verification
+          emit(state.copyWith(signupApiResponse: ApiResponse.success(signupModel)));
+          // Navigation to OTP screen should happen in the UI using BlocListener when state.signupApiResponse.data.statusCode == 403
+        } else if (signupModel != null && signupModel.statusCode == 201) {
+          // Signup success
+          
+          emit(state.copyWith(signupApiResponse: ApiResponse.success(signupModel)));
+        } else {
+          emit(state.copyWith(signupApiResponse: ApiResponse.failure(signupModel?.message ?? "Signup failed")));
+          await Future.delayed(const Duration(milliseconds: 200));
+          emit(state.copyWith(signupApiResponse: const ApiResponse.initial()));
+        }
+
       } else {
-        emit(state.copyWith(signupApiResponse: ApiResponse.failure(signupModel?.message ?? "Signup failed")));
-        await Future.delayed(const Duration(milliseconds: 200));
-        emit(state.copyWith(signupApiResponse: const ApiResponse.initial()));
+        emit(state.copyWith(signupApiResponse: ApiResponse.failure(apiResponse.message ?? "Signup failed")));
+        // await Future.delayed(const Duration(milliseconds: 200));
+        // emit(state.copyWith(signupApiResponse: const ApiResponse.initial()));
       }
 
-    } else {
-      emit(state.copyWith(signupApiResponse: ApiResponse.failure(apiResponse.message ?? "Signup failed")));
-      await Future.delayed(const Duration(milliseconds: 200));
-      emit(state.copyWith(signupApiResponse: const ApiResponse.initial()));
+    } catch (e) {
+      emit(state.copyWith(signupApiResponse: ApiResponse.failure("Error: ${e.toString()}")));
+      // await Future.delayed(const Duration(milliseconds: 200));
+      // emit(state.copyWith(signupApiResponse: const ApiResponse.initial()));
     }
-
-  } catch (e) {
-    emit(state.copyWith(signupApiResponse: ApiResponse.failure("Error: ${e.toString()}")));
-    await Future.delayed(const Duration(milliseconds: 200));
-    emit(state.copyWith(signupApiResponse: const ApiResponse.initial()));
-  }
 }
 
 

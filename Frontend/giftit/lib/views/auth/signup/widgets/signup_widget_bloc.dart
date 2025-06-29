@@ -57,9 +57,9 @@ class SignupScreenBloc extends StatelessWidget {
         else if (status == Status.success && signupData != null) {
           final statusCode = signupData.statusCode;
           debugPrint("Status Code in listener: $statusCode");
-          ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text(message)),
-            );
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //     SnackBar(content: Text(message)),
+          //   );
           
           if (statusCode == 201) {
             Navigator.pushNamed(

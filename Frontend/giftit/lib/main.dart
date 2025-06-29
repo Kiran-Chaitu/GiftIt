@@ -66,8 +66,6 @@ class MyApp extends StatelessWidget {
                 create: (_) =>
                     GoogleMapBloc(repository: GoogleMapsRepository())),
             BlocProvider(
-                create: (_) => LoginBloc(loginRepository: LoginRepository())),
-            BlocProvider(
                 create: (_) => NgoDescBloc(repository: NGORepository())),
             BlocProvider(
                 create: (_) =>

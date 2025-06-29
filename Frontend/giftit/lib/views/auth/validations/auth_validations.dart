@@ -11,18 +11,18 @@ class ValidationsOfAuth{
   }
   
   static String loginValidation(LoginState tempLoginState ){
-     if(!patternMatch(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$', tempLoginState.email,))return  "Enter valid email";
-     if(!patternMatch(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])[A-Za-z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{8,}$', tempLoginState.password))return "Enter Strong Password";
+     if(!patternMatch(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$', tempLoginState.email.trim(),))return  "Enter valid email";
+     if(!patternMatch(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])[A-Za-z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{8,}$', tempLoginState.password.trim()))return "Enter Strong Password";
      return "";
   }
   static String resetPasswordValidation(ResetPasswordState tempResetPswdState ){
     //  if(!patternMatch(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$', tempLoginState.email,))return  "Enter valid email";
-     if(!patternMatch(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])[A-Za-z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{8,}$', tempResetPswdState.newPassword))return "Enter Strong Password";
-     if(tempResetPswdState.newPassword != tempResetPswdState.confirmPassword)return "Password mismatch";
+     if(!patternMatch(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])[A-Za-z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{8,}$', tempResetPswdState.newPassword.trim()))return "Enter Strong Password";
+     if(tempResetPswdState.newPassword.trim() != tempResetPswdState.confirmPassword.trim())return "Password mismatch";
      return "";
   }
   static String oldPasswordValidation(OldPasswordState tempOldPswdState ){
-     if(!patternMatch(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])[A-Za-z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{8,}$', tempOldPswdState.oldPassword))return "Enter valid Old Password";
+     if(!patternMatch(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])[A-Za-z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{8,}$', tempOldPswdState.oldPassword.trim()))return "Enter valid Old Password";
     //  if(tempResetPswdState.newPassword != tempResetPswdState.confirmPassword)return "Password mismatch";
      return "";
   }
@@ -33,9 +33,9 @@ class ValidationsOfAuth{
     // email validation
     // if(!patternMatch(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$', tempSignupState.email,))return  "Enter valid email";
     //phone validation
-    if(!patternMatch(r'^\d{10}$', tempSignupState.phoneNumber,))return  "Enter valid phone Number";
+    if(!patternMatch(r'^\d{10}$', tempSignupState.phoneNumber.trim(),))return  "Enter valid phone Number";
     //password validation
-    if(!patternMatch(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])[A-Za-z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{8,}$', tempSignupState.password))return "Enter Strong Password";
+    if(!patternMatch(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])[A-Za-z\d!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{8,}$', tempSignupState.password.trim()))return "Enter Strong Password";
     return "";        
   }
 }
