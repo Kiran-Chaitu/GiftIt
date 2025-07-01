@@ -27,6 +27,21 @@ class _PostFormState extends State<PostForm> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColors.primaryGreen,
+        title: Text(
+          'Post Creation',
+          style: AppTextStyles.heading2.copyWith(color: Colors.white),
+        ),
+        centerTitle: true,
+        elevation: 0,
+        leading: BackButton(
+          color: Colors.white,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.all(AppDimensions.screenPadding),
@@ -128,7 +143,6 @@ class _PostFormState extends State<PostForm> {
                     }
                     return ElevatedButton(
                       onPressed: () {
-                        
                         // context
                         //     .read<PostCreationBloc>()
                         //     .add(SubmitPostForm());

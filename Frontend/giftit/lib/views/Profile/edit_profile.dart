@@ -314,13 +314,13 @@ class _EditProfilePageState extends State<EditProfilePage> {
     if (!status.isGranted) {
       if (await Permission.storage.request().isGranted) {
         // Permission granted
-        print("Storage permission granted");
+        debugPrint("Storage permission granted");
       } else {
         // Permission denied
-        print("Storage permission denied");
+        debugPrint("Storage permission denied");
       }
     } else {
-      print("Storage permission already granted");
+      debugPrint("Storage permission already granted");
     }
   }
 

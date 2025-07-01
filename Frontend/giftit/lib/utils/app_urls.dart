@@ -2,12 +2,14 @@ import 'package:flutter/rendering.dart';
 import 'package:giftit/utils/tokens.dart';
 
 class AppUrls {
+  static final String ipAdress = '10.16.49.93';
+  static final String baseUrl = 'http://$ipAdress:8080';
   static final String googlePhotosUrl =
       'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=';
 
-      static  final String getProfileUrl ='http://10.16.49.252:8080/profile-service/api/profile-details/user/';
+      static  final String getProfileUrl ='$baseUrl/profile-service/api/profile-details/user/';
 
-      static final String editUserDataUrl='http://10.16.49.252:8080/profile-service/api/profile-details/user/update/';
+      static final String editUserDataUrl='$baseUrl/profile-service/api/profile-details/user/update/';
 
   static String getDirectionsPolyLineUrl({
     required double originLatitude,
