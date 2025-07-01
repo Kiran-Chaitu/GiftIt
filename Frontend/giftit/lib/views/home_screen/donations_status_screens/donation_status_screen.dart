@@ -13,23 +13,15 @@ class DonationStatusScreen extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
-            "My Donations",
-            style: TextStyle(color: AppColors.background),
-          ),
+          title: Text("My Donations",style: TextStyle(color: AppColors.background),),
           backgroundColor: AppColors.primaryGreen,
           bottom: TabBar(
-            labelColor: AppColors.background, // Selected tab text color
-            unselectedLabelColor:
-                AppColors.lightGreen, // Unselected tab text color
+            labelColor: AppColors.background,           // Selected tab text color
+            unselectedLabelColor: AppColors.lightGreen,  // Unselected tab text color
             indicatorColor: AppColors.darkGreen,
             tabs: [
-              Tab(
-                text: "Active",
-              ),
-              Tab(
-                text: "Pending",
-              ),
+              Tab(text: "Active",),
+              Tab(text: "Pending",),
             ],
           ),
         ),

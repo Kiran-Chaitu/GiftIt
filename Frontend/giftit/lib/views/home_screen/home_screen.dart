@@ -28,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Hello Vasu"),
+        // backgroundColor: Colors.white,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -101,16 +102,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 10),
                 ...available.map((d) => Padding(
-                      padding: const EdgeInsets.only(bottom: 20),
-                      child: AvailableDonationCard(
-                        id: d.id,
-                        imageUrl: d.imageUrl,
-                        name: d.name,
-                        item: d.item,
-                        address: d.address,
-                        items: d.items,
-                      ),
-                    )),
+                  padding: const EdgeInsets.only(bottom: 20),
+                  child: AvailableDonationCard(
+                    id: d.id,
+                    imageUrl: d.imageUrl,
+                    name: d.name,
+                    item: d.item,
+                    address: d.address,
+                    items: d.items,
+                  ),
+                )),
               ],
             );
           },

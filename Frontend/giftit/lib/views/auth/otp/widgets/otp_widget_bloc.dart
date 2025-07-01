@@ -3,13 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:giftit/bloc/auth/otp/otp_main_bloc.dart';
 import 'package:giftit/configs/colors/app_colors.dart';
+import 'package:giftit/configs/routes/route_names.dart';
 import 'package:giftit/data/API_Response/status.dart';
 import 'package:giftit/views/widgets/custom_loader.dart';
 import 'package:giftit/views/widgets/redirection_butttons_with_text.dart';
 
 class OtpScreenBloc extends StatefulWidget {
-  final String email;
-  const OtpScreenBloc({super.key, required this.email});
+  final String email,type;
+  const OtpScreenBloc({super.key, required this.email,required this.type});
 
   @override
   State<OtpScreenBloc> createState() => _OtpScreenBlocState();
@@ -31,12 +32,12 @@ class _OtpScreenBlocState extends State<OtpScreenBloc> {
   }
 
   void _onOtpSubmit(BuildContext context) {
-    final otp = _controllers.map((c) => c.text).join();
+    final otp = _controllers.map((c) => c.text.trim()).join();
     if (otp.length < 4) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Enter 4-digit OTP")));
       return;
     }
-    context.read<OtpMainBloc>().add(OtpSubmitted(otp));
+    context.read<OtpMainBloc>().add(OtpSubmitted(otp,widget.email,widget.type));
   }
 
   Widget _buildOtpBox(int index) {
@@ -81,6 +82,25 @@ class _OtpScreenBlocState extends State<OtpScreenBloc> {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(message, style: const TextStyle(color: Colors.green)),
           ));
+
+          Future.microtask(() {
+            if (!mounted) return;
+            if(widget.type == "authVerification") {
+              Navigator.pushNamed(
+                context,
+                RoutesNames.home, // Use your actual named route
+                arguments: state.otpApiResponse.data?.token,
+                // arguments:widget.email,  
+              );
+            }
+            else if(widget.type == "passwordVerification") {
+              Navigator.pushNamed(
+                context,
+                RoutesNames.resetpswd,
+                arguments:widget.email,  
+              );
+            }
+          });
         }
       },
       builder: (context, state) {

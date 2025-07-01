@@ -15,9 +15,12 @@ class DonationCountCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(30),
             color: Colors.black,
             gradient: LinearGradient(
-                colors: [AppColors.primaryGreen, AppColors.darkGreen],
-                stops: [0.3, 1.0])),
-        child: Column(
+
+                colors: [AppColors.primaryGreen,AppColors.darkGreen],
+                stops: [0.3,1.0]
+            )
+        ),
+        child:  Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -25,16 +28,9 @@ class DonationCountCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Donations :",
-                    style:
-                        AppTextStyles.heading1.copyWith(color: Colors.white)),
-                Text(
-                  numb.toString(),
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold),
-                )
+
+                Text("Donations :",style: AppTextStyles.heading1.copyWith(color: Colors.white)),
+                Text(numb.toString(),style: TextStyle(color: Colors.white,fontSize: 40,fontWeight: FontWeight.bold),)
               ],
             )
           ],
