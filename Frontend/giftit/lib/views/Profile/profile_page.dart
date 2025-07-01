@@ -126,11 +126,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.white,
-                    border: Border.all(color: Colors.black, width: 0.2),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.3),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                    border: Border.all(color: Colors.black12, width: 0.5),
                   ),
-                  child: Center(
+                  child: ClipOval(
                     child: Image.network(
-                      'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
+                      profileData.profilePhotoUrl?.isNotEmpty == true
+                          ? profileData.profilePhotoUrl!
+                          : 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Icon(Icons.error);
+                      },
                     ),
                   ),
                 ),
@@ -178,7 +192,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           if (targetPage != null) {
             if (targetPage == RoutesNames.editProfile) {
               Navigator.pushNamed(context, targetPage, arguments: {
-                'profileModel': context.read<ProfileBloc>().state.profileApiResponse.data,
+                'profileModel':
+                    context.read<ProfileBloc>().state.profileApiResponse.data,
               });
             }
             Navigator.pushNamed(

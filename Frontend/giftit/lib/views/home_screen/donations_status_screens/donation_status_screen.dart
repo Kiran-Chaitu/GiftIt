@@ -3,9 +3,10 @@ import 'package:giftit/configs/colors/app_colors.dart';
 import 'package:giftit/views/home_screen/donations_status_screens/pending_donations_tab.dart';
 
 import 'active_donations_tab.dart';
-import 'donation_history.dart';
 
 class DonationStatusScreen extends StatelessWidget {
+  const DonationStatusScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(

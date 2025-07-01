@@ -4,6 +4,7 @@ class AvailableDonationModel {
   final String name;
   final String item;
   final String address;
+
   final List<Map<String,dynamic>> items;
 
   AvailableDonationModel({

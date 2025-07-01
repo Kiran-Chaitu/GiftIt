@@ -21,14 +21,15 @@ class ProfileModel {
     final data = json['response'];
     return ProfileModel(
       userId: data['user_id'],
-      displayName: data['display_name'],
+      displayName: data['user_name'],
       profilePhotoUrl: data['profile_photo_url'],
-      location: data['location'],
-      mobileNumber: data['mobile_number'],
+      location: data['user_location'] ?? '',
+      mobileNumber: data['mobile_number'] ?? '',
       createdAt: DateTime.parse(data['created_at']),
       updatedAt: DateTime.parse(data['updated_at']),
     );
   }
+
 
   /// Use this only when sending data to the edit profile API
   Map<String, dynamic> toUpdateJson() {

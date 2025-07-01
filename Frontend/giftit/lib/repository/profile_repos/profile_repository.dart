@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:giftit/data/API_Response/api_response.dart';
 import 'package:giftit/data/Network/network_api_services.dart';
@@ -13,9 +12,10 @@ class ProfileRepository {
     try {
       dynamic response = await _apiServices.getApi(AppUrls.getProfileUrl);
       debugPrint("Response from profile API: $response");
-
-      if (response != null && response["response"] != null) {
+    debugPrint('Response from profile API: ${response['response'].toString()}');
+      if (response != null && response["response"] != null){
         final profile = ProfileModel.fromJson(response);
+        debugPrint('Profile data fetched: ${profile.toString()}');
         return ApiResponse.success(profile);
       } else {
         return ApiResponse.failure("Invalid response format");

@@ -9,7 +9,8 @@ import '../../repository/home_screen_repository.dart';
 
 class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   final DonationRepository homeScreenRepository;
-  HomeScreenBloc({required this.homeScreenRepository}) : super(const HomeScreenState()) {
+  HomeScreenBloc({required this.homeScreenRepository})
+      : super(const HomeScreenState()) {
     on<LoadHomeScreen>(_onLoadHomeScreen);
     on<ClaimDonation>(_onClaimDonation);
   }
@@ -21,7 +22,6 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
       DonationsStatusResponse: const ApiResponse.loading(),
       donationCount: 0,
     ));
-
 
     // try {
     //   final donationCount = await homeScreenRepository.fetchDonationCount();
@@ -45,18 +45,19 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
 
     await Future.delayed(Duration(seconds: 1)); // Simulate delay
 
-
     try {
       // Dummy data for now
       final donationStatus = [
         DonationStatusModel(
           item: 'Food',
+
           imageUrl:
           'https://cdn-icons-png.flaticon.com/512/1046/1046754.png',
           status: 'Active',
         ),
         DonationStatusModel(
           item: 'Clothes',
+
           imageUrl:
           'https://img.icons8.com/ios11/200w/FFFFFF/clothes.png',
           status: 'Claimed',
@@ -122,23 +123,23 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
       ];
 
       emit(state.copyWith(
-        availableDonationsResponse:
-        ApiResponse.success(availableDonations),
+        availableDonationsResponse: ApiResponse.success(availableDonations),
         DonationsStatusResponse: ApiResponse.success(donationStatus),
         donationCount: 127,
       ));
     } catch (e) {
       emit(state.copyWith(
         availableDonationsResponse:
-        ApiResponse.failure("Failed to load available donations"),
+            ApiResponse.failure("Failed to load available donations"),
         DonationsStatusResponse:
-        ApiResponse.failure("Failed to load my donations"),
+            ApiResponse.failure("Failed to load my donations"),
         donationCount: 0,
       ));
     }
   }
 
-  Future<void> _onClaimDonation(ClaimDonation event, Emitter<HomeScreenState> emit) async {
+  Future<void> _onClaimDonation(
+      ClaimDonation event, Emitter<HomeScreenState> emit) async {
     // Optionally show loading or update state
     try {
       // Call backend to claim donation (not implemented here)

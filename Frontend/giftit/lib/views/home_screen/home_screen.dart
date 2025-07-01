@@ -3,13 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:giftit/bloc/home_screen/home_screen_event.dart';
 import 'package:giftit/views/home_screen/widgets/available_donations_card.dart';
 import 'package:giftit/views/home_screen/widgets/donation_count_card.dart';
-import 'package:giftit/views/home_screen/widgets/donation_status_card.dart';
 import 'package:giftit/views/widgets/custom_error_widget.dart';
 import 'package:giftit/views/widgets/custom_loader.dart';
 import '../../bloc/home_screen/home_screen_bloc.dart';
 import '../../bloc/home_screen/home_screen_state.dart';
 import '../../data/API_Response/status.dart';
-
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -21,7 +19,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     context.read<HomeScreenBloc>().add(LoadHomeScreen());
   }
@@ -45,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
             if (state.availableDonationsResponse.status == Status.failure ||
                 state.DonationsStatusResponse.status == Status.failure) {
               return Center(child: CustomErrorWidget(
-                onRetry: () async{
+                onRetry: () async {
                   context.read<HomeScreenBloc>().add(LoadHomeScreen());
                 },
               ));
@@ -100,7 +97,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(height: 20),
 
                 ///Section 3: Available Donations
-                const Text("Available Donations", style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                const Text("Available Donations",
+                    style:
+                        TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
                 const SizedBox(height: 10),
                 ...available.map((d) => Padding(
                   padding: const EdgeInsets.only(bottom: 20),
