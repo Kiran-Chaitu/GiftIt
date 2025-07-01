@@ -79,9 +79,9 @@ class _OtpScreenBlocState extends State<OtpScreenBloc> {
         if (status == Status.failure) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
         } else if (status == Status.success) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(message, style: const TextStyle(color: Colors.green)),
-          ));
+          // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          //   content: Text(message, style: const TextStyle(color: Colors.green)),
+          // ));
 
           Future.microtask(() {
             if (!mounted) return;
@@ -110,7 +110,7 @@ class _OtpScreenBlocState extends State<OtpScreenBloc> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: List.generate(4, _buildOtpBox),
             ),
-            const SizedBox(height: 32),
+            const SizedBox(height: 50),
             state.otpApiResponse.status == Status.loading
                 ? const CustomLoader()
                 // : ElevatedButton(
@@ -120,7 +120,7 @@ class _OtpScreenBlocState extends State<OtpScreenBloc> {
                 :RedirectionButttonsWithText(
                   onTap:()=> _onOtpSubmit(context),
                   text: "Verify", 
-                  width: (siz.width/3)*2, height: siz.height/10,
+                  width: (siz.width/3)*2, height: siz.height/15,
                   buttonColor: AppColors.primaryGreen,
                 )
           ],

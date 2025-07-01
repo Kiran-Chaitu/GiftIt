@@ -173,8 +173,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(state.copyWith(loginApiResponse: const ApiResponse.loading()));
 
     final data = {
-      'email': state.email,
-      'password': state.password
+      'email': state.email.trim(),
+      'password': state.password.trim()
     };
     try {
       final response = await loginRepository.loginApi(data);
@@ -197,7 +197,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           loginApiResponse: ApiResponse.failure(response.data?.message ?? "Invalid credentials"),  
         ));
       }
-      await Future.delayed(const Duration(milliseconds: 200));
+      // await Future.delayed(const Duration(milliseconds: 200));
       emit(state.copyWith(loginApiResponse: ApiResponse.initial()));
     } catch (e) {
       debugPrint(e.toString());
@@ -208,12 +208,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             message: "Unverified user",
           )),
         ));
+        emit(state.copyWith(loginApiResponse: ApiResponse.initial()));
         return; // Early return if unverified
       }
       emit(state.copyWith(
         loginApiResponse: ApiResponse.failure("Login failed: ${e.toString()}"),
       ));
-      await Future.delayed(const Duration(milliseconds: 200));
+      // await Future.delayed(const Duration(milliseconds: 200));
       emit(state.copyWith(loginApiResponse: ApiResponse.initial()));
     }
   }

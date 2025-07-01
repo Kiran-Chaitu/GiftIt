@@ -41,7 +41,6 @@ class DataDisplay extends StatelessWidget {
                       image: DecorationImage(
                         image: NetworkImage(
                             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhuZMsc_-2l-WqV3xpCTHqi76yBY3qmK4FAQ&s"),
-                        // "https://png.pngtree.com/png-vector/20220417/ourmid/pngtree-women-nature-logo-png-image_4546651.png"),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -98,12 +97,13 @@ class DataDisplay extends StatelessWidget {
                     //   width: (siz.width / 3) * 2,
                     // ),
                     child: RedirectionButttonsWithText(
-                      height: siz.height / 15,
-                      width: (siz.width / 3) * 2,
-                      onTap: () {},
-                      text: "DONATE",
-                      buttonColor: AppColors.primaryGreen,
-                    ),
+
+                        height: siz.height/15,
+                        width:  (siz.width/3)*2,
+                         onTap: () {},
+                        text:"DONATE",
+                        buttonColor: AppColors.primaryGreen,
+                      ),
                   ),
                   SizedBox(
                     height: 10,
@@ -125,15 +125,18 @@ class DataDisplay extends StatelessWidget {
                       //   width: (siz.width / 3) * 2,
                       // );
                       return RedirectionButttonsWithText(
-                        height: siz.height / 15,
-                        width: (siz.width / 3) * 2,
-                        onTap: () {
+
+                        height: siz.height/15,
+                        width:  (siz.width/3)*2,
+                         onTap: () {
+
                           context
                               .read<GoogleMapBloc>()
                               .add(LoadSelectedNgo(selectedNgo: ngo));
                           // Navigator.pushNamed(context, RoutesNames.showGoogleMap);
                         },
-                        text: "Locate",
+                        text:"Locate",
+
                         buttonColor: AppColors.primaryGreen,
                       );
                     },

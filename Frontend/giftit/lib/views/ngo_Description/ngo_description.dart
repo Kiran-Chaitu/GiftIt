@@ -12,17 +12,17 @@ class NgoDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {    
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      body:
-        BlocBuilder<NgoDescBloc,NgoDescState>(
-          builder:(context,apiRecieveState){
-            return DataDisplay(ngo: ngo,);
-            // return Center(child: CircularProgressIndicator());            
-          }
-        )
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: AppColors.background,
+        body:
+          BlocBuilder<NgoDescBloc,NgoDescState>(
+            builder:(context,apiRecieveState){
+              return DataDisplay(ngo: ngo,);
+              // return Center(child: CircularProgressIndicator());            
+            }
+          )
+      ),
     );
-  }
-
-  
+  } 
 }

@@ -47,14 +47,14 @@ class _EmailScreenBlocWidgetState extends State<EmailScreenBlocWidget> {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
         } 
         else if (status == Status.success) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                message,
-                style: const TextStyle(color: Colors.green),
-              ),
-            ),
-          );
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(
+          //     content: Text(
+          //       message,
+          //       style: const TextStyle(color: Colors.green),
+          //     ),
+          //   ),
+          // );
           Future.microtask(() {
             Navigator.pushNamed(
               context,
@@ -101,13 +101,13 @@ class _EmailScreenBlocWidgetState extends State<EmailScreenBlocWidget> {
                   ),
                 ),
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 50),
               state.response.status == Status.loading
                   ? const CustomLoader()
                   : RedirectionButttonsWithText(
                       text: "Send otp",
                       width: (size.width / 3) * 2,
-                      height: size.height / 10,
+                      height: size.height / 15,
                       onTap: _onSubmit,
                       buttonColor: AppColors.primaryGreen,
                     ),

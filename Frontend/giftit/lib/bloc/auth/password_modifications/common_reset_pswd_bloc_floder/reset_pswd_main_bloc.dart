@@ -24,13 +24,18 @@ class ResetPasswordBloc extends Bloc<ResetPasswordEvent, ResetPasswordState> {
     try {
       final data = {
         'email': event.email,
-        'newPassword': state.newPassword,
+        'password': state.newPassword,
       };
 
       final model = await repository.resetPswdApi(data, null);
       emit(state.copyWith(resetResponse: ApiResponse.success(model)));
+      await Future.delayed(const Duration(milliseconds: 200));
+      emit(state.copyWith(resetResponse: ApiResponse.initial()));
     } catch (e) {
       emit(state.copyWith(resetResponse: ApiResponse.failure("Reset failed: ${e.toString()}")));
+      await Future.delayed(const Duration(milliseconds: 200));
+      emit(state.copyWith(resetResponse: ApiResponse.initial()));
+
     }
   }
 }
