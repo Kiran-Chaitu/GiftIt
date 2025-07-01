@@ -20,11 +20,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     ));
     try {
       final profileResponse = await repository.fetchProfileData();
-      debugPrint('Hitted the profile API');
+      debugPrint('Hitted the profile API ${profileResponse.data.toString()}');
       emit(state.copyWith(
         profileApiResponse: profileResponse,
       ));
     } catch (e) {
+      debugPrint('Error fetching profile data: $e');
       emit(state.copyWith(
         profileApiResponse: ApiResponse.failure(e.toString()),
       ));

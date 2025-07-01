@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:giftit/configs/colors/app_colors.dart';
+import 'package:giftit/configs/themes/app_text_styles.dart';
 
 class DonationStatusCard extends StatelessWidget {
   final String imageUrl;
@@ -14,10 +15,14 @@ class DonationStatusCard extends StatelessWidget {
 
   Color getStatusColor(String status) {
     switch (status.toLowerCase()) {
-      case "active": return Colors.green;
-      case "claimed": return Colors.orange;
-      case "cancelled": return Colors.red;
-      default: return Colors.grey;
+      case "active":
+        return Colors.green;
+      case "claimed":
+        return Colors.orange;
+      case "cancelled":
+        return Colors.red;
+      default:
+        return Colors.grey;
     }
   }
 
@@ -45,15 +50,22 @@ class DonationStatusCard extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 0,
+              top: 0,
               left: 15,
-              child: Text(item,style: TextStyle(fontSize: 12),)
-          ),
+              child: Text(
+                item,
+                style: AppTextStyles.subtitle,
+              )),
           Positioned(
-            bottom: 0,
+              bottom: 0,
               right: 15,
-              child: Text(status,style: TextStyle(fontSize: 12),)
-          ),
+              child: Text(
+                status,
+                style: AppTextStyles.subtitle.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )),
 
           ClipPath(
             clipper: DonationStatusCardClipper(),
@@ -64,9 +76,7 @@ class DonationStatusCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   color: Colors.black,
                   image: DecorationImage(
-                      image: NetworkImage(imageUrl),fit: BoxFit.cover
-                  )
-              ),
+                      image: NetworkImage(imageUrl), fit: BoxFit.cover)),
             ),
           ),
           // ClipRRect(
@@ -132,19 +142,17 @@ class DonationStatusCard extends StatelessWidget {
   }
 }
 
-
 class DonationStatusCardClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     final path = Path();
-    path.moveTo(0, size.height * 0.2);                  // Top-left diagonal
-    path.lineTo(size.width, 0);                         // Top-right corner
-    path.lineTo(size.width, size.height * 0.8);         // Bottom-right diagonal
-    path.lineTo(0, size.height);                        // Bottom-left corner
+    path.moveTo(0, size.height * 0.2); // Top-left diagonal
+    path.lineTo(size.width, 0); // Top-right corner
+    path.lineTo(size.width, size.height * 0.8); // Bottom-right diagonal
+    path.lineTo(0, size.height); // Bottom-left corner
     path.close();
     return path;
   }
-
 
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;

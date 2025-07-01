@@ -40,17 +40,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
           final profileData = state.profileApiResponse.data;
           return Stack(
             children: [
-          Positioned(
-            top:0,
-            left: 0,
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.30,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(color: AppColors.primaryGreen,
-                borderRadius: BorderRadius.vertical(bottom: Radius.circular(60),),),
-            ),
-          ),
-          Positioned(
+              Positioned(
+                top: 0,
+                left: 0,
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.30,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryGreen,
+                    borderRadius: BorderRadius.vertical(
+                      bottom: Radius.circular(60),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
                 top: MediaQuery.of(context).size.height * 0.15,
                 left: 0,
                 right: 0,
@@ -58,18 +62,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Container(
-                    decoration:BoxDecoration(
+                    decoration: BoxDecoration(
                       color: AppColors.background,
                       borderRadius: BorderRadius.circular(20),
-                        boxShadow: const [
-                              BoxShadow(
-                                color: Colors.black26,
-                                blurRadius: 4,
-                                spreadRadius: 2,
-                                offset: Offset(1, 1),
-                              )
-                            ],
-
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 4,
+                          spreadRadius: 2,
+                          offset: Offset(1, 1),
+                        )
+                      ],
                     ),
                     child: SingleChildScrollView(
                       child: Column(
@@ -79,30 +82,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.person, color: Colors.black, size: AppDimensions.iconSmall),
-                              Text(
-                                profileData!.displayName,
-                                style: AppTextStyles.heading3
-                              ),
+                              Icon(Icons.person,
+                                  color: Colors.black,
+                                  size: AppDimensions.iconSmall),
+                              Text(profileData!.displayName,
+                                  style: AppTextStyles.heading3),
                             ],
                           ),
                           SizedBox(height: 4),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(Icons.location_on, color: Colors.black, size:AppDimensions.iconSmall),
-                              Text(
-                                profileData.location,
-                                style:AppTextStyles.heading3
-                              ),
+                              Icon(Icons.location_on,
+                                  color: Colors.black,
+                                  size: AppDimensions.iconSmall),
+                              Text(profileData.location,
+                                  style: AppTextStyles.heading3),
                             ],
                           ),
                           SizedBox(height: 30),
-                          _buildProfileOption(context, 'Edit Profile', Icons.edit,RoutesNames.editProfile),
-                          _buildProfileOption(context, 'Donation History',Icons.history, RoutesNames.donationHistory),
-                          _buildProfileOption(context, 'NGO Volunteer', Icons.people, RoutesNames.ngoVolunteer),
-                          _buildProfileOption(context, 'Change Password', Icons.lock, RoutesNames.changePassowrd),
-                          _buildProfileOption(context, 'Log Out', Icons.logout, null),
+                          _buildProfileOption(context, 'Edit Profile',
+                              Icons.edit, RoutesNames.editProfile),
+                          _buildProfileOption(context, 'Donation History',
+                              Icons.history, RoutesNames.donationHistory),
+                          _buildProfileOption(context, 'NGO Volunteer',
+                              Icons.people, RoutesNames.ngoVolunteer),
+                          _buildProfileOption(context, 'Change Password',
+                              Icons.lock, RoutesNames.changePassowrd),
+                          _buildProfileOption(
+                              context, 'Log Out', Icons.logout, null),
                         ],
                       ),
                     ),
@@ -118,11 +126,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.white,
-                    border: Border.all(color: Colors.black, width: 0.2),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.3),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                    border: Border.all(color: Colors.black12, width: 0.5),
                   ),
-                  child: Center(
+                  child: ClipOval(
                     child: Image.network(
-                      'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
+                      profileData.profilePhotoUrl?.isNotEmpty == true
+                          ? profileData.profilePhotoUrl!
+                          : 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png',
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Icon(Icons.error);
+                      },
                     ),
                   ),
                 ),
@@ -135,7 +157,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _buildProfileOption(
-      BuildContext context, String title, IconData icon,String? targetPage) {
+      BuildContext context, String title, IconData icon, String? targetPage) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       decoration: BoxDecoration(
@@ -155,15 +177,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
       child: ListTile(
-        leading: Icon(icon, color: Colors.green,size: AppDimensions.iconMedium,),
+        leading: Icon(
+          icon,
+          color: Colors.green,
+          size: AppDimensions.iconMedium,
+        ),
         title: Text(
           title,
           style: AppTextStyles.bodyText,
         ),
-        trailing:
-            Icon(Icons.arrow_forward_ios, size: AppDimensions.iconMedium, color: Colors.black),
+        trailing: Icon(Icons.arrow_forward_ios,
+            size: AppDimensions.iconMedium, color: Colors.black),
         onTap: () {
-          if(targetPage != null){
+          if (targetPage != null) {
+            if (targetPage == RoutesNames.editProfile) {
+              Navigator.pushNamed(context, targetPage, arguments: {
+                'profileModel':
+                    context.read<ProfileBloc>().state.profileApiResponse.data,
+              });
+            }
             Navigator.pushNamed(
               context,
               targetPage,

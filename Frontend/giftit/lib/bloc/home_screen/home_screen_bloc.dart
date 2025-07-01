@@ -9,7 +9,8 @@ import '../../repository/home_screen_repository.dart';
 
 class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   final DonationRepository homeScreenRepository;
-  HomeScreenBloc({required this.homeScreenRepository}) : super(const HomeScreenState()) {
+  HomeScreenBloc({required this.homeScreenRepository})
+      : super(const HomeScreenState()) {
     on<LoadHomeScreen>(_onLoadHomeScreen);
     on<ClaimDonation>(_onClaimDonation);
   }
@@ -21,7 +22,6 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
       DonationsStatusResponse: const ApiResponse.loading(),
       donationCount: 0,
     ));
-
 
     // try {
     //   final donationCount = await homeScreenRepository.fetchDonationCount();
@@ -45,39 +45,32 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
 
     await Future.delayed(Duration(seconds: 1)); // Simulate delay
 
-
     try {
       // Dummy data for now
       final donationStatus = [
         DonationStatusModel(
-          item: 'Books',
+          item: 'Food',
+
           imageUrl:
-          'https://cdn-icons-png.flaticon.com/512/3771/3771518.png',
+          'https://cdn-icons-png.flaticon.com/512/1046/1046754.png',
           status: 'Active',
         ),
         DonationStatusModel(
           item: 'Clothes',
+
           imageUrl:
-          'https://cdn-icons-png.flaticon.com/512/1853/1853743.png',
+          'https://img.icons8.com/ios11/200w/FFFFFF/clothes.png',
           status: 'Claimed',
         ),
         DonationStatusModel(
-          item: 'Food',
+          item: 'Books',
           imageUrl:
           'https://cdn-icons-png.flaticon.com/512/1046/1046754.png',
-          status: 'Cancelled',
+          status: 'cancelled',
         ),
       ];
 
       final availableDonations = [
-        AvailableDonationModel(
-          id: '1',
-          imageUrl:
-          'https://img.icons8.com/ios11/200w/FFFFFF/clothes.png',
-          name: 'Ankit Sharma',
-          item: 'Clothes',
-          address: 'Delhi, India',
-        ),
         AvailableDonationModel(
           id: '2',
           imageUrl:
@@ -85,35 +78,68 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
           name: 'Rina Patel',
           item: 'Food',
           address: 'Ahmedabad, India',
+          items: [
+            {'name': 'Shirt', 'pieces': 2},
+            {'name': 'Pant', 'pieces': 1},
+          ],
         ),
         AvailableDonationModel(
-          id: '3',
+          id: '2',
           imageUrl:
-          'https://thumbs.dreamstime.com/b/book-icon-black-background-flat-style-vector-illustration-168420237.jpg',
-          name: 'Mohit Raj',
-          item: 'Books',
-          address: 'Patna, India',
+          'https://icon-library.com/images/food-icon-white/food-icon-white-15.jpg',
+          name: 'Kishore Kumar',
+          item: 'Food',
+          address: 'Kakinada, India',
+          items: [
+            {'name': 'Shirt', 'pieces': 2},
+            {'name': 'Pant', 'pieces': 1},
+          ],
         ),
+        AvailableDonationModel(
+          id: '1',
+          imageUrl:
+          'https://img.icons8.com/ios11/200w/FFFFFF/clothes.png',
+          name: 'Ankit Sharma',
+          item: 'Clothes',
+          address: 'Delhi, India',
+          items: [
+            {'name': 'Shirt', 'pieces': 2},
+            {'name': 'Pant', 'pieces': 1},
+          ],
+        ),
+
+        // AvailableDonationModel(
+        //   id: '3',
+        //   imageUrl:
+        //   'https://thumbs.dreamstime.com/b/book-icon-black-background-flat-style-vector-illustration-168420237.jpg',
+        //   name: 'Mohit Raj',
+        //   item: 'Books',
+        //   address: 'Patna, India',
+        //   items: [
+        //     {'name': 'Shirt', 'pieces': 2},
+        //     {'name': 'Pant', 'pieces': 1},
+        //   ],
+        // ),
       ];
 
       emit(state.copyWith(
-        availableDonationsResponse:
-        ApiResponse.success(availableDonations),
+        availableDonationsResponse: ApiResponse.success(availableDonations),
         DonationsStatusResponse: ApiResponse.success(donationStatus),
         donationCount: 127,
       ));
     } catch (e) {
       emit(state.copyWith(
         availableDonationsResponse:
-        ApiResponse.failure("Failed to load available donations"),
+            ApiResponse.failure("Failed to load available donations"),
         DonationsStatusResponse:
-        ApiResponse.failure("Failed to load my donations"),
+            ApiResponse.failure("Failed to load my donations"),
         donationCount: 0,
       ));
     }
   }
 
-  Future<void> _onClaimDonation(ClaimDonation event, Emitter<HomeScreenState> emit) async {
+  Future<void> _onClaimDonation(
+      ClaimDonation event, Emitter<HomeScreenState> emit) async {
     // Optionally show loading or update state
     try {
       // Call backend to claim donation (not implemented here)

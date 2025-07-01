@@ -10,7 +10,6 @@ class DonationRepository {
   final bool useDummyData = true;
 
   Future<List<DonationStatusModel>> fetchDonationStatus() async {
-
     if (useDummyData) {
       return [
         DonationStatusModel(
@@ -37,32 +36,43 @@ class DonationRepository {
   }
 
   Future<List<AvailableDonationModel>> fetchAvailableDonations() async {
-
     if (useDummyData) {
       return [
         AvailableDonationModel(
           id: '1',
           imageUrl:
-          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAJSEKHRO5Xr0JGPJ9jAFQg_CLm7rprJJqDajtUe4vdjltVCKETMFalm4Xm_L-jrLoAV0&usqp=CAU',
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAJSEKHRO5Xr0JGPJ9jAFQg_CLm7rprJJqDajtUe4vdjltVCKETMFalm4Xm_L-jrLoAV0&usqp=CAU',
           name: 'Ankit Sharma',
           item: 'Clothes',
           address: 'Delhi, India',
+          items: [
+            {'name': 'Shirt', 'pieces': 2},
+            {'name': 'Pant', 'pieces': 1},
+          ],
         ),
         AvailableDonationModel(
           id: '2',
           imageUrl:
-          'https://i.pinimg.com/736x/9d/37/e4/9d37e4c5998d7e0290900bd2b05e372c.jpg',
+              'https://i.pinimg.com/736x/9d/37/e4/9d37e4c5998d7e0290900bd2b05e372c.jpg',
           name: 'Rina Patel',
           item: 'Food',
           address: 'Ahmedabad, India',
+          items: [
+            {'name': 'Shirt', 'pieces': 2},
+            {'name': 'Pant', 'pieces': 1},
+          ],
         ),
         AvailableDonationModel(
           id: '3',
           imageUrl:
-          'https://thumbs.dreamstime.com/b/book-icon-black-background-flat-style-vector-illustration-168420237.jpg',
+              'https://thumbs.dreamstime.com/b/book-icon-black-background-flat-style-vector-illustration-168420237.jpg',
           name: 'Mohit Raj',
           item: 'Books',
           address: 'Patna, India',
+          items: [
+            {'name': 'Shirt', 'pieces': 2},
+            {'name': 'Pant', 'pieces': 1},
+          ],
         ),
       ];
     }
