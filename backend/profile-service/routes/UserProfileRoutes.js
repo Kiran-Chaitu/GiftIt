@@ -41,7 +41,7 @@ const userProfileRouter = express.Router();
  *             schema:
  *               $ref: '#/components/schemas/ErrorWrapper'
  */
-userProfileRouter.post('/', getUserProfile);
+userProfileRouter.get('/', getUserProfile);
 
 /**
  * @swagger
@@ -83,6 +83,21 @@ userProfileRouter.post('/', getUserProfile);
  *             schema:
  *               $ref: '#/components/schemas/ErrorWrapper'
  */
-userProfileRouter.put('/update', uploadProfilePhoto.single('profileImage'), updateUserProfile);
+userProfileRouter.put('/update',
+  // 👉 Middleware to log before Multer runs
+  (req, res, next) => {
+    console.log('📥 Request is about to enter Cloudinary Multer middleware');
+    console.log('📤 Multer upload complete');
+    console.log('📁 req.file:', req.file);
+    console.log('📝 req.body:', req.body);
+    next();
+  },
+
+  // 📷 Cloudinary Multer Middleware
+  uploadProfilePhoto.single('profileImage'),
+
+  // 🔧 Your controller
+  updateUserProfile
+);
 
 module.exports = { userProfileRouter };
