@@ -16,7 +16,7 @@ const sendToDLQ = async (originalPayload, reason) => {
     }
 
     await producer.send({
-        topic: 'user.created.dlq',
+        topic: 'user.created.DLT',
         messages: [ 
             { value: JSON.stringify(payload) }
         ],

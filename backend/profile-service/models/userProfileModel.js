@@ -7,14 +7,14 @@ const userProfile = sequelize.define('userProfile', {
       type:DataTypes.BIGINT,
       primaryKey:true,
     },
-    display_name: {
+    user_name: {
         type:DataTypes.STRING,
         allowNull:false,
     },
     profile_photo_url: {
         type:DataTypes.STRING,
     },
-    location: {
+    user_location: {
         type:DataTypes.STRING,
         allowNull:false,
     },
