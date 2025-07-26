@@ -44,10 +44,12 @@ class _PostFormState extends State<PostForm> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.all(AppDimensions.screenPadding),
+          padding:
+              EdgeInsets.symmetric(horizontal: AppDimensions.screenPadding),
           child: SingleChildScrollView(
             child: Column(
               children: [
+                SizedBox(height: AppDimensions.smallSpacing),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -123,7 +125,7 @@ class _PostFormState extends State<PostForm> {
                     ),
                   ],
                 ),
-                SizedBox(height: AppDimensions.sectionSpacing),
+                SizedBox(height: AppDimensions.smallSpacing),
                 BlocBuilder<PostCreationBloc, PostCreationState>(
                     builder: (context, state) {
                   if (state.selectedCategory == 'Food') {
@@ -160,6 +162,7 @@ class _PostFormState extends State<PostForm> {
                     );
                   },
                 ),
+                SizedBox(height: AppDimensions.smallSpacing),
               ],
             ),
           ),

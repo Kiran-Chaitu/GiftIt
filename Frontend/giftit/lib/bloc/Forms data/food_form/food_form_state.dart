@@ -2,33 +2,36 @@ import 'package:equatable/equatable.dart';
 
 class FoodFormState extends Equatable {
   final bool isVegChecked;
-  final bool isNonVegChecked;
   final Map<String, String> vegItemsList;
   final Map<String, String> nonVegItemsList;
-  
+  final bool isEditing;
 
   const FoodFormState({
-    this.isVegChecked = false,
-    this.isNonVegChecked = false,
+    this.isVegChecked = true,
     this.vegItemsList = const {},
-    this.nonVegItemsList = const {}
+    this.nonVegItemsList = const {},
+    this.isEditing = false,
   });
 
   FoodFormState copyWith({
     bool? isVegChecked,
-    bool? isNonVegChecked,
     Map<String, String>? vegItemsList,
-    Map<String , String >? nonVegItemsList,
-
+    Map<String, String>? nonVegItemsList,
+    bool? isEditing,
   }) {
     return FoodFormState(
       isVegChecked: isVegChecked ?? this.isVegChecked,
-      isNonVegChecked: isNonVegChecked ?? this.isNonVegChecked,
       vegItemsList: vegItemsList ?? this.vegItemsList,
-      nonVegItemsList: nonVegItemsList ?? this.nonVegItemsList
+      nonVegItemsList: nonVegItemsList ?? this.nonVegItemsList,
+      isEditing: isEditing ?? this.isEditing
     );
   }
 
   @override
-  List<Object?> get props => [isVegChecked, isNonVegChecked , vegItemsList , nonVegItemsList];
+  List<Object?> get props => [
+        isVegChecked,
+        vegItemsList,
+        nonVegItemsList,
+        isEditing
+      ];
 }

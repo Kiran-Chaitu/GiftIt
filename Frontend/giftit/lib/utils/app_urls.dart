@@ -2,7 +2,7 @@ import 'package:flutter/rendering.dart';
 import 'package:giftit/utils/tokens.dart';
 
 class AppUrls {
-  static final String ipAdress = '10.16.49.93';
+  static final String ipAdress = '10.16.54.232';
   static final String baseUrl = 'http://$ipAdress:8080';
   static final String googlePhotosUrl =
       'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=';
@@ -59,19 +59,19 @@ class AppUrls {
 
 
   static String DonationsStatusUrl() {
-    return "http://10.16.61.254/donation-service/api/my-donations";
+    return "$baseUrl/donation-service/api/my-donations";
   }
 
   static String availableDonationsUrl() {
-    return "http://10.16.61.254:8080/donation-service/api/available-donations";
+    return "$baseUrl/donation-service/api/available-donations";
   }
 
   static String claimDonationUrl() {
-    return "http://10.16.61.254:8080/donation-service/api/claim-donation";
+    return "$baseUrl/donation-service/api/claim-donation";
   }
 
   static String donationCountUrl() {
-    return "http://10.16.49.93:8080/donation-service/api/claim-donation";
+    return "$baseUrl/donation-service/api/claim-donation";
   }
 
 
@@ -83,7 +83,7 @@ class AppUrls {
 
   static String loginUrl(){
     debugPrint("Login URL called");
-    return "http://10.16.49.93:8080/auth-service/api/auth/login";
+    return "$baseUrl/auth-service/api/auth/login";
     //req body email and password
 
     // return object
@@ -93,23 +93,23 @@ class AppUrls {
   }
 
   static String signupUrl(){
-    return "http://10.16.49.93:8080/auth-service/api/auth/signup";
+    return "$baseUrl/auth-service/api/auth/signup";
     //body : username , phonenumber, email, location , password
 
     
     // message for both success and failure
   } 
   static String otpUrl(){//otp verification  
-     return "http://10.16.49.93:8080/auth-service/api/auth/otp/verification";
+     return "$baseUrl/auth-service/api/auth/otp/verification";
   }
   static String forgotOtpUrl(){ //validate otp
-     return "http://10.16.49.93:8080/auth-service/api/auth/otp/validate";
+     return "$baseUrl/auth-service/api/auth/otp/validate";
      //email and otp
      
      //message for both success and failure
   } 
   static String resetPswdUrl(){
-    return "http://10.16.49.93:8080/auth-service/api/auth/update/password";
+    return "$baseUrl/auth-service/api/auth/update/password";
     //req body : email, new password
 
     
@@ -119,7 +119,7 @@ class AppUrls {
   } 
   //change password
   static String oldPswdUrl(){ //validate old password
-    return "http://10.16.61.254/auth-service/api/auth/validate/password";
+    return "$baseUrl/auth-service/api/auth/validate/password";
   //body :password
   //headerName: Authorization:Bearer token 
   //header: token 
@@ -131,7 +131,7 @@ class AppUrls {
   } 
   //forget password
   static String emailForgetPswdUrl(){
-    return "http://10.16.61.254:8080/auth-service/api/auth/validate/email";
+    return "$baseUrl/auth-service/api/auth/validate/email";
     // email
     // 
     // reponse:

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:giftit/bloc/Forms%20data/food_form/food_form_bloc.dart';
+import 'package:giftit/bloc/Forms%20data/food_form/food_form_event.dart';
+import 'package:giftit/bloc/Forms%20data/food_form/food_form_state.dart';
 import 'package:giftit/configs/colors/app_colors.dart';
-
 
 class FoodForm extends StatefulWidget {
   const FoodForm({super.key});
@@ -10,44 +13,46 @@ class FoodForm extends StatefulWidget {
 }
 
 class _FoodFormState extends State<FoodForm> {
-  final List<Map<String, dynamic>> vegList = [];
-  final List<Map<String, dynamic>> nonVegList = [];
   final _formKey = GlobalKey<FormState>();
-
   final nameController = TextEditingController();
   final quantityController = TextEditingController();
 
-  String foodType = "Veg"; // Default
-  int? editingIndex;
-  bool isEditingNonVeg = false;
+  final RegExp nameRegExp = RegExp(r'^[A-Za-z][A-Za-z0-9 ]*$');
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    quantityController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-          padding: EdgeInsets.all(16),
+    return BlocConsumer<FoodFormBloc, FoodFormState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        final vegList = state.vegItemsList.entries.toList();
+        final nonVegList = state.nonVegItemsList.entries.toList();
+
+        return SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (vegList.isNotEmpty) ...[
-                Text("Veg Donations",
+                const Text("Veg Donations",
                     style: TextStyle(fontWeight: FontWeight.bold)),
-                ...vegList.asMap().entries.map((entry) {
-                  int index = entry.key;
-                  var item = entry.value;
-                  return _buildCard(item, index, false);
-                }),
+                ...vegList.map(
+                    (item) => _buildCard(context, item.key, item.value, false)),
               ],
               if (nonVegList.isNotEmpty) ...[
-                SizedBox(height: 10),
-                Text("Non-Veg Donations",
+                const SizedBox(height: 10),
+                const Text("Non-Veg Donations",
                     style: TextStyle(fontWeight: FontWeight.bold)),
-                ...nonVegList.asMap().entries.map((entry) {
-                  int index = entry.key;
-                  var item = entry.value;
-                  return _buildCard(item, index, true);
-                }),
+                ...nonVegList.map(
+                    (item) => _buildCard(context, item.key, item.value, true)),
               ],
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Form(
                 key: _formKey,
                 child: Column(
@@ -55,71 +60,93 @@ class _FoodFormState extends State<FoodForm> {
                     TextFormField(
                       controller: nameController,
                       decoration: _inputDecoration("Food Name"),
-                      validator: (val) => val!.isEmpty ? "Enter name" : null,
+                      validator: (val) {
+                        final validCharactersRegExp = RegExp(
+                            r'^[a-zA-Z][a-zA-Z0-9 ]*$'); 
+                        final startsWithDigitRegExp =
+                            RegExp(r'^\d'); 
+
+                        if (val == null || val.trim().isEmpty) {
+                          return "Enter food name";
+                        } else if (startsWithDigitRegExp.hasMatch(val.trim())) {
+                          return "Name can't start with a number";
+                        } else if (!validCharactersRegExp
+                            .hasMatch(val.trim())) {
+                          return "Only letters, numbers, and spaces allowed";
+                        }
+
+                        return null;
+                      },
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     TextFormField(
                       controller: quantityController,
                       decoration: _inputDecoration("Quantity"),
                       keyboardType: TextInputType.number,
-                      validator: (val) =>
-                          val!.isEmpty ? "Enter quantity" : null,
+                      validator: (val) {
+                        if (val == null || val.trim().isEmpty) {
+                          return "Enter quantity in KGs";
+                        }
+                        final number = int.tryParse(val.trim());
+                        if (number == null || number <= 0) {
+                          return "Enter a valid number";
+                        } else if (number > 1000) {
+                          return "Max allowed quantity is 1000 KG";
+                        }
+                        return null;
+                      },
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Row(
                       children: [
-                        Checkbox(
-                          value: foodType == "Veg",
-                          onChanged: (val) {
-                            setState(() => foodType = "Veg");
-                          },
-                          checkColor: Colors.white,
-                          activeColor: AppColors.primaryGreen,
+                        Expanded(
+                          child: RadioListTile<String>(
+                            title: const Text("Veg"),
+                            value: "Veg",
+                            groupValue: state.isVegChecked ? "Veg" : "Non-Veg",
+                            onChanged: (_) => context
+                                .read<FoodFormBloc>()
+                                .add(ToggleFoodType(true)),
+                            activeColor: AppColors.primaryGreen,
+                          ),
                         ),
-                        Text("Veg"),
-                        Checkbox(
-                          value: foodType == "Non-Veg",
-                          onChanged: (val) {
-                            setState(() => foodType = "Non-Veg");
-                          },
-                          checkColor: Colors.white,
-                          activeColor: AppColors.primaryGreen,
+                        Expanded(
+                          child: RadioListTile<String>(
+                            title: const Text("Non-Veg"),
+                            value: "Non-Veg",
+                            groupValue: state.isVegChecked ? "Veg" : "Non-Veg",
+                            onChanged: (_) => context
+                                .read<FoodFormBloc>()
+                                .add(ToggleFoodType(false)),
+                            activeColor: AppColors.primaryGreen,
+                          ),
                         ),
-                        Text("Non-Veg"),
                       ],
                     ),
                     ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          final item = {
-                            'name': nameController.text,
-                            'quantity':
-                                int.tryParse(quantityController.text) ?? 0,
-                          };
+                          final name = nameController.text.trim();
+                          final quantity = quantityController.text.trim();
 
-                          setState(() {
-                            if (editingIndex != null) {
-                              if (isEditingNonVeg) {
-                                nonVegList[editingIndex!] = item;
-                              } else {
-                                vegList[editingIndex!] = item;
-                              }
-                              editingIndex = null;
-                            } else {
-                              if (foodType == "Veg") {
-                                vegList.add(item);
-                              } else {
-                                nonVegList.add(item);
-                              }
-                            }
-
-                            nameController.clear();
-                            quantityController.clear();
-                            foodType = "Veg";
-                          });
+                          if (state.isEditing) {
+                            context.read<FoodFormBloc>().add(EditFoodItem(
+                                  isVeg: state.isVegChecked,
+                                  name: name,
+                                  quantity: quantity,
+                                ));
+                          } else {
+                            context.read<FoodFormBloc>().add(AddFoodItem(
+                                  name: name,
+                                  quantity: quantity,
+                                ));
+                          }
+                          nameController.clear();
+                          quantityController.clear();
+                          context.read<FoodFormBloc>().add(CancelEditing());
                         }
                       },
-                      child: Text(editingIndex != null ? "Update" : "Add"),
+                      child: Text(state.isEditing ? "Update" : "Add"),
                     ),
                   ],
                 ),
@@ -127,39 +154,38 @@ class _FoodFormState extends State<FoodForm> {
             ],
           ),
         );
+      },
+    );
   }
 
-  Widget _buildCard(Map<String, dynamic> item, int index, bool isNonVeg) {
+  Widget _buildCard(
+      BuildContext context, String name, String quantity, bool isNonVeg) {
     return Card(
       color: AppColors.lightGreen,
       child: ListTile(
-        title: Text("${item['name']}"),
-        subtitle: Text("Quantity: ${item['quantity']}"),
+        title: Text(name),
+        subtitle: Text("Quantity: $quantity KG(s)"),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             IconButton(
-              icon: Icon(Icons.edit),
+              icon: const Icon(Icons.edit),
               onPressed: () {
-                setState(() {
-                  nameController.text = item['name'];
-                  quantityController.text = item['quantity'].toString();
-                  editingIndex = index;
-                  foodType = isNonVeg ? "Non-Veg" : "Veg";
-                  isEditingNonVeg = isNonVeg;
-                });
+                context.read<FoodFormBloc>().add(StartEditFoodItem(
+                      itemName: name,
+                      quantity: quantity,
+                      isVeg: !isNonVeg,
+                    ));
+                nameController.text = name;
+                quantityController.text = quantity;
               },
             ),
             IconButton(
-              icon: Icon(Icons.delete, color: Colors.red),
+              icon: const Icon(Icons.delete, color: Colors.red),
               onPressed: () {
-                setState(() {
-                  if (isNonVeg) {
-                    nonVegList.removeAt(index);
-                  } else {
-                    vegList.removeAt(index);
-                  }
-                });
+                context
+                    .read<FoodFormBloc>()
+                    .add(DeleteFoodItem(isVeg: !isNonVeg, itemName: name));
               },
             ),
           ],
@@ -171,17 +197,17 @@ class _FoodFormState extends State<FoodForm> {
   InputDecoration _inputDecoration(String hint) {
     return InputDecoration(
       hintText: hint,
-      hintStyle: TextStyle(color: AppColors.primaryGreen),
+      hintStyle: const TextStyle(color: AppColors.primaryGreen),
       filled: true,
       fillColor: AppColors.lightGreen,
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(25),
-        borderSide: BorderSide(color: AppColors.lightGreen),
+        borderSide: const BorderSide(color: AppColors.lightGreen),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(25),
-        borderSide: BorderSide(color: AppColors.lightGreen, width: 2),
+        borderSide: const BorderSide(color: AppColors.lightGreen, width: 2),
       ),
     );
   }

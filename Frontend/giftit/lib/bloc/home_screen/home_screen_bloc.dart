@@ -50,22 +50,17 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
       final donationStatus = [
         DonationStatusModel(
           item: 'Food',
-
-          imageUrl:
-          'https://cdn-icons-png.flaticon.com/512/1046/1046754.png',
+          imageUrl: 'https://cdn-icons-png.flaticon.com/512/1046/1046754.png',
           status: 'Active',
         ),
         DonationStatusModel(
           item: 'Clothes',
-
-          imageUrl:
-          'https://img.icons8.com/ios11/200w/FFFFFF/clothes.png',
+          imageUrl: 'https://img.icons8.com/ios11/200w/FFFFFF/clothes.png',
           status: 'Claimed',
         ),
         DonationStatusModel(
           item: 'Books',
-          imageUrl:
-          'https://cdn-icons-png.flaticon.com/512/1046/1046754.png',
+          imageUrl: 'https://cdn-icons-png.flaticon.com/512/1046/1046754.png',
           status: 'cancelled',
         ),
       ];
@@ -74,7 +69,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
         AvailableDonationModel(
           id: '2',
           imageUrl:
-          'https://icon-library.com/images/food-icon-white/food-icon-white-15.jpg',
+              'https://icon-library.com/images/food-icon-white/food-icon-white-15.jpg',
           name: 'Rina Patel',
           item: 'Food',
           address: 'Ahmedabad, India',
@@ -86,7 +81,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
         AvailableDonationModel(
           id: '2',
           imageUrl:
-          'https://icon-library.com/images/food-icon-white/food-icon-white-15.jpg',
+              'https://icon-library.com/images/food-icon-white/food-icon-white-15.jpg',
           name: 'Kishore Kumar',
           item: 'Food',
           address: 'Kakinada, India',
@@ -97,8 +92,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
         ),
         AvailableDonationModel(
           id: '1',
-          imageUrl:
-          'https://img.icons8.com/ios11/200w/FFFFFF/clothes.png',
+          imageUrl: 'https://img.icons8.com/ios11/200w/FFFFFF/clothes.png',
           name: 'Ankit Sharma',
           item: 'Clothes',
           address: 'Delhi, India',
@@ -125,7 +119,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
       emit(state.copyWith(
         availableDonationsResponse: ApiResponse.success(availableDonations),
         DonationsStatusResponse: ApiResponse.success(donationStatus),
-        donationCount: 127,
+        donationCount: 536,
       ));
     } catch (e) {
       emit(state.copyWith(
@@ -144,7 +138,6 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     try {
       // Call backend to claim donation (not implemented here)
       await Future.delayed(Duration(milliseconds: 500));
-
       // Reload screen after claiming
       add(LoadHomeScreen());
     } catch (e) {

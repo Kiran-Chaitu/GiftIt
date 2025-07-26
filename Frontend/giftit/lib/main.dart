@@ -30,7 +30,6 @@ import 'package:giftit/repository/home_screen_repository.dart';
 import 'package:giftit/repository/ngo_repository.dart';
 import 'package:giftit/repository/profile_repos/profile_repository.dart';
 
-
 import 'bloc/profile/profile_bloc.dart';
 
 import 'bloc/home_screen/home_screen_bloc.dart';
@@ -56,10 +55,12 @@ class MyApp extends StatelessWidget {
           providers: [
             BlocProvider(create: (_) => BottomBarCubit()),
             BlocProvider(create: (_) => NgoBloc(repository: NGORepository())),
-
-            BlocProvider(create: (_)=> ProfileBloc(repository: ProfileRepository()),),
-
-            BlocProvider(create: (_)=>HomeScreenBloc(homeScreenRepository: DonationRepository())),
+            BlocProvider(
+              create: (_) => ProfileBloc(repository: ProfileRepository()),
+            ),
+            BlocProvider(
+                create: (_) =>
+                    HomeScreenBloc(homeScreenRepository: DonationRepository())),
             BlocProvider(
                 create: (_) => LoginBloc(loginRepository: LoginRepository())),
             BlocProvider(
@@ -78,16 +79,22 @@ class MyApp extends StatelessWidget {
             BlocProvider(
               create: (_) => FoodFormBloc(),
             ),
-            
-            BlocProvider(create: (_)=>OtpMainBloc(otpRepository: OtpRepository())),
-            BlocProvider(create: (_)=>ResetPasswordBloc(repository: ResetPswdRepo() ),),
-            BlocProvider(create: (_)=>OldPasswordBloc(resetRepository: OldPswdForgetPswdRepository())),
-            BlocProvider(create: (_)=>EmailFpMainBloc(repository: EmailForgetPswdRepository())),
+            BlocProvider(
+                create: (_) => OtpMainBloc(otpRepository: OtpRepository())),
+            BlocProvider(
+              create: (_) => ResetPasswordBloc(repository: ResetPswdRepo()),
+            ),
+            BlocProvider(
+                create: (_) => OldPasswordBloc(
+                    resetRepository: OldPswdForgetPswdRepository())),
+            BlocProvider(
+                create: (_) =>
+                    EmailFpMainBloc(repository: EmailForgetPswdRepository())),
           ],
           child: GetMaterialApp(
             debugShowCheckedModeBanner: false,
             theme: AppTheme.appTheme,
-            initialRoute: RoutesNames.login,
+            initialRoute: RoutesNames.home,
             onGenerateRoute: Routes.generateRoute,
           ),
         );
