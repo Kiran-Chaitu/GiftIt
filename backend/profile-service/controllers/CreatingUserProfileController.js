@@ -3,6 +3,7 @@ const { sendToDLQ } = require('../kafka/producer/DLQProducer');
 
 const userProfileCreation = async (payload) => {
     const { userId, userName, userLocation, userPhoneNumber } = payload;
+    console.log(payload);
 
     if (!userId || !userName || !userLocation || !userPhoneNumber) {
         return await sendToDLQ(payload, 'Missing fields');

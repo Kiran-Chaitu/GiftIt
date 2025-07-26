@@ -4,3 +4,5 @@ server.port=
 eureka.instance.hostname=
 eureka.client.fetch-registry=
 eureka.client.register-with-eureka=
+eureka.server.delta-retention-timer-interval-in-ms=
+eureka.server.enable-self-preservation=
