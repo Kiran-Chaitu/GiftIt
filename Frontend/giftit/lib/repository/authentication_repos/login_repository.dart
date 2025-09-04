@@ -1,5 +1,3 @@
-
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -45,40 +43,38 @@ class LoginRepository {
       final user = UserModel.fromJson(response);
 
       if (user.statusCode == 403) {
-        return ApiResponse.success(user); 
+        return ApiResponse.success(user);
       } else if (user.token != null && user.token!.isNotEmpty) {
-        return ApiResponse.success(user); 
+        return ApiResponse.success(user);
       } else {
-        return  ApiResponse.failure(user.message??"Invalid credentials");
+        return ApiResponse.failure(user.message ?? "Invalid credentials");
       }
-
     } catch (e) {
       return ApiResponse.failure("Error: ${e.toString()}");
     }
   }
-
 }
 
 Future<dynamic> postApi(String url, dynamic data) async {
-    dynamic responseJson;
-    try {
-      debugPrint('Post API');
-      final response = await http
-          .post(Uri.parse(url),
-              headers: {
-                'Content-Type': 'application/json; charset=UTF-8',
-              },
+  dynamic responseJson;
+  try {
+    debugPrint('Post API');
+    final response = await http
+        .post(Uri.parse(url),
+            headers: {
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
             body: jsonEncode(data))
-          .timeout(const Duration(seconds: 10));
-      debugPrint('Response: ${response.body}');
-      responseJson = returnResponse(response);
-    } on SocketException {
-      throw NoInternetException();
-    } on TimeoutException {
-      throw FetchDataException('Network Request Timed Out');
-    }
-    return responseJson;
+        .timeout(const Duration(seconds: 10));
+    debugPrint('Response: ${response.body}');
+    responseJson = returnResponse(response);
+  } on SocketException {
+    throw NoInternetException();
+  } on TimeoutException {
+    throw FetchDataException('Network Request Timed Out');
   }
+  return responseJson;
+}
 
 dynamic returnResponse(http.Response response) {
   final statusCode = response.statusCode;

@@ -2,7 +2,7 @@ import 'package:flutter/rendering.dart';
 import 'package:giftit/utils/tokens.dart';
 
 class AppUrls {
-  static final String ipAdress = '10.16.54.232';
+  static final String ipAdress = '10.16.49.29';
   static final String baseUrl = 'http://$ipAdress:8080';
   static final String googlePhotosUrl =
       'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=';

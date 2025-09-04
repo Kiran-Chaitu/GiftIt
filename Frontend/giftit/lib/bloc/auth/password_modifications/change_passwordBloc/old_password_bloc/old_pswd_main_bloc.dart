@@ -2,9 +2,9 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:giftit/data/API_Response/response.dart';
+import 'package:giftit/data/Local%20Storage/secure_storage.dart';
 import 'package:giftit/models/auth/change_password/old_pswd_model.dart';
 import 'package:giftit/repository/authentication_repos/change_password/old_pswd_repo.dart';
-import 'package:giftit/utils/secure_storage.dart';
 
 part 'old_pswd_events.dart';
 part 'old_pswd_states.dart';
@@ -25,7 +25,7 @@ class OldPasswordBloc extends Bloc<OldPasswordEvent, OldPasswordState> {
       emit(state.copyWith(oldPasswordResponse: const ApiResponse.loading()));
       try {
 
-        String? token = await secureStorage.read(key: 'token');
+        String? token = await SecureStorage().read(key: 'token');
         debugPrint("token from storage in oldpswd: $token");
         final headers = {
           'Authorization': 'Bearer ${token}',

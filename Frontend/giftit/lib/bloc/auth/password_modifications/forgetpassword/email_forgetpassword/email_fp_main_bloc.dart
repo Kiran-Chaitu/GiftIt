@@ -13,7 +13,9 @@ class EmailFpMainBloc extends Bloc<EmailEvent, EmailState> {
     on<SubmitEmail>((event, emit) async {
       emit(state.copyWith(response: const ApiResponse.loading()));
       try {
-        final result = await repository.submitEmail(event.email,null);
+        final result = await repository.submitEmail(event.email,{
+          'Content-Type': 'application/json',
+        });
         emit(state.copyWith(response: ApiResponse.success(result)));
         await Future.delayed(const Duration(milliseconds: 200));
         emit(state.copyWith(response: const ApiResponse.initial()));

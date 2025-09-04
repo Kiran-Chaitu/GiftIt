@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:giftit/bloc/Forms%20data/clothes_form/clothes_form_bloc.dart';
 import 'package:giftit/bloc/Forms%20data/food_form/food_form_bloc.dart';
 import 'package:giftit/bloc/Google_Map/google_map_bloc.dart';
 import 'package:giftit/bloc/NGO/ngo_bloc.dart';
@@ -90,11 +91,14 @@ class MyApp extends StatelessWidget {
             BlocProvider(
                 create: (_) =>
                     EmailFpMainBloc(repository: EmailForgetPswdRepository())),
+            BlocProvider(
+                create: (_) =>
+                    ClothesFormBloc()),
           ],
           child: GetMaterialApp(
             debugShowCheckedModeBanner: false,
             theme: AppTheme.appTheme,
-            initialRoute: RoutesNames.home,
+            initialRoute: RoutesNames.login,
             onGenerateRoute: Routes.generateRoute,
           ),
         );

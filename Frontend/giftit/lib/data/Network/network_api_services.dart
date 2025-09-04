@@ -3,20 +3,28 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:giftit/data/Exceptions/app_exceptions.dart';
+import 'package:giftit/data/Local%20Storage/secure_storage.dart';
 import 'package:giftit/data/Network/base_api_services.dart';
 import 'package:http/http.dart' as http;
 
 class NetworkApiServices extends BaseApiServices {
+
+  dynamic token;
+  Future<String?> getToken() async{
+    return SecureStorage().read(key: 'token');
+  }
+  
   @override
   Future<dynamic> getApi(String url) async {
+    token ??= await getToken();
+    debugPrint('token in getapi: $token');
     dynamic responseJson;
     try {
       final response = await http.get(
         Uri.parse(url),
         headers: {
           'Content-Type': 'application/json',
-          "Authorization":
-              "Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VySWQiOjEsInN1YiI6IjEiLCJpYXQiOjE3NTA5OTk5OTUsImV4cCI6MTc1MzU5MTk5NX0.E6egC0fdXuEnnH9ubpElydJPN2aVtsYaPfgTRKty_hJ-Jogymdojx9tFquq8cnDDkIhCkdvA6E3_d3tOHQb1Kg"
+          "Authorization": "Bearer $token"
         },
       ).timeout(const Duration(seconds: 15));
       responseJson = returnResponse(response);
@@ -30,17 +38,18 @@ class NetworkApiServices extends BaseApiServices {
   }
 
   @override
-  Future<dynamic> postApi(String url, dynamic data,dynamic header) async {
+  Future<dynamic> postApi(String url, dynamic data, dynamic header) async {
     debugPrint('Post API');
+    token ??= await getToken();
     dynamic responseJson;
     try {
       final response = await http
           .post(Uri.parse(url),
-              headers:header ?? {
-                'Content-Type': 'application/json',
-                "Authorization":
-                    "Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VySWQiOjEsInN1YiI6IjEiLCJpYXQiOjE3NTA5OTk5OTUsImV4cCI6MTc1MzU5MTk5NX0.E6egC0fdXuEnnH9ubpElydJPN2aVtsYaPfgTRKty_hJ-Jogymdojx9tFquq8cnDDkIhCkdvA6E3_d3tOHQb1Kg"
-              },
+              headers: header ??
+                  {
+                    'Content-Type': 'application/json',
+                    "Authorization": "Bearer $token"
+                  },
               body: jsonEncode(data))
           .timeout(const Duration(seconds: 15));
       debugPrint('Response: ${response.body}');
@@ -56,6 +65,7 @@ class NetworkApiServices extends BaseApiServices {
   @override
   Future<dynamic> putApi(String url, dynamic data) async {
     debugPrint('Put API');
+    token ??= await getToken();
     dynamic responseJson;
     try {
       final response = await http
@@ -63,8 +73,7 @@ class NetworkApiServices extends BaseApiServices {
             Uri.parse(url),
             headers: {
               'Content-Type': 'application/json; charset=UTF-8',
-              "Authorization":
-                  "Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VySWQiOjEsInN1YiI6IjEiLCJpYXQiOjE3NTA5OTk5OTUsImV4cCI6MTc1MzU5MTk5NX0.E6egC0fdXuEnnH9ubpElydJPN2aVtsYaPfgTRKty_hJ-Jogymdojx9tFquq8cnDDkIhCkdvA6E3_d3tOHQb1Kg"
+              "Authorization": "Bearer $token"
             },
             body: jsonEncode(data),
           )
@@ -87,14 +96,13 @@ class NetworkApiServices extends BaseApiServices {
     File file,
   ) async {
     debugPrint('PUT API with Multipart (Single File)');
-
+    token ??= await getToken();
     var uri = Uri.parse(url);
     var request = http.MultipartRequest('PUT', uri);
 
     request.headers.addAll({
       'Content-Type': 'multipart/form-data',
-      "Authorization":
-          "Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VySWQiOjEsInN1YiI6IjEiLCJpYXQiOjE3NTA5OTk5OTUsImV4cCI6MTc1MzU5MTk5NX0.E6egC0fdXuEnnH9ubpElydJPN2aVtsYaPfgTRKty_hJ-Jogymdojx9tFquq8cnDDkIhCkdvA6E3_d3tOHQb1Kg"
+      "Authorization": "Bearer $token"
     });
 
     request.fields.addAll(fields);

@@ -20,6 +20,7 @@ class AddFoodItem extends FoodFormEvent {
   List<Object?> get props => [name, quantity];
 }
 
+
 class EditFoodItem extends FoodFormEvent {
   final bool isVeg;
   final String name, quantity;

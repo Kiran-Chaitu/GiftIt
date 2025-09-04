@@ -13,7 +13,5 @@ class AppColors {
   static const Color cardBackground = 
       Color(0xFFFAFAFA); // Elevated card background
   static const Color alertRed = 
-      Color(0xFFE53935);
-
-  static var white; // Alerts, error messages, blood donation tag
+      Color(0xFFE53935); // Alerts, error messages
 }

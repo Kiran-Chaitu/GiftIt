@@ -6,4 +6,6 @@ class BottomBarCubit extends Cubit<int> {
   void changeIndex(int index) {
     emit(index);
   }
+
+  
 }

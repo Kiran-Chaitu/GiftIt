@@ -8,6 +8,7 @@ import 'package:giftit/configs/routes/route_names.dart';
 import 'package:giftit/configs/themes/app_dimesnions.dart';
 import 'package:giftit/configs/themes/app_text_styles.dart';
 import 'package:giftit/data/API_Response/status.dart';
+import 'package:giftit/views/Profile/logout.dart';
 import 'package:giftit/views/widgets/custom_error_widget.dart';
 import 'package:giftit/views/widgets/custom_loader.dart';
 
@@ -196,9 +197,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     context.read<ProfileBloc>().state.profileApiResponse.data,
               });
             }
+            
             Navigator.pushNamed(
               context,
               targetPage,
+            );
+          }else{
+            showDialog(
+              context: context,
+              builder: (context) => const LogoutPage(),
             );
           }
         },

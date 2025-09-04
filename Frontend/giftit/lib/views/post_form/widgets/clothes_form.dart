@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:giftit/bloc/Forms%20data/clothes_form/clothes_form_bloc.dart';
+import 'package:giftit/bloc/Forms%20data/clothes_form/clothes_form_event.dart';
+import 'package:giftit/bloc/Forms%20data/clothes_form/clothes_form_state.dart';
 import 'package:giftit/configs/colors/app_colors.dart';
 
 class ClothesForm extends StatefulWidget {
@@ -10,167 +13,155 @@ class ClothesForm extends StatefulWidget {
 }
 
 class _ClothesFormState extends State<ClothesForm> {
-  final List<Map<String, dynamic>> clothesList = [];
   final _formKey = GlobalKey<FormState>();
+  final nameController = TextEditingController();
+  final sizeController = TextEditingController();
+  final quantityController = TextEditingController();
 
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController sizeController = TextEditingController();
-  final TextEditingController piecesController = TextEditingController();
-
-  Map<String, bool> genderOptions = {
-    "Male": false,
-    "Female": false,
-    "Other": false,
-  };
-
-  int? editingIndex;
+  @override
+  void dispose() {
+    nameController.dispose();
+    sizeController.dispose();
+    quantityController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ...clothesList.asMap().entries.map((entry) {
-            int index = entry.key;
-            var item = entry.value;
-            return Card(
-              color: AppColors.lightGreen,
-              child: ListTile(
-                title: Text("${item['name']} - Size: ${item['size']}"),
-                subtitle: Text(
-                    "Gender: ${item['gender']} | Pieces: ${item['pieces']}"),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.edit, color: Colors.black),
-                      onPressed: () {
-                        setState(() {
-                          editingIndex = index;
-                          nameController.text = item['name'];
-                          sizeController.text = item['size'].toString();
-                          piecesController.text = item['pieces'].toString();
-
-                          genderOptions.updateAll((key, _) => false);
-                          for (var g in item['gender'].split(", ")) {
-                            if (genderOptions.containsKey(g)) {
-                              genderOptions[g] = true;
-                            }
-                          }
-                        });
-                      },
+    return BlocConsumer<ClothesFormBloc, ClothesFormState>(
+      listener: (context, state) {
+        if (state.isEditing && state.editingIndex != null) {
+          final item = state.clothesList[state.editingIndex!];
+          nameController.text = item['name'] ?? '';
+          sizeController.text = item['size'] ?? '';
+          quantityController.text = item['quantity'] ?? '';
+        } else {
+          nameController.clear();
+          sizeController.clear();
+          quantityController.clear();
+        }
+      },
+      builder: (context, state) {
+        return SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ...state.clothesList.asMap().entries.map((entry) {
+                final index = entry.key;
+                final item = entry.value;
+                return Card(
+                  color: AppColors.lightGreen,
+                  child: ListTile(
+                    title: Text("${item['name']} - Size: ${item['size']}"),
+                    subtitle: Text(
+                        "Gender: ${item['gender']} | Pieces: ${item['quantity']}"),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.edit, color: Colors.black),
+                          onPressed: () => context
+                              .read<ClothesFormBloc>()
+                              .add(StartEditClothesItem(index)),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.delete, color: Colors.red),
+                          onPressed: () => context
+                              .read<ClothesFormBloc>()
+                              .add(DeleteClothesItem(index)),
+                        ),
+                      ],
                     ),
-                    IconButton(
-                      icon: Icon(Icons.delete, color: Colors.red),
+                  ),
+                );
+              }).toList(),
+              const SizedBox(height: 20),
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: nameController,
+                      decoration: _inputDecoration("Name"),
+                      validator: (val) =>
+                          val == null || val.isEmpty ? "Enter name" : null,
+                    ),
+                    const SizedBox(height: 10),
+                    TextFormField(
+                      controller: sizeController,
+                      decoration: _inputDecoration("Size"),
+                      validator: (val) =>
+                          val == null || val.isEmpty ? "Enter size" : null,
+                    ),
+                    const SizedBox(height: 10),
+                    TextFormField(
+                      controller: quantityController,
+                      decoration: _inputDecoration("Pieces"),
+                      keyboardType: TextInputType.number,
+                      validator: (val) =>
+                          val == null || val.isEmpty ? "Enter quantity" : null,
+                    ),
+                    const SizedBox(height: 10),
+
+                    // Gender Radio Buttons
+                    Column(
+                      children: ["Male", "Female"].map((genderOption) {
+                        return RadioListTile<String>(
+                          title: Text(genderOption),
+                          value: genderOption,
+                          groupValue: state.gender,
+                          onChanged: (val) {
+                            if (val != null) {
+                              context
+                                  .read<ClothesFormBloc>()
+                                  .add(ToggleGender(val));
+                            }
+                          },
+                          activeColor: AppColors.primaryGreen,
+                        );
+                      }).toList(),
+                    ),
+                    const SizedBox(height: 10),
+                    ElevatedButton(
                       onPressed: () {
-                        setState(() {
-                          clothesList.removeAt(index);
-                        });
+                        if (_formKey.currentState!.validate()) {
+                          context.read<ClothesFormBloc>()
+                            ..add(UpdateClothesName(nameController.text))
+                            ..add(UpdateClothesSize(sizeController.text))
+                            ..add(
+                                UpdateClothesQuantity(quantityController.text))
+                            ..add(state.isEditing
+                                ? UpdateClothesItem()
+                                : AddClothesItem());
+                        }
                       },
+                      child: Text(state.isEditing ? "Update" : "Add to List"),
                     ),
                   ],
                 ),
               ),
-            );
-          }),
-          SizedBox(height: 20),
-          Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: nameController,
-                  decoration: _inputDecoration("Name"),
-                  validator: (val) => val!.isEmpty ? "Enter name" : null,
-                ),
-                SizedBox(height: 10),
-                TextFormField(
-                  controller: sizeController,
-                  decoration: _inputDecoration("Size"),
-                  keyboardType: TextInputType.number,
-                  validator: (val) => val!.isEmpty ? "Enter size" : null,
-                ),
-                SizedBox(height: 10),
-                TextFormField(
-                  controller: piecesController,
-                  decoration: _inputDecoration("Pieces"),
-                  keyboardType: TextInputType.number,
-                  validator: (val) => val!.isEmpty ? "Enter pieces" : null,
-                ),
-                SizedBox(height: 10),
-                Column(
-                  children: genderOptions.keys.map((key) {
-                    return CheckboxListTile(
-                      title: Text(key),
-                      value: genderOptions[key],
-                      onChanged: (val) {
-                        setState(() {
-                          genderOptions[key] = val!;
-                        });
-                      },
-                      activeColor: AppColors.primaryGreen,
-                      checkColor: AppColors.white,
-                    );
-                  }).toList(),
-                ),
-                SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      final selectedGenders = genderOptions.entries
-                          .where((e) => e.value)
-                          .map((e) => e.key)
-                          .join(", ");
-
-                      final item = {
-                        'name': nameController.text,
-                        'size': int.tryParse(sizeController.text) ?? 0,
-                        'pieces': int.tryParse(piecesController.text) ?? 0,
-                        'gender': selectedGenders,
-                      };
-
-                      setState(() {
-                        if (editingIndex != null) {
-                          clothesList[editingIndex!] = item;
-                          editingIndex = null;
-                        } else {
-                          clothesList.add(item);
-                        }
-                        nameController.clear();
-                        sizeController.clear();
-                        piecesController.clear();
-                        genderOptions.updateAll((key, _) => false);
-                      });
-                    }
-                  },
-                  child: Text(editingIndex != null ? "Update" : "Add to List"),
-                ),
-              ],
-            ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 
   InputDecoration _inputDecoration(String hint) {
     return InputDecoration(
       hintText: hint,
-      hintStyle: TextStyle(color: AppColors.primaryGreen),
+      hintStyle: const TextStyle(color: AppColors.primaryGreen),
       filled: true,
       fillColor: AppColors.lightGreen,
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(25),
-      ),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(25)),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(25),
-        borderSide: BorderSide(color: AppColors.lightGreen),
+        borderSide: const BorderSide(color: AppColors.lightGreen),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(25),
-        borderSide: BorderSide(color: AppColors.lightGreen, width: 2),
+        borderSide: const BorderSide(color: AppColors.lightGreen, width: 2),
       ),
     );
   }

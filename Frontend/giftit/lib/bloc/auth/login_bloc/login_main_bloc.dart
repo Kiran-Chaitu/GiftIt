@@ -62,9 +62,9 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:giftit/data/API_Response/response.dart';
 import 'package:giftit/data/Exceptions/app_exceptions.dart';
+import 'package:giftit/data/Local%20Storage/secure_storage.dart';
 import 'package:giftit/models/auth/userModel.dart';
 import 'package:giftit/repository/authentication_repos/login_repository.dart';
-import 'package:giftit/utils/secure_storage.dart';
 
 
  part 'login_events.dart';
@@ -186,7 +186,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       } 
       else if (response.data?.token != null) {
           //  adding the token to secure storage
-          await secureStorage.write(key: 'token', value: response.data!.token!);
+          await SecureStorage().write(key: 'token', value: response.data!.token!);
           debugPrint("Token saved in secure storage Login: ${response.data!.token}");
 
         emit(state.copyWith(

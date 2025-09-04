@@ -1,10 +1,9 @@
 import 'dart:io';
 
-/// Abstract class for defining base API services.
 abstract class BaseApiServices {
   Future<dynamic> getApi(String url);
 
-  Future<dynamic> postApi(String url, dynamic data,dynamic header);
+  Future<dynamic> postApi(String url, dynamic data, dynamic header);
 
   Future<dynamic> putApi(String url, dynamic data);
 
